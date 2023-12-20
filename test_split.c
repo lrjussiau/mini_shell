@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/19 11:50:20 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/20 08:49:04 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,21 @@ int	main(int argc, char **argv)
 {
 	char	**strs;
 	int		i;
-	t_data	*data = NULL;
+	t_data	*data;
 
 	argc = 0;
 	strs = ft_split(argv[1], '|');
 	i = 0;
-	//init data
+	data = init_data(data);
 	while (strs[i] != NULL)
 	{
 		//create node
 		process_pipe(strs[i], data);
 		printf("Next pipe\n");
 		i++;
+	}
+	if (data -> cmd -> is_output_append == true)
+	{
+		printf("test\n");
 	}
 }
