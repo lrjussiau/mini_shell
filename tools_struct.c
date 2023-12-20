@@ -1,50 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_split.c                                       :+:      :+:    :+:   */
+/*   tools_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/20 11:31:33 by ljussiau         ###   ########.fr       */
+/*   Created: 2023/12/20 11:21:10 by ljussiau          #+#    #+#             */
+/*   Updated: 2023/12/20 11:26:57 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	process_pipe(char *str, t_data *data)
+int	get_nb_output(char **strs)
 {
-	char	**strs;
-	int		i;
+	int	i;
+	int	nb_output;
 
-	strs = ft_split(str, ' ');
 	i = 0;
-	data->cmd->nb_output = get_nb_output(strs);
+	nb_output = 0;
 	while (strs[i] != NULL)
 	{
-		printf("%s\n", strs[i]);
-		i += check_output(strs, i, data);
+		if (ft_strnstr(strs[i], ">>", ft_strlen(strs[i])) != 0)
+			nb_output++;
+		else if (ft_strnstr(strs[i], ">", ft_strlen(strs[i])) != 0)
+			nb_output++;
 		i++;
 	}
+	return (nb_output);
 }
 
-int	main(int argc, char **argv)
+char	**add_strs(char **strs, char *str, int nb)
 {
-	char	**strs;
-	int		i;
-	t_data	*data;
-	t_cmd	*current;
+	int	i;
 
-	argc = 0;
-	strs = ft_split(argv[1], '|');
+	if (strs == NULL)
+		strs = (char **)malloc(sizeof(char *) * (nb + 1));
 	i = 0;
-	data = init_data();
 	while (strs[i] != NULL)
-	{
-		current = init_cmd();
-		append_cmd(data, current);
-		process_pipe(strs[i], data);
 		i++;
-	}
-	print_data(data);
+	strs[i] = ft_strdup(str);
+	i++;
+	strs[i] = NULL;
+	return (strs);
 }

@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/20 08:58:10 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/20 12:12:11 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,22 @@
 
 typedef struct s_cmd
 {
-	char	*cmd;
-	char	*option;
-	bool	is_output_fd;
-	bool	is_output_append;
-	char	**output_fd;
-	bool	is_input_fd;
-	bool	is_input_limiter;
-	char	**input_fd;
-	char	**input_limiter;
-	void	*next;
-	bool	is_pipe;
+	char		*cmd;
+	char		*option;
+	t_inout		*output;
+	t_inout		*input;
+	void		*next;
+	bool		is_pipe;
 }		t_cmd;
+
+typedef	struct s_inout
+{
+	bool	is_fd;
+	bool	is_append;
+	bool	is_limiter;
+	char	*name;
+	void	*next;
+}		t_inout;
 
 typedef struct s_env
 {
@@ -55,7 +59,11 @@ typedef struct s_data
 int		check_output(char **strs, int i, t_data *data);
 int		get_fd_output(char **strs, int i, t_data *data);
 int		get_fd_append(char **strs, int i, t_data *data);
-t_data	*init_data(t_data *data);
-t_cmd	*init_cmd(t_cmd *command);
+t_data	*init_data(void);
+t_cmd	*init_cmd(void);
+void	print_data(t_data *data);
+void	append_cmd(t_data *data, t_cmd *new_cmd);
+int		get_nb_output(char **strs);
+char	**add_strs(char **strs, char *str, int nb);
 
 #endif
