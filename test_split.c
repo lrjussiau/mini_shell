@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 09:11:07 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:47:47 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,15 @@ void	process_pipe(char *str, t_cmd *cmd)
 	i = 0;
 	while (strs[i] != NULL)
 	{
-		i += check_output(strs, i, cmd);
+		if (ft_strnstr(strs[i], ">>", ft_strlen(strs[i])) != 0)
+			i += get_fd_append(strs, i, cmd);
+		else if (ft_strnstr(strs[i], ">", ft_strlen(strs[i])) != 0)
+			i += get_fd_output(strs, i, cmd);
+		if (ft_strnstr(strs[i], "<", ft_strlen(strs[i])) != 0)
+			printf("input\n");
+		else if (ft_strnstr(strs[i], "<<", ft_strlen(strs[i])) != 0)
+			printf("input limiter\n");
+		//process_cmd
 		i++;
 	}
 }

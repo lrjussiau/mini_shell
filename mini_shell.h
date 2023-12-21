@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 08:54:18 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:42:35 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_data
 	int		last_status;
 }		t_data;
 
-int		check_output(char **strs, int i, t_cmd *cmd);
 int		get_fd_output(char **strs, int i, t_cmd *cmd);
 int		get_fd_append(char **strs, int i, t_cmd *cmd);
 t_data	*init_data(void);

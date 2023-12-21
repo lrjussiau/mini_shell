@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:59:22 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 09:08:14 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:42:28 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,4 @@ int	get_fd_output(char **strs, int i, t_cmd *cmd)
 		current = current->next;
 		return (0);
 	}
-}
-
-int	check_output(char **strs, int i, t_cmd *cmd)
-{
-	if (ft_strnstr(strs[i], ">>", ft_strlen(strs[i])) != 0)
-		return (get_fd_append(strs, i, cmd));
-	else if (ft_strnstr(strs[i], ">", ft_strlen(strs[i])) != 0)
-		return (get_fd_output(strs, i, cmd));
-	return (0);
 }
