@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_split.c                                       :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 10:41:04 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:49:44 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,10 @@ int	main(int argc, char **argv)
 	data->nb_pipe = (i - 1);
 	print_data(data);
 }
+
+// TO DO LIST :
+// 	- Gestion multiple option (ls -l -a ...)
+// 	- Gestion input 
+// 	- Gestion Varriable env 
+// 	- Gestion Erreur
+// 	- Gestion des free
