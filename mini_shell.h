@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/20 12:12:11 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 07:41:36 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ typedef struct s_cmd
 	char		*option;
 	t_inout		*output;
 	t_inout		*input;
-	void		*next;
 	bool		is_pipe;
+	void		*next;
 }		t_cmd;
 
-typedef	struct s_inout
+typedef struct s_inout
 {
 	bool	is_fd;
 	bool	is_append;

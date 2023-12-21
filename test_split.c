@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/20 11:31:33 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 07:36:17 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	process_pipe(char *str, t_data *data)
 
 	strs = ft_split(str, ' ');
 	i = 0;
-	data->cmd->nb_output = get_nb_output(strs);
 	while (strs[i] != NULL)
 	{
 		printf("%s\n", strs[i]);

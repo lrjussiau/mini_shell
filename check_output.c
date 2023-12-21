@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:59:22 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/20 11:29:13 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 07:32:40 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,34 @@
 
 int	get_fd_append(char **strs, int i, t_data *data)
 {
-	int	n;
-
-	n = data->cmd->nb_output;
 	if (ft_strlen (strs[i]) == 2)
 	{
-		data->cmd->output_fd = add_strs(data->cmd->output_fd, strs[i + 1], n);
-		data -> cmd -> is_output_append = true;
+		data->cmd->output->name = ft_strdup(strs[i + 1]);
+		data->cmd->output->is_append = true;
 		return (1);
 	}
 	else
 	{
 		strs[i] += 2;
-		data->cmd->output_fd = add_strs(data->cmd->output_fd, strs[i], n);
-		data -> cmd -> is_output_append = true;
+		data->cmd->output->name = ft_strdup(strs[i]);
+		data->cmd->output->is_append = true;
 		return (0);
 	}
 }
 
 int	get_fd_output(char **strs, int i, t_data *data)
 {
-	int	n;
-
-	n = data->cmd->nb_output;
 	if (ft_strlen (strs[i]) == 1)
 	{
-		data->cmd->output_fd = add_strs(data->cmd->output_fd, strs[i + 1], n);
-		data -> cmd -> is_output_fd = true;
+		data->cmd->output->name = ft_strdup(strs[i + 1]);
+		data->cmd->output->is_fd = true;
 		return (1);
 	}
 	else
 	{
 		strs[i]++;
-		data->cmd->output_fd = add_strs(data->cmd->output_fd, strs[i], n);
-		data -> cmd -> is_output_fd = true;
+		data->cmd->output->name = ft_strdup(strs[i]);
+		data->cmd->output->is_fd = true;
 		return (0);
 	}
 }
