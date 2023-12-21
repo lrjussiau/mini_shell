@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 09:42:35 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:25:54 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_inout
 
 typedef struct s_cmd
 {
-	char		*cmd;
+	char		*name;
 	char		*option;
 	t_inout		*output;
 	t_inout		*input;
@@ -56,11 +56,19 @@ typedef struct s_data
 	int		last_status;
 }		t_data;
 
+//parsing inout
 int		get_fd_output(char **strs, int i, t_cmd *cmd);
 int		get_fd_append(char **strs, int i, t_cmd *cmd);
+//parsing cmd
+int		get_cmd(char **strs, int i, t_cmd *cmd);
+//parsing tool
+bool	is_inout(char *str);
+int		len(const char *str);
+//struct init
 t_data	*init_data(void);
 t_cmd	*init_cmd(void);
 t_inout	*init_inout(void);
+//tool struct
 void	print_data(t_data *data);
 void	append_cmd(t_data *data);
 void	append_input(t_cmd *cmd);
