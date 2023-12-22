@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/20 08:58:10 by ljussiau         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:25:54 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,31 @@
 # include "libft/libft.h"
 # include <stdbool.h>
 
-typedef struct s_cmd
-{
-	char	*cmd;
-	char	*option;
-	bool	is_output_fd;
-	bool	is_output_append;
-	char	**output_fd;
-	bool	is_input_fd;
-	bool	is_input_limiter;
-	char	**input_fd;
-	char	**input_limiter;
-	void	*next;
-	bool	is_pipe;
-}		t_cmd;
-
 typedef struct s_env
 {
 	char	*name;
 	char	*value;
 	void	*next;
 }		t_env;
+
+typedef struct s_inout
+{
+	bool	is_fd;
+	bool	is_append;
+	bool	is_limiter;
+	char	*name;
+	void	*next;
+}		t_inout;
+
+typedef struct s_cmd
+{
+	char		*name;
+	char		*option;
+	t_inout		*output;
+	t_inout		*input;
+	bool		is_pipe;
+	void		*next;
+}		t_cmd;
 
 typedef struct s_data
 {
@@ -52,10 +56,22 @@ typedef struct s_data
 	int		last_status;
 }		t_data;
 
-int		check_output(char **strs, int i, t_data *data);
-int		get_fd_output(char **strs, int i, t_data *data);
-int		get_fd_append(char **strs, int i, t_data *data);
-t_data	*init_data(t_data *data);
-t_cmd	*init_cmd(t_cmd *command);
+//parsing inout
+int		get_fd_output(char **strs, int i, t_cmd *cmd);
+int		get_fd_append(char **strs, int i, t_cmd *cmd);
+//parsing cmd
+int		get_cmd(char **strs, int i, t_cmd *cmd);
+//parsing tool
+bool	is_inout(char *str);
+int		len(const char *str);
+//struct init
+t_data	*init_data(void);
+t_cmd	*init_cmd(void);
+t_inout	*init_inout(void);
+//tool struct
+void	print_data(t_data *data);
+void	append_cmd(t_data *data);
+void	append_input(t_cmd *cmd);
+void	append_output(t_cmd *cmd);
 
 #endif
