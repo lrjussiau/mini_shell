@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 09:47:45 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/03 10:03:55 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_data
 //parsing inout
 int		get_fd_output(char **strs, int i, t_cmd *cmd);
 int		get_fd_append(char **strs, int i, t_cmd *cmd);
+int		get_fd_input(char **strs, int i, t_cmd *cmd);
 //parsing cmd
 int		get_cmd(char **strs, int i, t_cmd *cmd);
 //parsing tool

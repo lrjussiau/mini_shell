@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 09:52:55 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/03 10:08:15 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_inout(char *str)
 		return (true);
 	else if (ft_strnstr(str, ">", ft_strlen(str)) != 0)
 		return (true);
-	if (ft_strnstr(str, "<<", ft_strlen(str)) != 0)
+	if (ft_strnstr(str, "<", ft_strlen(str)) != 0)
 		return (true);
 	else if (ft_strnstr(str, "<<", ft_strlen(str)) != 0)
 		return (true);
@@ -84,6 +84,14 @@ void	print_data(t_data *data)
 			j++;
 		}
 		printf("Is there a pipe after : %s\n", current->is_pipe ? "true" : "false");
+		while (input -> next != NULL)
+		{
+			printf("input : %s\n", input->name);
+			printf("\tIs it fd : %s\n", input->is_fd ? "true" : "false");
+			printf("\tIs it append : %s\n", input->is_append ? "true" : "false");
+			printf("\tIs it limiter : %s\n", input->is_limiter ? "true" : "false");
+			input = input->next;
+		}
 		while (output -> next != NULL)
 		{
 			printf("output : %s\n", output->name);
