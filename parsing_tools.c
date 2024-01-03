@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 08:01:34 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/03 09:52:55 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*ft_strcat(char *s1, char *s2)
 void	print_data(t_data *data)
 {
 	int 	i;
+	int		j;
 	t_cmd	*current;
 	t_inout	*input;
 	t_inout *output;
@@ -70,13 +71,18 @@ void	print_data(t_data *data)
 	current = data->cmd;
 	while (current -> next != NULL)
 	{
+		j = 0;
 		input = current->input;
 		output = current->output;
 		printf("-----------\n");
 		printf("Command %d\n", i);
 		printf("-----------\n");
 		printf("Command : %s\n", current->name);
-		printf("Option : %s\n", current->option);
+		while (current->option[j] != NULL)
+		{
+			printf("Option %d : %s\n", j+1, current->option[j]);
+			j++;
+		}
 		printf("Is there a pipe after : %s\n", current->is_pipe ? "true" : "false");
 		while (output -> next != NULL)
 		{

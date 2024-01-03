@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:58:02 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 10:38:43 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/03 09:53:11 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,27 @@
 
 int	get_cmd(char **strs, int i, t_cmd *cmd)
 {
+	int		j;
+	int		k;
+
+	j = 0;
+	k = 0;
 	cmd->name = ft_strdup(strs[i]);
-	i++;
-	if (!is_inout(strs[i]))
+	while (strs[i] != NULL)
 	{
-		cmd->option = ft_strdup(strs[i]);
-		return (1);
+		i++;
+		if (is_inout(strs[i]))
+			break ;
+		j++;
 	}
-	return (0);
+	i -= j;
+	cmd->option = (char **)malloc(sizeof(char *) * (j + 1));
+	while (k < j)
+	{
+		cmd->option[k] = ft_strdup(strs[i]);
+		i++;
+		k++;
+	}
+	cmd->option[k] = NULL;
+	return (j);
 }

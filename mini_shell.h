@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 07:43:11 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/03 09:47:45 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 # include <stdbool.h>
-
 
 typedef struct s_env
 {
@@ -40,7 +39,7 @@ typedef struct s_inout
 typedef struct s_cmd
 {
 	char		*name;
-	char		*option;
+	char		**option;
 	t_inout		*output;
 	t_inout		*input;
 	bool		is_pipe;
