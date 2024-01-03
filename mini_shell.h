@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/27 11:59:35 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/03 07:43:11 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		get_cmd(char **strs, int i, t_cmd *cmd);
 //parsing tool
 bool	is_inout(char *str);
 int		len(const char *str);
+char	*ft_strcat(char *s1, char *s2);
 //struct init
 t_data	*init_data(void);
 t_cmd	*init_cmd(void);

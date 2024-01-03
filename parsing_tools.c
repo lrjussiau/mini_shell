@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 10:47:01 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/03 08:01:34 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,25 @@ int	len(const char *str)
 	while (str[count])
 		count++;
 	return (count);
+}
+
+char	*ft_strcat(char *s1, char *s2)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (s1[i])
+		i++;
+	j = 0;
+	while (s2[j])
+	{
+		s1[i] = s2[j];
+		i++;
+		j++;
+	}
+	s1[i] = '\0';
+	return (s1);
 }
 
 void	print_data(t_data *data)
