@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 10:11:18 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/04 07:56:18 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	main(int argc, char **argv)
 	data->nb_pipe = (i - 1);
 	print_data(data);
 }
-
 // TO DO LIST :
 // 	- Gestion Varriable env 
 // 	- Gestion Erreur
