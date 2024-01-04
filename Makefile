@@ -1,7 +1,13 @@
 CC=gcc
 CFLAGS=-Wextra -Werror -Wall
 LIBS=-lreadline libft/libft.a
-SRC=parsing_cmd.c parsing_inout.c parsing_tools.c parsing.c tools_struct.c struct_init.c handle_error.c
+SRC=parsing_cmd.c\
+		parsing_inout.c\
+		parsing_tools.c\
+		parsing.c\
+		tools_struct.c\
+		struct_init.c\
+		handle_error.c
 OBJ=$(SRC:.c=.o)
 EXEC=mini_shell
 
