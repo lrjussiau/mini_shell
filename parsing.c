@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/04 10:46:46 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/04 10:57:36 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ int	main(void)
 	clear_history();
 }
 // TO DO LIST :
+// 	- Gestion Varriable env -> 05/01
+//	- Gestion Erreur -> 05/01 ??
+//	- Gestion '' et "" -> Voir les implication
+//
+// QUESTION :
 //	- Gestion Limiter -> Doit on faire le heredoc> ??
-// 	- Gestion Varriable env 
-//	- Gestion Erreur
-//	- Gestion '' et ""
 // 	- Historique -> Gestion historique, cree un nouveau fd ? puis le unlink ?
