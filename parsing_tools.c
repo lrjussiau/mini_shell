@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 10:08:15 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:00:22 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,13 @@ void	print_data(t_data *data)
 		printf("Command %d\n", i);
 		printf("-----------\n");
 		printf("Command : %s\n", current->name);
-		while (current->option[j] != NULL)
+		if (current->option != NULL)
 		{
-			printf("Option %d : %s\n", j+1, current->option[j]);
-			j++;
+			while (current->option[j] != NULL)
+			{
+				printf("Option %d : %s\n", j+1, current->option[j]);
+				j++;
+			}
 		}
 		printf("Is there a pipe after : %s\n", current->is_pipe ? "true" : "false");
 		while (input -> next != NULL)

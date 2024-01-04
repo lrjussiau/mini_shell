@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/04 07:56:18 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:51:02 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	process_pipe(char *str, t_cmd *cmd)
 			i += get_cmd(strs, i, cmd);
 		i++;
 	}
+	ft_free_tab(strs);
 }
 
 int	main(int argc, char **argv)
@@ -42,24 +43,33 @@ int	main(int argc, char **argv)
 	t_data	*data;
 	t_cmd	*current;
 
-	data = init_data();
-	current = data->cmd;
-	data->str = ft_strdup(argv[1]);
-	strs = ft_split(argv[1], '|');
-	i = 0;
-	while (strs[i] != NULL)
+	if (argc == 2)
 	{
-		process_pipe(strs[i], current);
-		i++;
-		if (strs[i] != NULL)
-			current->is_pipe = true;
-		append_cmd(data);
-		current = current->next;
+		data = init_data();
+		current = data->cmd;
+		data->str = ft_strdup(argv[1]);
+		strs = ft_split(argv[1], '|');
+		i = 0;
+		while (strs[i] != NULL)
+		{
+			process_pipe(strs[i], current);
+			i++;
+			if (strs[i] != NULL)
+				current->is_pipe = true;
+			append_cmd(data);
+			current = current->next;
+		}
+		ft_free_tab(strs);
+		data->nb_pipe = (i - 1);
+		print_data(data);
+		ft_free_input(data);
 	}
-	data->nb_pipe = (i - 1);
-	print_data(data);
 }
 // TO DO LIST :
+//	- Demande une commande
+//	- Gestion Limiter -> Doit on faire le heredoc> ??
 // 	- Gestion Varriable env 
-// 	- Gestion Erreur
+//	- Gestion Erreur
 // 	- Gestion des free
+//	- Gestion '' et ""
+// 	- Historique

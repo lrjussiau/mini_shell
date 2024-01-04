@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 10:03:55 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:40:55 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ void	print_data(t_data *data);
 void	append_cmd(t_data *data);
 void	append_input(t_cmd *cmd);
 void	append_output(t_cmd *cmd);
+//handle error
+void	ft_free_input(t_data *data);
 
 #endif

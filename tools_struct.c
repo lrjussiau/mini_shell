@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:21:10 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 08:34:43 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:51:12 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	append_cmd(t_data *data)
 {
-	t_cmd	*tmp;
 	t_cmd	*new_cmd;
+	t_cmd	*tmp;
 
 	new_cmd = init_cmd();
 	if (data == NULL || new_cmd == NULL)
