@@ -6,15 +6,11 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 08:13:11 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/04 09:52:56 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/04 10:40:45 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-void	ft_free_all(t_data *data)
-{
-}
 
 void	ft_free_inout(t_cmd *cmd)
 {

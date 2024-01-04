@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/04 09:00:22 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/04 10:48:12 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	print_data(t_data *data)
 	t_inout *output;
 
 	i = 0;
-	printf("-----------\n");
+	printf("\n-----------\n");
 	printf("Data Store\n-----------\n\nNb Pipe : %d\nStr input : %s\n", data->nb_pipe, data->str);
 	printf("Last status : %d\n\n", data->last_status);
 	current = data->cmd;
@@ -82,7 +82,7 @@ void	print_data(t_data *data)
 		{
 			while (current->option[j] != NULL)
 			{
-				printf("Option %d : %s\n", j+1, current->option[j]);
+				printf("\tOption %d : %s\n", j+1, current->option[j]);
 				j++;
 			}
 		}
@@ -106,4 +106,5 @@ void	print_data(t_data *data)
 		current = current->next;
 		i++;
 	}
+	printf("\n");
 }
