@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 10:08:40 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/03 10:11:18 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	main(int argc, char **argv)
 }
 
 // TO DO LIST :
-// 	- Gestion multiple option (ls -l -a ...)
-// 	- Gestion input 
 // 	- Gestion Varriable env 
 // 	- Gestion Erreur
 // 	- Gestion des free
