@@ -24,6 +24,7 @@ t_data	*init_data(void)
 	data->last_status = 0;
 	data->is_env = false;
 	data->cmd = init_cmd();
+	//Environment
 	return (data);
 }
 
