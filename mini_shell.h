@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 # include <stdbool.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct s_env
 {

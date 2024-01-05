@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 
 void	process_pipe(char *str, t_cmd *cmd)
 {
@@ -90,9 +88,14 @@ int	main(void)
 	clear_history();
 }
 // TO DO LIST :
-// 	- Gestion Varriable env -> 05/01
-//	- Gestion Erreur -> 05/01 ??
-//	- Gestion '' et "" -> Voir les implication
+// 	- Gestion Varriable env (Lundi)
+//	- Gestion Erreur (Lundi)
+//  - Gestion Signal (Lundi)
+
+
+//	- Gestion '' et "" -> Voir les implication (Mardi ??)
+		// "" Est une str qui interprete les signe $, \n ...
+		// '' Est une str qui redonne exactement la phrase donne 
 //
 // QUESTION :
 //	- Gestion Limiter -> Doit on faire le heredoc> ??
