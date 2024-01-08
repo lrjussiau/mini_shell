@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/04 10:16:39 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 08:33:54 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@
 # include <stdbool.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-typedef struct s_env
-{
-	char	*name;
-	char	*value;
-	void	*next;
-}		t_env;
 
 typedef struct s_inout
 {
@@ -54,7 +47,8 @@ typedef struct s_data
 	t_cmd	*cmd;
 	int		nb_pipe;
 	bool	is_env;
-	t_env	env_var;
+	char	**env;
+	char	**origin;
 	int		last_status;
 }		t_data;
 

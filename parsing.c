@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/04 10:57:36 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 08:23:18 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	process_pipe(char *str, t_cmd *cmd)
 	ft_free_tab(strs);
 }
 
-void	parse_input(char *str)
+void parse_input(char *str)
 {
 	char	**strs;
 	int		i;
@@ -59,7 +59,7 @@ void	parse_input(char *str)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	print_data(data); // ici sera l'execute
+	print_data(data); //ici sera l'execute
 	ft_free_input(data);
 }
 
