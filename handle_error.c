@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 08:13:11 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 09:44:09 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:45:27 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void	ft_free_env(t_data *data)
 {
 	ft_free_tab(data->env);
 	ft_free_tab(data->origin);
-	free(data);
 }

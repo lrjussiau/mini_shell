@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:23:06 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 09:43:04 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:48:19 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ t_inout	*init_inout(void)
 	return (init);
 }
 
-t_data	*init_env(t_data *data, char **envp)
+void	init_env(t_data *data, char **envp)
 {
 	data->origin = ft_copy_tab(envp);
 	data->env = ft_copy_tab(envp);
-	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 09:42:20 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:50:55 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv, char **envp)
 	argv = NULL;
 	n = 0;
 	data = init_data(1);
-	data = init_env(data, envp);
+	init_env(data, envp);
 	while (n != 1)
 	{
 		input = readline("Mini Shell > ");
@@ -90,6 +90,7 @@ int	main(int argc, char **argv, char **envp)
 		parse_input(input, data);
 		free(input);
 	}
+	ft_free_input(data);
 	ft_free_env(data);
 	clear_history();
 }

@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 09:42:13 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:48:15 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_strcat(char *s1, char *s2);
 char	**ft_copy_tab(char	**strs);
 //struct init
 t_data	*init_data(int n);
-t_data	*init_env(t_data *data, char **envp);
+void	init_env(t_data *data, char **envp);
 t_cmd	*init_cmd(void);
 t_inout	*init_inout(void);
 //tool struct
