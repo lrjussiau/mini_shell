@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/04 10:48:12 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:35:52 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,36 @@ char	*ft_strcat(char *s1, char *s2)
 	}
 	s1[i] = '\0';
 	return (s1);
+}
+
+int	get_nb_str(char **strs)
+{
+	int	n;
+
+	n = 0;
+	while (strs[n] != NULL)
+		n++;
+	return (n);
+}
+
+char	**ft_copy_tab(char	**strs)
+{
+	char	**tab;
+	int		nb_str;
+	int		i;
+
+	nb_str = get_nb_str(strs);
+	tab = malloc((nb_str + 1) * sizeof(char *));
+	if (tab == NULL)
+		return (NULL);
+	i = 0;
+	while (strs[i] != NULL)
+	{
+		tab[i] = ft_strdup(strs[i]);
+		i++;
+	}
+	tab[i] = NULL;
+	return (tab);
 }
 
 void	print_data(t_data *data)

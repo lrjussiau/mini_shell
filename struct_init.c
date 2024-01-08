@@ -6,13 +6,13 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:23:06 by ljussiau          #+#    #+#             */
-/*   Updated: 2023/12/21 10:27:00 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:43:04 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-t_data	*init_data(void)
+t_data	*init_data(int n)
 {
 	t_data	*data;
 
@@ -21,10 +21,10 @@ t_data	*init_data(void)
 		return (NULL);
 	data->nb_pipe = 0;
 	data->str = NULL;
-	data->last_status = 0;
 	data->is_env = false;
 	data->cmd = init_cmd();
-	//Environment to init
+	if (n == 1)
+		data->last_status = 0;
 	return (data);
 }
 
@@ -57,4 +57,11 @@ t_inout	*init_inout(void)
 	init->name = NULL;
 	init->next = NULL;
 	return (init);
+}
+
+t_data	*init_env(t_data *data, char **envp)
+{
+	data->origin = ft_copy_tab(envp);
+	data->env = ft_copy_tab(envp);
+	return (data);
 }

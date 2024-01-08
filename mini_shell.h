@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 08:33:54 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:42:13 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ int		get_cmd(char **strs, int i, t_cmd *cmd);
 bool	is_inout(char *str);
 int		len(const char *str);
 char	*ft_strcat(char *s1, char *s2);
+char	**ft_copy_tab(char	**strs);
 //struct init
-t_data	*init_data(void);
+t_data	*init_data(int n);
+t_data	*init_env(t_data *data, char **envp);
 t_cmd	*init_cmd(void);
 t_inout	*init_inout(void);
 //tool struct
@@ -73,5 +75,6 @@ void	append_input(t_cmd *cmd);
 void	append_output(t_cmd *cmd);
 //handle error
 void	ft_free_input(t_data *data);
+void	ft_free_env(t_data *data);
 
 #endif

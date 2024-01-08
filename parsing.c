@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 08:23:18 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:42:20 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,13 @@ void	process_pipe(char *str, t_cmd *cmd)
 	ft_free_tab(strs);
 }
 
-void parse_input(char *str)
+void parse_input(char *str, t_data *data)
 {
 	char	**strs;
 	int		i;
-	t_data	*data;
 	t_cmd	*current;
 
-	data = init_data();
+	data = init_data(0);
 	current = data->cmd;
 	data->str = ft_strdup(str);
 	strs = ft_split(str, '|');
@@ -63,12 +62,18 @@ void parse_input(char *str)
 	ft_free_input(data);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	int		n;
+	t_data	*data;
 
+	if (argc != 1)
+		return (0);
+	argv = NULL;
 	n = 0;
+	data = init_data(1);
+	data = init_env(data, envp);
 	while (n != 1)
 	{
 		input = readline("Mini Shell > ");
@@ -82,9 +87,10 @@ int	main(void)
 			free(input);
 			break ;
 		}
-		parse_input(input);
+		parse_input(input, data);
 		free(input);
 	}
+	ft_free_env(data);
 	clear_history();
 }
 // TO DO LIST :
