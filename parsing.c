@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 09:50:55 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/09 09:21:08 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	process_pipe(char *str, t_cmd *cmd)
 			i += get_fd_append(strs, i, cmd);
 		else if (ft_strnstr(strs[i], ">", ft_strlen(strs[i])) != 0)
 			i += get_fd_output(strs, i, cmd);
-		if (ft_strnstr(strs[i], "<", ft_strlen(strs[i])) != 0)
+		if (ft_strnstr(strs[i], "<<", ft_strlen(strs[i])) != 0)
+			i += get_fd_limiter(strs, i, cmd);
+		else if (ft_strnstr(strs[i], "<", ft_strlen(strs[i])) != 0)
 			i += get_fd_input(strs, i, cmd);
-		else if (ft_strnstr(strs[i], "<<", ft_strlen(strs[i])) != 0)
-			printf("input limiter\n");
 		if (!is_inout(strs[i]) && strs[i][0] != '\0')
 			i += get_cmd(strs, i, cmd);
 		i++;
@@ -45,6 +45,7 @@ void parse_input(char *str, t_data *data)
 	data = init_data(0);
 	current = data->cmd;
 	data->str = ft_strdup(str);
+	check_limiter(data);
 	strs = ft_split(str, '|');
 	i = 0;
 	while (strs[i] != NULL)
@@ -95,15 +96,14 @@ int	main(int argc, char **argv, char **envp)
 	clear_history();
 }
 // TO DO LIST :
-// 	- Gestion Varriable env (Lundi)
-//	- Gestion Erreur (Lundi)
-//  - Gestion Signal (Lundi)
 
+// 	- Gestion Varriable env 
+//	- Gestion Erreur 
+//  - Gestion Signal 
 
 //	- Gestion '' et "" -> Voir les implication (Mardi ??)
 		// "" Est une str qui interprete les signe $, \n ...
 		// '' Est une str qui redonne exactement la phrase donne 
 //
 // QUESTION :
-//	- Gestion Limiter -> Doit on faire le heredoc> ??
 // 	- Historique -> Gestion historique, cree un nouveau fd ? puis le unlink ?

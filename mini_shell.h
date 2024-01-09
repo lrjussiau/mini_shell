@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 09:48:15 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 10:18:54 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_data
 int		get_fd_output(char **strs, int i, t_cmd *cmd);
 int		get_fd_append(char **strs, int i, t_cmd *cmd);
 int		get_fd_input(char **strs, int i, t_cmd *cmd);
+int		get_fd_limiter(char **strs, int i, t_cmd *cmd);
 //parsing cmd
 int		get_cmd(char **strs, int i, t_cmd *cmd);
 //parsing tool
@@ -76,5 +77,7 @@ void	append_output(t_cmd *cmd);
 //handle error
 void	ft_free_input(t_data *data);
 void	ft_free_env(t_data *data);
+//checker
+void	check_limiter(t_data *data);
 
 #endif

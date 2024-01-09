@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:59:22 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/03 10:09:34 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/08 10:11:23 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,26 @@ int	get_fd_input(char **strs, int i, t_cmd *cmd)
 	append_input(cmd);
 	current = current->next;
 	strs[i]--;
+	return (0);
+}
+
+int	get_fd_limiter(char **strs, int i, t_cmd *cmd)
+{
+	t_inout	*current;
+
+	current = cmd->input;
+	while (current->next != NULL)
+		current = current->next;
+	if (ft_strlen (strs[i]) == 2)
+	{
+		ft_strcat(strs[i], strs[i + 1]);
+		ft_bzero (strs[i + 1], ft_strlen(strs[i + 1]));
+	}
+	strs[i] += 2;
+	current->name = ft_strdup(strs[i]);
+	current->is_limiter = true;
+	append_input(cmd);
+	current = current->next;
+	strs[i] -= 2;
 	return (0);
 }
