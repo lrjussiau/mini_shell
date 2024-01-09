@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/09 09:21:08 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/09 11:08:40 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	process_pipe(char *str, t_cmd *cmd)
 	ft_free_tab(strs);
 }
 
-void parse_input(char *str, t_data *data)
+void	parse_input(char *str, t_data *data)
 {
 	char	**strs;
 	int		i;
@@ -46,6 +46,7 @@ void parse_input(char *str, t_data *data)
 	current = data->cmd;
 	data->str = ft_strdup(str);
 	check_limiter(data);
+	check_quote(data);
 	strs = ft_split(str, '|');
 	i = 0;
 	while (strs[i] != NULL)
