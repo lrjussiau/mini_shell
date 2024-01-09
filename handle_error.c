@@ -6,11 +6,20 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 08:13:11 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/08 09:45:27 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/09 10:04:58 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+void	error_handle(t_data *data, char *error)
+{
+	if (ft_strncmp(error, "malloc", len(error)) == 0)
+	{
+		ft_free_input(data);
+		perror("Malloc Error.");
+	}
+}
 
 void	ft_free_inout(t_cmd *cmd)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   checker_here.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 10:16:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/09 09:16:41 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/09 10:01:17 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ char	*get_new_input(char	*str, char *limiter)
 		input = readline("heredoc > ");
 		if (ft_strlcat(tmp, input, len(tmp) + len(input) + 1) == 0)
 			printf("ERROR : add input\n");
-		if (ft_strncmp(input, limiter, ft_strlen(input)) == 0)
-			break ;
+		if (ft_strncmp(input, limiter, len(input)) == 0)
+		{
+			if (*input != 0)
+				break ;
+		}
 		free(input);
 	}
 	free(input);
