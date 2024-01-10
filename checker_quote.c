@@ -6,68 +6,60 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:12:36 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/09 11:22:40 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:24:22 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-char	*single_quote(char *str, int quote, t_data *data)
+void	single_quote(char *str, int quote, t_data *data)
 {
 	char	*input;
+	char	*tmp;
 
 	if (quote % 2 != 0)
 	{
 		while (1)
 		{
-			if (ft_strlcat(str, "\n", len(str) + 2) == 0)
-				printf("ERROR : add n\n");
 			input = readline("quote > ");
-			if (ft_strlcat(str, input, len(str) + len(input) + 1) == 0)
-				printf("ERROR : add input\n");
-			if (ft_strncmp(input, "'", len(input)) == 0)
+			tmp = str;
+			str = ft_append_str(str, input);
+			free(tmp);
+			if (ft_strncmp(input, "'", 1) == 0)
 			{
-				if (*input != 0)
-				{
-					free(input);
-					break ;
-				}
+				free(input);
+				break ;
 			}
 			free(input);
 		}
-		free(data->str);
 		data->str = ft_strdup(str);
+		free(str);
 	}
-	return (str);
 }
 
-char	*double_quote(char *str, int quote, t_data *data)
+void	double_quote(char *str, int quote, t_data *data)
 {
 	char	*input;
+	char	*tmp;
 
 	if (quote % 2 != 0)
 	{
 		while (1)
 		{
-			if (ft_strlcat(str, "\n", len(str) + 2) == 0)
-				printf("ERROR : add n\n");
 			input = readline("dquote > ");
-			if (ft_strlcat(str, input, len(str) + len(input) + 1) == 0)
-				printf("ERROR : add input\n");
-			if (ft_strncmp(input, "\"", len(input)) == 0)
+			tmp = str;
+			str = ft_append_str(str, input);
+			free(tmp);
+			if (ft_strncmp(input, "\"", 1) == 0)
 			{
-				if (*input != 0)
-				{
-					free(input);
-					break ;
-				}
+				free(input);
+				break ;
 			}
 			free(input);
 		}
-		free(data->str);
 		data->str = ft_strdup(str);
+		free(str);
 	}
-	return (str);
 }
 
 void	check_quote(t_data *data)
@@ -86,7 +78,7 @@ void	check_quote(t_data *data)
 		if (tmp[i++] == 39)
 			quote++;
 	}
-	tmp = single_quote(tmp, quote, data);
+	single_quote(data->str, quote, data);
 	i = 0;
 	quote = 0;
 	while (tmp[i] != 0)
@@ -94,6 +86,6 @@ void	check_quote(t_data *data)
 		if (tmp[i++] == 34)
 			quote++;
 	}
-	tmp = double_quote(tmp, quote, data);
+	double_quote(data->str, quote, data);
 	free(tmp);
 }

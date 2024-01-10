@@ -6,15 +6,36 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 10:16:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/10 08:18:53 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/10 09:02:26 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-char	*append_str(char *str, char *input)
+char	*ft_append_str(char *str, char *input)
 {
-	
+	char	*ret_str;
+	int		i;
+	int		j;
+
+	ret_str = malloc((ft_strlen(str) + ft_strlen(input) + 2) * sizeof(char));
+	if (!ret_str)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		ret_str[i] = str[i];
+		i++;
+	}
+	ret_str[i++] = '\n';
+	j = 0;
+	while (input[j])
+	{
+		ret_str[i + j] = input[j];
+		j++;
+	}
+	ret_str[i + j] = '\0';
+	return (ret_str);
 }
 
 int	len_limiter(char *str)
@@ -58,30 +79,21 @@ char	*get_limiter(char *str)
 char	*get_new_input(char	*str, char *limiter)
 {
 	char	*input;
-	// int		len;
+	char	*tmp;
 
 	while (1)
 	{
 		input = readline("heredoc > ");
-		printf("input : %s\n", input);
-		printf("limiter : %s\n", limiter);
-		printf("result : %d\n", ft_strncmp(input, limiter, ft_strlen(limiter)));
-		// ft_strlcat(str, "\n", ft_strlen(str) + 2);
-		// len = ft_strlen(str) + ft_strlen(input) + 1;
-		// ft_strlcat(str, input, len);
+		tmp = str;
+		str = ft_append_str(str, input);
+		free(tmp);
 		if ((ft_strncmp(input, limiter, ft_strlen(limiter)) == 0))
 		{
-			printf("After compare\n");
-			printf("input : %s\n", input);
-			printf("limiter : %s\n", limiter);
+			free(input);
 			break ;
 		}
 		free(input);
 	}
-	printf("sortie\n");
-	printf("input : %s\n", input);
-	printf("limiter : %s\n", limiter);
-	free(input);
 	return (str);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/09 11:44:45 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/10 09:03:33 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	ft_free_input(t_data *data);
 void	ft_free_env(t_data *data);
 void	error_handle(t_data *data, char *error);
 //checker
+char	*ft_append_str(char *str, char *input);
 void	check_limiter(t_data *data);
 void	check_quote(t_data *data);
 
