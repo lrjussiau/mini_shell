@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/09 11:08:40 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/09 11:34:55 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,10 @@ int	main(int argc, char **argv, char **envp)
 		// "" Est une str qui interprete les signe $, \n ...
 		// '' Est une str qui redonne exactement la phrase donne 
 //
+//	Idee :
+// 		-Suprimer les partie entre "" et ''
+// 		-Les stocker avec leur emplacement
+// 		-Les replace a la fin du parsing
+// 
 // QUESTION :
 // 	- Historique -> Gestion historique, cree un nouveau fd ? puis le unlink ?

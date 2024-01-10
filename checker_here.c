@@ -6,11 +6,16 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 10:16:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/09 10:01:17 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/10 08:18:53 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+char	*append_str(char *str, char *input)
+{
+	
+}
 
 int	len_limiter(char *str)
 {
@@ -52,44 +57,42 @@ char	*get_limiter(char *str)
 
 char	*get_new_input(char	*str, char *limiter)
 {
-	char	*tmp;
 	char	*input;
+	// int		len;
 
-	while (*str != '\n' && *str != '\0')
-		str++;
-	tmp = ft_strdup(str);
 	while (1)
 	{
-		if (ft_strlcat(tmp, "\n", len(tmp) + 2) == 0)
-			printf("ERROR : add n\n");
 		input = readline("heredoc > ");
-		if (ft_strlcat(tmp, input, len(tmp) + len(input) + 1) == 0)
-			printf("ERROR : add input\n");
-		if (ft_strncmp(input, limiter, len(input)) == 0)
+		printf("input : %s\n", input);
+		printf("limiter : %s\n", limiter);
+		printf("result : %d\n", ft_strncmp(input, limiter, ft_strlen(limiter)));
+		// ft_strlcat(str, "\n", ft_strlen(str) + 2);
+		// len = ft_strlen(str) + ft_strlen(input) + 1;
+		// ft_strlcat(str, input, len);
+		if ((ft_strncmp(input, limiter, ft_strlen(limiter)) == 0))
 		{
-			if (*input != 0)
-				break ;
+			printf("After compare\n");
+			printf("input : %s\n", input);
+			printf("limiter : %s\n", limiter);
+			break ;
 		}
 		free(input);
 	}
+	printf("sortie\n");
+	printf("input : %s\n", input);
+	printf("limiter : %s\n", limiter);
 	free(input);
-	return (tmp);
+	return (str);
 }
 
 void	check_limiter(t_data *data)
 {
 	char	*limiter;
-	char	*tmp;
-	int		len;
 
 	if (ft_strnstr(data->str, "<<", ft_strlen(data->str)) != 0)
 	{
 		limiter = get_limiter(data->str);
-		tmp = get_new_input(data->str, limiter);
-		len = ft_strlen(data->str) + ft_strlen(tmp) + 1;
-		if (ft_strlcat(data->str, tmp, len) == 0)
-			printf("ERROR FINAL\n");
-		free(tmp);
+		data->str = get_new_input(data->str, limiter);
 		free(limiter);
 	}
 }
