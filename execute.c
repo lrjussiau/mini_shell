@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:04:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2023/12/28 12:01:04 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/09 10:53:44 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*fonctionnement execution (questionnable)*/
 
 /*- pour chaque cmd->pour chaque input i de cette commande->executer la commande avec input i
- - accumuler l'output dans un fichier temporaire
+ - accumuler l'output dans un fichier temporaire(!! bash: seulement dernier input et dernier output utilise!!)
  - si cmd est la derniere alors copie fichier temp dans on output associé (au final copie dans 1 seul output (le dernier)pas tous)
  -si cmd n'est pas derniere alors copie fichier temp dans on output associé et crée un nouveau input pour prochaine cmd et copie temp dans nouveau input
  ...*/
@@ -24,9 +24,14 @@
 
 /*todo*/
 
+/*malloc->char *ft_malloc(size_t size, t_data...)->no more check*/
+
 /*appel aux 2 exec changer appel apr ref-> de prompt a &prompt*/
 
 /*fd_printf(int fd, char *str, ...)*/
+/* ft_malloc()*/
+/*echo $? $env-> direct input*/
+
 
 /*modify cmd->option[i] with appropriate i when called in builtins-> bc option[0] = cmd  etc*/
 
@@ -63,6 +68,7 @@ void	copy_limiter_str(int file_fd, t_data prompt)
 }
 
 //find limiter
+//todo: add special char
 void	find_limiter(char *str, char *limiter)
 {
 	int		i;
@@ -114,7 +120,7 @@ int	find_input(t_cmd **cmd, t_data prompt)
 	return (input);
 }
 
-//chosse appropriate output format
+//choose appropriate output format
 int	find_output(t_cmd **cmd)
 {
 	int	fd;
@@ -134,7 +140,7 @@ int	find_output(t_cmd **cmd)
 }
 
 //execute a command 
-void	execute_cmd(int input, int output, t_cmd cmd, t_data **prompt)
+int	execute_cmd(int input, int output, t_cmd cmd, char **env)
 {
 	pid_t	child;
 	input	fd[2];
@@ -152,14 +158,15 @@ void	execute_cmd(int input, int output, t_cmd cmd, t_data **prompt)
 	{
 		dup2(input, STDIN_FILENO);
 		dup2(output, STDOUT_FILENO);
-		(*prompt)->last_status = execve(cmd->name, cmd->options, (*prompt)->env);
+		execve(cmd->name, cmd->options, env);
 	}
 	else if (child > 0)
-		return ;
+		return (0);
 	else
 	{
 		perror(strerror(errno));
 		exit(EXIT_FAILURE);
+		return (-1);
 	}
 }
 
@@ -238,11 +245,44 @@ void	update_output(t_cmd **cmd, t_data *prompt)
 		close(input);
 		close(output);
 	}
-	//unlink("tmp_file")
+	//unlink("tmp_file") a the end of execution or here?
 }
 
+//check if cmd is builtins, execute the command, update last status
+void	execute(int input int output, t_cmd *cmd, t_data **prompt)
+{
+	int	status;
+
+	status = check_builtins(output, cmd, prompt);
+	if (status == -2)
+		(*prompt)->last_status = execute_cmd(input, output, cmd, (*prompt)->env);
+	else
+		(*prompt)->last_status = status;
+}
+
+void	apply_cmds_v2(t_data *prompt)
+{
+	t_cmd	*cmd;
+	int		input;
+	int		output;
+
+	cmd = prompt->cmd;
+	while (cmd)
+	{
+		input = find_input_v2(&cmd, prompt);
+		output = find_output_v2(&cmd, &prompt)
+		fd_error(input, output);
+		execute(input, output, cmd, prompt);
+		close(output);
+		close(input);
+		cmd = cmd->next;
+	}
+}
+
+
+
 //execute the commands
-void	apply_cmds(t_data prompt)
+/*void	apply_cmds(t_data prompt)
 {
 	t_cmd	*cmd;
 	t_inout	*input;
@@ -258,13 +298,15 @@ void	apply_cmds(t_data prompt)
 			input = find_input(&cmd, prompt);
 			output = open("tmp_file", O_CREAT | O_WRONLY | O_APPEND);
 			fd_error(input, output);
-			execute_cmd(input, output, cmd, &prompt);
+			execute(input, output, cmd, prompt);
 			close(output);
 			close(input);
 			input = input->next;
 			cmd->input = cmd->input->next;
 		}
 		update_output(&cmd, &prompt);
+		//unlink tmp_file
+		//if more than 1 cmd or pipe ?-> unlink tmp_input
 		cmd = cmd->next;
 	}
-}
+}*/
