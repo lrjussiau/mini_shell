@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/10 09:03:33 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:37:10 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_inout
 	bool	is_append;
 	bool	is_limiter;
 	char	*name;
-	void	*next;
+	struct s_inout	*next;
 }		t_inout;
 
 typedef struct s_cmd
@@ -38,7 +38,7 @@ typedef struct s_cmd
 	t_inout		*output;
 	t_inout		*input;
 	bool		is_pipe;
-	void		*next;
+	struct s_cmd		*next;
 }		t_cmd;
 
 typedef struct s_data
