@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/10 10:56:20 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:11:42 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+#include <unistd.h>
 
 void	process_pipe(char *str, t_cmd *cmd)
 {
@@ -36,7 +37,7 @@ void	process_pipe(char *str, t_cmd *cmd)
 	ft_free_tab(strs);
 }
 
-void	parse_input(char *str, t_data *data)
+void	parse_input(char *str, t_data *data, char **envp)
 {
 	char	**strs;
 	int		i;
@@ -60,7 +61,8 @@ void	parse_input(char *str, t_data *data)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	print_data(data); //ici sera l'execute
+	//print_data(data); 
+	printf("last status: %d\n", apply_cmds(data, envp));//ici sera l'execute
 	ft_free_input(data);
 }
 
@@ -89,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			break ;
 		}
-		parse_input(input, data);
+		parse_input(input, data, envp);
 		free(input);
 	}
 	ft_free_input(data);

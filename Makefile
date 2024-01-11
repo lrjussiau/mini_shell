@@ -9,7 +9,8 @@ SRC=parsing_cmd.c\
 		struct_init.c\
 		handle_error.c\
 		checker_here.c\
-		checker_quote.c
+		checker_quote.c\
+		execute_v2.c
 OBJ=$(SRC:.c=.o)
 EXEC=mini_shell
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/10 11:37:10 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:12:00 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,8 @@ void	error_handle(t_data *data, char *error);
 char	*ft_append_str(char *str, char *input);
 void	check_limiter(t_data *data);
 void	check_quote(t_data *data);
+
+//val
+int		apply_cmds(t_data *prompt, char **envp);
 
 #endif
