@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/11 12:12:00 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:04:57 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,14 @@ char	*ft_append_str(char *str, char *input);
 void	check_limiter(t_data *data);
 void	check_quote(t_data *data);
 
-//val
-int		apply_cmds(t_data *prompt, char **envp);
+//val exec
+int		apply_cmds(t_data *prompt);
+int		check_builtins(int output, t_cmd *cmd, t_data **prompt);
+
+//val builtins utils
+int		add_env_tab(t_data **prompt, char *env_var);
+int		del_env_tab(t_data **prompt, char *env_var);
+int		valid_var(char *env_var);
+int		check_env_var(char	*var);
 
 #endif

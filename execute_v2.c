@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/11 12:29:32 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:26:10 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 
 //gestion du tmp_input dans le cas ou ils sont deux->tab comme dans pipex?
 
-
 void	fd_error(int input, int output)
 {
 	if (input == -1 || output == -1)
 	{
-		printf("Error opening file(update output)");
+		printf("Error opening file");
 		//ft_clean();
 		exit (-1);
 	}
@@ -64,6 +63,7 @@ char	*find_path(char *cmd, char *paths)
 		free(path2);
 	}
 	free(cmd);
+	printf("???\n");
 	//free_tab((void **)tab);
 	return (0);
 }
@@ -75,16 +75,14 @@ char	*cmd_path(char *cmd, char **envp)
 	char	*path;
 
 	i = 0;
-	//printf("hello, %s\n", envp[0]);
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "PATH", 4) == 0)
 			paths = envp[i] + 5;
 		i++;
 	}
-	//printf("path: %s path\n", paths);
 	path = find_path(cmd, paths);
-	//printf("path: %s path\n", path);
+	printf("path; %s", path);
 	if (!path)
 	{
 		perror("error to find cmd path");
@@ -97,7 +95,7 @@ int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **envp)
 {
 	pid_t	child;
 
-	//printf("tony: %s\n", cmd_path(cmd->name, envp));
+	//printf("pat: %s",cmd_path(cmd->name, envp));
 	child = fork();
 	if (child == 0)
 	{
@@ -128,7 +126,6 @@ int	find_input_v2(t_cmd *cmd, int **fd_tab, int *k)
 	inp = cmd->input;
 	if (inp->name)
 	{
-		printf("ici\n");
 		while (inp->next->next)
 			inp = inp->next;
 		if (inp->is_fd)
@@ -190,13 +187,14 @@ void	execute(int input, int output, t_cmd *cmd, t_data **prompt, int **fd_tab)
 {
 	int	status;
 
-	status = -2;
-	//printf("lkl: %s\n",(*prompt)->env[0]);
-	//status = check_builtins(output, cmd, prompt);
+	status = check_builtins(output, cmd, prompt);
 	if (status == -2)
 		(*prompt)->last_status = execute_cmd(input, output, cmd, fd_tab, (*prompt)->env);
 	else
+	{
+		printf("is_builtins\n");
 		(*prompt)->last_status = status;
+	}
 }
 
 void printf_fdtab(int **fd_tab)
@@ -261,7 +259,7 @@ int	find_pipe_nb(t_data *prompt)
 }
 
 
-int	apply_cmds(t_data *prompt, char **envp)
+int	apply_cmds(t_data *prompt)
 {
 	t_cmd	*cmd;
 	int		input;
@@ -271,11 +269,8 @@ int	apply_cmds(t_data *prompt, char **envp)
 
 	k = &(int){0};
 	fd_tab = 0;
-	prompt->env = envp;
+	//prompt->env = envp;
 	cmd = prompt->cmd;
-	//printf("hola: %s\n", prompt->env[1]);
-	
-	//printf("pipe_num: %d\n", find_pipe_nb(prompt));
 	fd_tab = create_fd_tab(find_pipe_nb(prompt), fd_tab);
 	//printf_fdtab(fd_tab);
 	while (cmd->next)

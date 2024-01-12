@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/11 12:11:42 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:14:26 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ void	process_pipe(char *str, t_cmd *cmd)
 	ft_free_tab(strs);
 }
 
-void	parse_input(char *str, t_data *data, char **envp)
+void	parse_input(char *str, t_data *data)
 {
 	char	**strs;
 	int		i;
 	t_cmd	*current;
 
-	data = init_data(0);
+	//data = init_data(0);
+	data->cmd = init_cmd();
 	current = data->cmd;
 	data->str = ft_strdup(str);
 	check_limiter(data);
@@ -62,7 +63,7 @@ void	parse_input(char *str, t_data *data, char **envp)
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
 	//print_data(data); 
-	printf("last status: %d\n", apply_cmds(data, envp));//ici sera l'execute
+	printf("last status: %d\n", apply_cmds(data));//ici sera l'execute
 	ft_free_input(data);
 }
 
@@ -77,7 +78,9 @@ int	main(int argc, char **argv, char **envp)
 	argv = NULL;
 	n = 0;
 	data = init_data(1);
-	init_env(data, envp);
+	//init_env(data, envp);
+	data->env = envp;
+	//printf("okey: %s\n", data->env[1]);
 	while (n != 1)
 	{
 		input = readline("Mini Shell > ");
@@ -91,11 +94,13 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			break ;
 		}
-		parse_input(input, data, envp);
+		parse_input(input, data);
 		free(input);
 	}
+	//free->cmd
 	ft_free_input(data);
-	ft_free_env(data);
+	free(data);
+	//ft_free_env(data);
 	clear_history();
 }
 // TO DO LIST :
