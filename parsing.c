@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/12 09:14:26 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 08:45:51 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	process_pipe(char *str, t_cmd *cmd)
 	char	**strs;
 	int		i;
 
-	strs = ft_split(str, ' ');
+	strs = ft_smart_split(str, ' ');
 	i = 0;
 	while (strs[i] != NULL)
 	{
