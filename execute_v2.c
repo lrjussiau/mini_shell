@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/15 06:48:00 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 08:39:22 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,35 @@ char	*find_pwd(char **envp)
 	return (0);
 }
 
-char	*find_exec_path(char *cmd, char **envp)
+char	*ft_conc(char *str, char *input)
+{
+	char	*ret_str;
+	int		i;
+	int		j;
+
+	ret_str = malloc((ft_strlen(str) + ft_strlen(input) + 1) * sizeof(char));
+	if (!ret_str)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		ret_str[i] = str[i];
+		i++;
+	}
+	j = 0;
+	while (input[j])
+	{
+		ret_str[i + j] = input[j];
+		j++;
+	}
+	ret_str[i + j] = '\0';
+	return (ret_str);
+}
+
+char	*find_exec_path(char *cmd, char **envp, char *paths)
 {
 	char	*path;
+	
 	if (cmd[0] == '.' && cmd[1] == '/')
 	{
 		if (ft_strchr(cmd + 2, '/'))
@@ -92,16 +118,16 @@ char	*find_exec_path(char *cmd, char **envp)
 		}
 		else
 		{
-			path = find_path(cmd, envp);
+			path = find_path(cmd, paths);
 			if (!path)
 				path = find_pwd(envp);
-			//path += cmd (sans ./)
+			return(ft_conc(path, cmd + 1));
 		}
 	}
 	else
 		return (cmd);
 		
-}*/
+}
 char	*cmd_path(char *cmd, char **envp)
 {
 	int		i;
@@ -116,7 +142,7 @@ char	*cmd_path(char *cmd, char **envp)
 		i++;
 	}
 	if (ft_strchr(cmd, '/'))
-		path = find_exec_path(cmd, envp);
+		path = find_exec_path(cmd, envp, paths);
 	else
 		path = find_path(cmd, paths);
 	printf("path; %s", path);
@@ -139,7 +165,7 @@ int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **envp)
 		dup2(input, STDIN_FILENO);
 		dup2(output, STDOUT_FILENO);
 		ft_close(fd_tab);
-		return (execve(cmd_path(&cmd->name, envp), cmd->option, envp));
+		return (execve(cmd_path(cmd->name, envp), cmd->option, envp));
 	}
 	else if (child > 0)
 	{
@@ -198,10 +224,13 @@ int	find_output_v2(t_cmd *cmd, int **fd_tab, int *k)
 	{
 		while (out->next->next)
 			out = out->next;
-		if (out->is_append)
+		if (out->is_append || ft_strncmp(cmd->option[0], "echo", 5))
 			output = open(out->name, O_WRONLY | O_APPEND);
 		else
+		{
+			printf("outu:%s\n", out->name);
 			output = open(out->name, O_WRONLY | O_CREAT, 0644);
+		}
 	}
 	else if (cmd->is_pipe)
 	{

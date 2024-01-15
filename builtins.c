@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/12 11:32:08 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 08:33:41 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 //protect the write() calls
 //between calls to write() open file in append to append the next write
 //limiter
-//execution of binary
+//multiple output files
 
+
+#include <stdio.h>
 #include "mini_shell.h"
 
 //execute cd builtins
@@ -50,28 +52,35 @@ int	is_echo_n(char *cmd_option)
 		return (1);
 	return (0);
 }
+
 //execute echo builtins
 int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 {
-	int	i;
+	int		i;
+	char	*str;
 
 	i = 1;
 	if (is_echo_n(cmd->option[1]))
 		i++;
 	while (cmd->option[i])
 	{
-		if (cmd->option[i][0] == '$')
+		str = ft_strchr(cmd->option[i], '$');
+		if (str)
 		{
-			if (cmd->option[i][1] == '?')
+			printf("option: %s\n", cmd->option[i]);
+			write(output, cmd->option[i], ft_strlen(cmd->option[i]) - ft_strlen(str));
+			if (str[1] == '?')
 				write(output, ft_itoa((*prompt)->last_status), ft_strlen(ft_itoa((*prompt)->last_status)));
-			else if (cmd->option[i][1] == ' ')
-				write(output, cmd->option[i], ft_strlen(cmd->option[i]));
+			else if (!str[1])
+				write(output, "$", 1);
 			else
-				write(output, getenv(cmd->option[i] + 1), ft_strlen(getenv(cmd->option[i] + 1)));
-			i++;
+				write(output, getenv(str + 1), ft_strlen(getenv(str + 1)));
 		}
-		write(output, cmd->option[i], ft_strlen(cmd->option[i]));
-		write(output, " ", 1);
+		else
+		{
+			write(output, cmd->option[i], ft_strlen(cmd->option[i]));
+			write(output, " ", 1);
+		}
 		i++;
 	}
 	if (is_echo_n(cmd->option[1]))
