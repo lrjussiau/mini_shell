@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/15 08:33:41 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 10:33:36 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 //execute cd builtins
 int	cmd_cd(t_cmd *cmd)
 {
-	return (chdir(cmd->option[0]));
+	return (chdir(cmd->option[1]));
 }
 
 //execute pwd builtins 

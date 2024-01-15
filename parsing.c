@@ -6,12 +6,20 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/15 10:01:36 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:36:44 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <unistd.h>
+
+void	signal_handler(int signal_num)
+{
+	if (signal_num == 2)
+	{
+		printf("You Print Ctrl + C\n");
+	}
+}
 
 void	process_pipe(char *str, t_cmd *cmd)
 {
@@ -43,6 +51,8 @@ void	parse_input(char *str, t_data *data)
 	int		i;
 	t_cmd	*current;
 
+	if (*str == 0)
+		return ;
 	data->cmd = init_cmd();
 	current = data->cmd;
 	data->str = ft_strdup(str);
@@ -74,6 +84,12 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (0);
+	if (signal(SIGINT, signal_handler) == SIG_ERR)
+	{
+		printf("Error setting up signal handler.\n");
+		return (1);
+	}
+	signal(SIGQUIT, SIG_IGN);
 	argv = NULL;
 	n = 0;
 	data = init_data(1);
@@ -82,7 +98,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		input = readline("Mini Shell > ");
 		if (input == NULL)
+		{
+			printf("\nThank you !\n");
 			break ;
+		}
 		if (*input)
 			add_history(input);
 		if (ft_strnstr(input, "exit", ft_strlen(input)) != 0)
