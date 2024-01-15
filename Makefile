@@ -12,7 +12,8 @@ SRC=parsing_cmd.c\
 		checker_quote.c\
 		execute_v2.c\
 		builtins.c\
-		builtins_utils.c
+		builtins_utils.c\
+		smart_split.c
 OBJ=$(SRC:.c=.o)
 EXEC=mini_shell
 

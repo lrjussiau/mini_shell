@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/15 11:49:48 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:57:02 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 //execute cd builtins
 int	cmd_cd(t_cmd *cmd)
 {
-	
 	return (chdir(cmd->option[1]));
 }
 

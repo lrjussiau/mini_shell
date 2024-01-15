@@ -6,11 +6,35 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:58:02 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/11 08:35:17 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/15 09:46:38 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+char	*cleaner_option(char *str, t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strnstr(cmd->name, "echo", ft_strlen("echo")) != 0)
+		return (ft_strdup(str));
+	else
+	{
+		if (str[i] == '\'')
+		{
+			str = ft_strtrim(str, "'");
+			return (str);
+		}
+		else if (str[i] == '"')
+		{
+			str = ft_strtrim(str, "\"");
+			return (str);
+		}
+		else
+			return (ft_strdup(str));
+	}
+}
 
 int	get_cmd(char **strs, int i, t_cmd *cmd)
 {
@@ -31,7 +55,7 @@ int	get_cmd(char **strs, int i, t_cmd *cmd)
 	cmd->option = (char **)malloc(sizeof(char *) * (j + 2));
 	while (k <= j)
 	{
-		cmd->option[k] = ft_strdup(strs[i]);
+		cmd->option[k] = cleaner_option(strs[i], cmd);
 		i++;
 		k++;
 	}

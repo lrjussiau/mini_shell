@@ -3,22 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/12 09:14:26 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:36:44 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <unistd.h>
 
+void	signal_handler(int signal_num)
+{
+	if (signal_num == 2)
+	{
+		printf("You Print Ctrl + C\n");
+	}
+}
+
 void	process_pipe(char *str, t_cmd *cmd)
 {
 	char	**strs;
 	int		i;
 
-	strs = ft_split(str, ' ');
+	strs = ft_smart_split(str, ' ');
 	i = 0;
 	while (strs[i] != NULL)
 	{
@@ -43,7 +51,8 @@ void	parse_input(char *str, t_data *data)
 	int		i;
 	t_cmd	*current;
 
-	//data = init_data(0);
+	if (*str == 0)
+		return ;
 	data->cmd = init_cmd();
 	current = data->cmd;
 	data->str = ft_strdup(str);
@@ -62,7 +71,7 @@ void	parse_input(char *str, t_data *data)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	//print_data(data); 
+	// print_data(data); 
 	printf("last status: %d\n", apply_cmds(data));//ici sera l'execute
 	ft_free_input(data);
 }
@@ -75,17 +84,24 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (0);
+	if (signal(SIGINT, signal_handler) == SIG_ERR)
+	{
+		printf("Error setting up signal handler.\n");
+		return (1);
+	}
+	signal(SIGQUIT, SIG_IGN);
 	argv = NULL;
 	n = 0;
 	data = init_data(1);
-	//init_env(data, envp);
 	data->env = envp;
-	//printf("okey: %s\n", data->env[1]);
 	while (n != 1)
 	{
 		input = readline("Mini Shell > ");
 		if (input == NULL)
+		{
+			printf("\nThank you !\n");
 			break ;
+		}
 		if (*input)
 			add_history(input);
 		if (ft_strnstr(input, "exit", ft_strlen(input)) != 0)
@@ -96,27 +112,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		parse_input(input, data);
 		free(input);
+		free(data->str);
 	}
-	//free->cmd
-	ft_free_input(data);
 	free(data);
-	//ft_free_env(data);
 	clear_history();
 }
-// TO DO LIST :
-
-// 	- Gestion Varriable env 
-//	- Gestion Erreur 
-//  - Gestion Signal 
-
-//	- Gestion '' et "" -> Voir les implication (Mardi ??)
-		// "" Est une str qui interprete les signe $, \n ...
-		// '' Est une str qui redonne exactement la phrase donne 
-//
-//	Idee :
-// 		-Suprimer les partie entre "" et ''
-// 		-Les stocker avec leur emplacement
-// 		-Les replace a la fin du parsing
-// 
-// QUESTION :
-// 	- Historique -> Gestion historique, cree un nouveau fd ? puis le unlink ?
