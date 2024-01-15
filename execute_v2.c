@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/12 09:26:10 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 06:48:00 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,45 @@ char	*find_path(char *cmd, char *paths)
 		free(path2);
 	}
 	free(cmd);
-	printf("???\n");
 	//free_tab((void **)tab);
 	return (0);
 }
 
+char	*find_pwd(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], "PWD=", ft_strlen("PWD=")))
+			return (ft_strchr(envp[i], '/'));
+		i++;
+	}
+	return (0);
+}
+
+char	*find_exec_path(char *cmd, char **envp)
+{
+	char	*path;
+	if (cmd[0] == '.' && cmd[1] == '/')
+	{
+		if (ft_strchr(cmd + 2, '/'))
+		{
+			return (cmd);
+		}
+		else
+		{
+			path = find_path(cmd, envp);
+			if (!path)
+				path = find_pwd(envp);
+			//path += cmd (sans ./)
+		}
+	}
+	else
+		return (cmd);
+		
+}*/
 char	*cmd_path(char *cmd, char **envp)
 {
 	int		i;
@@ -81,7 +115,10 @@ char	*cmd_path(char *cmd, char **envp)
 			paths = envp[i] + 5;
 		i++;
 	}
-	path = find_path(cmd, paths);
+	if (ft_strchr(cmd, '/'))
+		path = find_exec_path(cmd, envp);
+	else
+		path = find_path(cmd, paths);
 	printf("path; %s", path);
 	if (!path)
 	{
@@ -102,7 +139,7 @@ int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **envp)
 		dup2(input, STDIN_FILENO);
 		dup2(output, STDOUT_FILENO);
 		ft_close(fd_tab);
-		return (execve(cmd_path(cmd->name, envp), cmd->option, envp));
+		return (execve(cmd_path(&cmd->name, envp), cmd->option, envp));
 	}
 	else if (child > 0)
 	{
