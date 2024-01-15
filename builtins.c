@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/15 08:33:41 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:49:48 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //protect the write() calls
 //between calls to write() open file in append to append the next write
 //limiter
-//multiple output files
+//trim single quotes/double quotes echo
 
 
 #include <stdio.h>
@@ -24,7 +24,8 @@
 //execute cd builtins
 int	cmd_cd(t_cmd *cmd)
 {
-	return (chdir(cmd->option[0]));
+	
+	return (chdir(cmd->option[1]));
 }
 
 //execute pwd builtins 
@@ -53,22 +54,59 @@ int	is_echo_n(char *cmd_option)
 	return (0);
 }
 
+void	clean_cmd(char **option, char **is_dollar)
+{
+	char	*new_str;
+
+	if (*is_dollar)
+	{
+		if ((*option)[0] == '"')
+			new_str = ft_strtrim(*option, "\"");
+		else if ((*option)[0] == '\'' )
+		{
+			new_str = ft_strtrim(*option, "'");
+			*is_dollar = 0;
+		}
+		else
+			return ;
+		free(*option);
+		(*option) = new_str;
+		printf("option: %s\n", (*option));
+	}
+	else
+	{
+		if ((*option)[0] == '"')
+			new_str = ft_strtrim(*option, "\"");
+		else if ((*option)[0] == '\'' )
+			new_str = ft_strtrim(*option, "'");
+		else
+			return ;
+		free(*option);
+		(*option) = new_str;
+	}
+	return ;
+}
 //execute echo builtins
 int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 {
 	int		i;
 	char	*str;
+	char	*str2;
+	char	*opt;
 
 	i = 1;
 	if (is_echo_n(cmd->option[1]))
 		i++;
 	while (cmd->option[i])
 	{
-		str = ft_strchr(cmd->option[i], '$');
-		if (str)
+		str2 = ft_strchr(cmd->option[i], '$');
+		clean_cmd(&cmd->option[i], &str2);
+		opt = cmd->option[i];
+		str = ft_strchr(opt, '$');
+		if (str2)
 		{
-			printf("option: %s\n", cmd->option[i]);
-			write(output, cmd->option[i], ft_strlen(cmd->option[i]) - ft_strlen(str));
+			printf("optio: %c\n", str[1]);
+			write(output, opt, ft_strlen(opt) - ft_strlen(str));
 			if (str[1] == '?')
 				write(output, ft_itoa((*prompt)->last_status), ft_strlen(ft_itoa((*prompt)->last_status)));
 			else if (!str[1])
@@ -78,7 +116,7 @@ int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 		}
 		else
 		{
-			write(output, cmd->option[i], ft_strlen(cmd->option[i]));
+			write(output, opt, ft_strlen(opt));
 			write(output, " ", 1);
 		}
 		i++;

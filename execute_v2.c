@@ -6,14 +6,13 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/15 08:39:22 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:14:32 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <stdio.h>
 
-//gestion du tmp_input dans le cas ou ils sont deux->tab comme dans pipex?
 
 void	fd_error(int input, int output)
 {
@@ -126,8 +125,8 @@ char	*find_exec_path(char *cmd, char **envp, char *paths)
 	}
 	else
 		return (cmd);
-		
 }
+
 char	*cmd_path(char *cmd, char **envp)
 {
 	int		i;
@@ -181,7 +180,17 @@ int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **envp)
 	}
 }
 
-int	find_input_v2(t_cmd *cmd, int **fd_tab, int *k)
+void	limiter_str(char *limiter, char *prompt, int input_fd)
+{
+	char	*str;
+	char	*after_lim;
+
+	str = ft_strchr(prompt, '\n');
+	after_lim = ft_strnstr(str, limiter, ft_strlen(str));
+	write(input_fd, str, ft_strlen(str) - ft_strlen(after_lim));
+}
+
+int	find_input_v2(t_cmd *cmd, int **fd_tab, int *k, char *str)
 {
 	int		input;
 	t_inout	*inp;
@@ -195,12 +204,11 @@ int	find_input_v2(t_cmd *cmd, int **fd_tab, int *k)
 		{
 			input = open(inp->name, O_RDONLY);
 		}
-		//input->is_limiter ! creation limiter file
 		else
 		{
 			input = open("limiter_file", O_RDWR | O_CREAT, 0644);
 			fd_error(input, 0);
-			//copy_limiter_str(input, prompt);
+			limiter_str(inp->name, str, input);
 		}
 	}
 	//input given
@@ -223,14 +231,14 @@ int	find_output_v2(t_cmd *cmd, int **fd_tab, int *k)
 	if (out->name)
 	{
 		while (out->next->next)
+		{
+			open(out->name, O_TRUNC | O_CREAT, 0644);
 			out = out->next;
-		if (out->is_append || ft_strncmp(cmd->option[0], "echo", 5))
+		}
+		if (out->is_append || !ft_strncmp(cmd->option[0], "echo", 5))
 			output = open(out->name, O_WRONLY | O_APPEND);
 		else
-		{
-			printf("outu:%s\n", out->name);
 			output = open(out->name, O_WRONLY | O_CREAT, 0644);
-		}
 	}
 	else if (cmd->is_pipe)
 	{
@@ -341,7 +349,7 @@ int	apply_cmds(t_data *prompt)
 	//printf_fdtab(fd_tab);
 	while (cmd->next)
 	{
-		input = find_input_v2(cmd, fd_tab, k);
+		input = find_input_v2(cmd, fd_tab, k, prompt->str);
 		output = find_output_v2(cmd, fd_tab, k);
 		//printf("input : %d\n", input);
 		//printf("output : %d\n\n", output);
@@ -351,6 +359,8 @@ int	apply_cmds(t_data *prompt)
 			close(output);
 		if (input != 0)
 			close(input);
+		if (open("limiter_file", O_RDONLY) != -1)
+			unlink("limiter_file");
 		cmd = cmd->next;
 	}
 	return (prompt->last_status);
