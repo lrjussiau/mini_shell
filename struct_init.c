@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 08:23:06 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/12 08:40:28 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 09:59:47 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_data	*init_data(int n)
 	data->nb_pipe = 0;
 	data->str = NULL;
 	data->is_env = false;
-	data->cmd = init_cmd();
 	if (n == 1)
 		data->last_status = 0;
 	return (data);

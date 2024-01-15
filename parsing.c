@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/15 08:45:51 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/15 10:01:36 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	parse_input(char *str, t_data *data)
 	int		i;
 	t_cmd	*current;
 
-	//data = init_data(0);
 	data->cmd = init_cmd();
 	current = data->cmd;
 	data->str = ft_strdup(str);
@@ -62,7 +61,7 @@ void	parse_input(char *str, t_data *data)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	//print_data(data); 
+	// print_data(data); 
 	printf("last status: %d\n", apply_cmds(data));//ici sera l'execute
 	ft_free_input(data);
 }
@@ -78,9 +77,7 @@ int	main(int argc, char **argv, char **envp)
 	argv = NULL;
 	n = 0;
 	data = init_data(1);
-	//init_env(data, envp);
 	data->env = envp;
-	//printf("okey: %s\n", data->env[1]);
 	while (n != 1)
 	{
 		input = readline("Mini Shell > ");
@@ -96,27 +93,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		parse_input(input, data);
 		free(input);
+		free(data->str);
 	}
-	//free->cmd
-	ft_free_input(data);
 	free(data);
-	//ft_free_env(data);
 	clear_history();
 }
-// TO DO LIST :
-
-// 	- Gestion Varriable env 
-//	- Gestion Erreur 
-//  - Gestion Signal 
-
-//	- Gestion '' et "" -> Voir les implication (Mardi ??)
-		// "" Est une str qui interprete les signe $, \n ...
-		// '' Est une str qui redonne exactement la phrase donne 
-//
-//	Idee :
-// 		-Suprimer les partie entre "" et ''
-// 		-Les stocker avec leur emplacement
-// 		-Les replace a la fin du parsing
-// 
-// QUESTION :
-// 	- Historique -> Gestion historique, cree un nouveau fd ? puis le unlink ?
