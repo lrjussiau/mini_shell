@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 08:59:53 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:16:36 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,48 @@ int		checker(t_data *data);
 void	check_limiter(t_data *data);
 void	check_quote(t_data *data);
 
-//val exec
+//execute
 int		apply_cmds(t_data *prompt);
+
+//builtins
 int		check_builtins(int output, t_cmd *cmd, t_data **prompt);
 
-//val builtins utils
+//builtins_utils
+int		replace_env_value(t_data **prompt, char **env_var_tab, char *env_var);
 int		add_env_tab(t_data **prompt, char *env_var);
 int		del_env_tab(t_data **prompt, char *env_var);
+
+//exec_utils
+void	fd_error(int input, int output);
+char	*ft_conc(char *str, char *input);
+char	*cmd_path(char *cmd, char **envp);
+
+//bin_exec
+char	*find_path(char *cmd, char *paths);
+char	*find_exec_path(char *cmd, char **envp, char *paths);
+
+//input_output
+int		find_input(t_cmd *cmd, int **fd_tab, int *k, char *str);
+int		find_output(t_cmd *cmd, int **fd_tab, int *k);
+
+//fd_tab
+void	ft_close(int **fd_tab);
+void	printf_fdtab(int **fd_tab);
+int		**create_fd_tab(int pipe_nbr, int **fd_tab);
+int		find_pipe_nb(t_data *prompt);
+
+//echo_cmd
+int		cmd_echo(int output, t_cmd *cmd, t_data **prompt);
+
+//env_var_check
 int		valid_var(char *env_var);
 int		check_env_var(char	*var);
-char	*ft_conc(char *str, char *input);
+int		env_var_exist(char **env_var_tab, char *env_var);
+
+//env_var_cmd
+int		cmd_unset(t_cmd *cmd, t_data **prompt);
+int		cmd_env(int output, t_data *prompt);
+int		cmd_export(int output, t_cmd *cmd, t_data **prompt);
 
 //smart split
 char	**ft_smart_split(char *s, char c);

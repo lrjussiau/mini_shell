@@ -11,10 +11,17 @@ SRC=parsing_cmd.c\
 		handle_error.c\
 		checker_here.c\
 		checker_quote.c\
-		execute_v2.c\
+		execute.c\
 		builtins.c\
 		builtins_utils.c\
-		smart_split.c
+		smart_split.c\
+		env_var_check.c\
+		env_var_cmd.c\
+		echo_cmd.c\
+		input_output.c\
+		bin_exec.c\
+		fd_tab.c\
+		exec_utils.c
 OBJ=$(SRC:.c=.o)
 EXEC=mini_shell
 
