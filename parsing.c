@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 07:46:48 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:31:12 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	init_parsing(char	*str, t_data *data)
 	data->cmd = init_cmd();
 	current = data->cmd;
 	data->str = ft_strdup(str);
-	check_quote(data);
-	check_limiter(data);
+	if (checker(data) != 0)
+		return ;
 	parse_input(str, data, current);
 }
 

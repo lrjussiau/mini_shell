@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:58:02 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/15 09:46:38 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:25:41 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,32 @@ char	*cleaner_option(char *str, t_cmd *cmd)
 		else
 			return (ft_strdup(str));
 	}
+}
+
+char	*ft_append_str(char *str, char *input)
+{
+	char	*ret_str;
+	int		i;
+	int		j;
+
+	ret_str = malloc((ft_strlen(str) + ft_strlen(input) + 2) * sizeof(char));
+	if (!ret_str)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		ret_str[i] = str[i];
+		i++;
+	}
+	ret_str[i++] = '\n';
+	j = 0;
+	while (input[j])
+	{
+		ret_str[i + j] = input[j];
+		j++;
+	}
+	ret_str[i + j] = '\0';
+	return (ret_str);
 }
 
 int	get_cmd(char **strs, int i, t_cmd *cmd)

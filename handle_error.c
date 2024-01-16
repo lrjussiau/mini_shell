@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 08:13:11 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 07:20:55 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:14:20 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,12 @@ void	ft_free_input(t_data *data)
 	}
 }
 
-void	ft_free_env(t_data *data)
+void	free_array(int i, char **array)
 {
-	ft_free_tab(data->env);
-	ft_free_tab(data->origin);
+	while (i > 0)
+	{
+		i--;
+		free(array[i]);
+	}
+	free(array);
 }

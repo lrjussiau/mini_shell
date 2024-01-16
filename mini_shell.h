@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 07:49:55 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:20:47 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		get_fd_limiter(char **strs, int i, t_cmd *cmd);
 
 //parsing cmd
 void	get_input(t_data *data);
+char	*ft_append_str(char *str, char *input);
 void	parse_input(char *str, t_data *data, t_cmd *current);
 void	process_pipe(char *str, t_cmd *cmd);
 int		get_cmd(char **strs, int i, t_cmd *cmd);
@@ -76,17 +77,17 @@ t_cmd	*init_cmd(void);
 t_inout	*init_inout(void);
 
 //tool struct
-void	print_data(t_data *data);
 void	append_cmd(t_data *data);
 void	append_input(t_cmd *cmd);
 void	append_output(t_cmd *cmd);
+
 //handle error
+void	free_array(int i, char **array);
 void	ft_free_input(t_data *data);
-void	ft_free_env(t_data *data);
 void	error_handle(t_data *data, char *error);
 
 //checker
-char	*ft_append_str(char *str, char *input);
+int		checker(t_data *data);
 void	check_limiter(t_data *data);
 void	check_quote(t_data *data);
 
@@ -103,7 +104,10 @@ int		check_env_var(char	*var);
 //smart split
 char	**ft_smart_split(char *s, char c);
 
-//Signal
+//signal
 void	signal_handler(int signal_num);
+
+//other
+void	print_data(t_data *data);
 
 #endif

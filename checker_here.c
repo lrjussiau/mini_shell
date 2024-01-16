@@ -6,36 +6,35 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 10:16:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/10 09:02:26 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:27:40 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-char	*ft_append_str(char *str, char *input)
+int	checker(t_data *data)
 {
-	char	*ret_str;
+	char	*str;
 	int		i;
-	int		j;
+	int		nb_limiter;
 
-	ret_str = malloc((ft_strlen(str) + ft_strlen(input) + 2) * sizeof(char));
-	if (!ret_str)
-		return (NULL);
 	i = 0;
+	nb_limiter = 0;
+	str = data->str;
 	while (str[i])
 	{
-		ret_str[i] = str[i];
+		if (str[i] == '<' && str[i + 1] == '<')
+			nb_limiter++;
 		i++;
 	}
-	ret_str[i++] = '\n';
-	j = 0;
-	while (input[j])
+	if (nb_limiter > 1)
 	{
-		ret_str[i + j] = input[j];
-		j++;
+		printf("You can not put more than one limiter\n");
+		return (1);
 	}
-	ret_str[i + j] = '\0';
-	return (ret_str);
+	check_quote(data);
+	check_limiter(data);
+	return (0);
 }
 
 int	len_limiter(char *str)

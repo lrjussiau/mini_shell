@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:06:20 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/15 08:45:56 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:14:09 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,24 @@ static	int	get_word_len(char const *s, char c, int trig)
 	return (i);
 }
 
-static void	free_array(int i, char **array)
+static int	advance_index(char const *s, int *j, int trig, char c)
 {
-	while (i > 0)
+	if (trig)
 	{
-		i--;
-		free(array[i]);
+		(*j)++;
+		while (s[*j] && s[*j] != '\'' && s[*j] != '"')
+			(*j)++;
+		(*j)++;
 	}
-	free(array);
+	else
+	{
+		while (s[*j] && s[*j] != c)
+			(*j)++;
+	}
+	return (*j);
 }
 
-static	char	**split(char const *s, char c, char **array, int words_count)
+static char	**split(char const *s, char c, char **array, int words_count)
 {
 	int	i;
 	int	j;
@@ -79,32 +86,20 @@ static	char	**split(char const *s, char c, char **array, int words_count)
 
 	i = 0;
 	j = 0;
-	trig = 0;
 	while (i < words_count)
 	{
 		while (s[j] && s[j] == c)
 			j++;
+		trig = 0;
 		if (s[j] == '\'' || s[j] == '"')
 			trig = 1;
-		array [i] = ft_substr(s, j, get_word_len(&s[j], c, trig));
+		array[i] = ft_substr(s, j, get_word_len(&s[j], c, trig));
 		if (!array[i])
 		{
 			free_array(i, array);
 			return (NULL);
 		}
-		if (trig == 1)
-		{
-			trig = 0;
-			j++;
-			while (s[j] && s[j] != '\'' && s[j] != '"')
-				j++;
-			j++;
-		}
-		else
-		{
-			while (s[j] && s[j] != c)
-				j++;
-		}
+		advance_index(s, &j, trig, c);
 		i++;
 	}
 	array[i] = NULL;
