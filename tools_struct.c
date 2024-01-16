@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:21:10 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/11 08:31:14 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 07:24:24 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ void	append_output(t_cmd *cmd)
 		tmp = tmp->next;
 	tmp->next = new_cmd;
 }
-

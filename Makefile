@@ -2,6 +2,7 @@ CC=gcc
 CFLAGS=-Wextra -Werror -Wall
 LIBS=-lreadline libft/libft.a
 SRC=parsing_cmd.c\
+		mini_shell.c\
 		parsing_inout.c\
 		parsing_tools.c\
 		parsing.c\

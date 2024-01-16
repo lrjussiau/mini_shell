@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_v2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/15 11:14:32 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:04:47 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,8 +359,8 @@ int	apply_cmds(t_data *prompt)
 			close(output);
 		if (input != 0)
 			close(input);
-		if (open("limiter_file", O_RDONLY) != -1)
-			unlink("limiter_file");
+		// if (open("limiter_file", O_RDONLY) != -1)
+		// 	unlink("limiter_file");
 		cmd = cmd->next;
 	}
 	return (prompt->last_status);

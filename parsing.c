@@ -6,12 +6,11 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/15 11:36:44 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 07:46:48 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-#include <unistd.h>
 
 void	signal_handler(int signal_num)
 {
@@ -45,19 +44,11 @@ void	process_pipe(char *str, t_cmd *cmd)
 	ft_free_tab(strs);
 }
 
-void	parse_input(char *str, t_data *data)
+void	parse_input(char *str, t_data *data, t_cmd *current)
 {
 	char	**strs;
 	int		i;
-	t_cmd	*current;
 
-	if (*str == 0)
-		return ;
-	data->cmd = init_cmd();
-	current = data->cmd;
-	data->str = ft_strdup(str);
-	check_limiter(data);
-	check_quote(data);
 	strs = ft_split(str, '|');
 	i = 0;
 	while (strs[i] != NULL)
@@ -71,29 +62,30 @@ void	parse_input(char *str, t_data *data)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	// print_data(data); 
-	printf("last status: %d\n", apply_cmds(data));//ici sera l'execute
+	printf("last status: %d\n", apply_cmds(data));
 	ft_free_input(data);
 }
 
-int	main(int argc, char **argv, char **envp)
+void	init_parsing(char	*str, t_data *data)
+{
+	t_cmd	*current;
+
+	if (*str == 0)
+		return ;
+	data->cmd = init_cmd();
+	current = data->cmd;
+	data->str = ft_strdup(str);
+	check_quote(data);
+	check_limiter(data);
+	parse_input(str, data, current);
+}
+
+void	get_input(t_data *data)
 {
 	char	*input;
 	int		n;
-	t_data	*data;
 
-	if (argc != 1)
-		return (0);
-	if (signal(SIGINT, signal_handler) == SIG_ERR)
-	{
-		printf("Error setting up signal handler.\n");
-		return (1);
-	}
-	signal(SIGQUIT, SIG_IGN);
-	argv = NULL;
 	n = 0;
-	data = init_data(1);
-	data->env = envp;
 	while (n != 1)
 	{
 		input = readline("Mini Shell > ");
@@ -110,10 +102,8 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			break ;
 		}
-		parse_input(input, data);
+		init_parsing(input, data);
 		free(input);
 		free(data->str);
 	}
-	free(data);
-	clear_history();
 }
