@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/15 11:57:02 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/16 07:36:57 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,65 @@
 //limiter
 //trim single quotes/double quotes echo
 
-
 #include <stdio.h>
 #include "mini_shell.h"
 
-//execute cd builtins
-int	cmd_cd(t_cmd *cmd)
+int	update_old_pwd(t_data **prompt)
 {
-	return (chdir(cmd->option[1]));
+	int		i;
+	char	*old_path;
+
+	i = 0;
+	while ((*prompt)->env[i])
+	{
+		if (!ft_strncmp((*prompt)->env[i], "PWD=", 4))
+			old_path = (*prompt)->env[i];
+		if (!ft_strncmp((*prompt)->env[i], "OLDPWD=", 7))
+		{
+			//free((*prompt)->env[i]);
+			(*prompt)->env[i] = ft_conc("OLD", old_path);
+			return (0);	
+		}
+		i++;
+	}
+	if (add_env_tab(prompt, ft_conc("OLD", old_path)))
+		return (-1);
+	return (0);
+}
+
+int	update_pwd(t_data **prompt)
+{
+	char	buf[150];
+	int		i;
+
+	i = 0;
+	if (getcwd(buf, sizeof(buf)) != NULL)
+	{
+		while ((*prompt)->env[i])
+		{
+			if (!ft_strncmp((*prompt)->env[i], "PWD=", 4))
+			{
+				free((*prompt)->env[i]);
+				(*prompt)->env[i] = ft_conc("PWD=", buf);
+				return (0);
+			}
+			i++;
+		}
+		return(-1);
+	}
+	return (-1);
+}
+
+//execute cd builtins
+int	cmd_cd(t_cmd *cmd, t_data **prompt)
+{
+	if (chdir(cmd->option[1]))
+		return (-1);
+	if (update_old_pwd(prompt))
+		return (-1);
+	if (update_pwd(prompt))
+		return (-1);
+	return (0);
 }
 
 //execute pwd builtins 
@@ -228,7 +279,7 @@ int	cmd_env(int output, t_data *prompt)
 int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 {
 	if (!ft_strncmp(cmd->name, "cd", 2))
-		return (cmd_cd(cmd));
+		return (cmd_cd(cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "pwd", 3))
 		return (cmd_pwd(output));
 	else if (!ft_strncmp(cmd->name, "echo", 4))

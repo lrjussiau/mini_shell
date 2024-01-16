@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 07:48:57 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/12 11:53:00 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/16 07:25:53 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	replace_env_value(t_data **prompt, char **env_var_tab, char *env_var)
 		i++;
 	}
 	new_tab[i] = 0;
-	ft_free_tab(env_var_tab);
+	//ft_free_tab(env_var_tab);
 	(*prompt)->env = new_tab;
 	printf("env[0]: %s\n", (*prompt)->env[0]);
 	return (0);
@@ -160,7 +160,7 @@ int	add_env_tab(t_data **prompt, char *env_var)
 		perror("MALLOC");
 	new_tab[i + 1] = 0;
 	//new_tab = fill_tab(new_tab, prompt, env_var);
-	ft_free_tab(env_var_tab);
+	//ft_free_tab(env_var_tab);
 	(*prompt)->env= new_tab;
 	return (0);
 }

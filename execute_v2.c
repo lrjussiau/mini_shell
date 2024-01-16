@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_v2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/15 12:04:47 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 09:00:38 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	limiter_str(char *limiter, char *prompt, int input_fd)
 
 	str = ft_strchr(prompt, '\n');
 	after_lim = ft_strnstr(str, limiter, ft_strlen(str));
-	write(input_fd, str, ft_strlen(str) - ft_strlen(after_lim));
+	write(input_fd, str + 1, ((ft_strlen(str + 1) - ft_strlen(after_lim)) - 1));
 }
 
 int	find_input_v2(t_cmd *cmd, int **fd_tab, int *k, char *str)
@@ -206,9 +206,11 @@ int	find_input_v2(t_cmd *cmd, int **fd_tab, int *k, char *str)
 		}
 		else
 		{
-			input = open("limiter_file", O_RDWR | O_CREAT, 0644);
+			input = open("limiter_file", O_WRONLY | O_CREAT |O_TRUNC, 0644);
 			fd_error(input, 0);
 			limiter_str(inp->name, str, input);
+			close(input);
+			input = open("limiter_file", O_RDONLY);
 		}
 	}
 	//input given
@@ -261,12 +263,13 @@ void	execute(int input, int output, t_cmd *cmd, t_data **prompt, int **fd_tab)
 {
 	int	status;
 
+	//printf("cmd: input = %d, output = %d, cmd= %s", input, output, cmd->name);
 	status = check_builtins(output, cmd, prompt);
 	if (status == -2)
 		(*prompt)->last_status = execute_cmd(input, output, cmd, fd_tab, (*prompt)->env);
 	else
 	{
-		printf("is_builtins\n");
+		printf("\nis_builtins\n");
 		(*prompt)->last_status = status;
 	}
 }

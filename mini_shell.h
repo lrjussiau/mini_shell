@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 08:20:47 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:59:53 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		add_env_tab(t_data **prompt, char *env_var);
 int		del_env_tab(t_data **prompt, char *env_var);
 int		valid_var(char *env_var);
 int		check_env_var(char	*var);
+char	*ft_conc(char *str, char *input);
 
 //smart split
 char	**ft_smart_split(char *s, char c);
