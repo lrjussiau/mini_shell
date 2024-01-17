@@ -13,6 +13,7 @@
 #include "mini_shell.h"
 #include <stdio.h>
 
+
 static int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **envp)
 {
 	pid_t	child;
@@ -49,7 +50,10 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 	{
 		status = execute_cmd(in, out, cmd, fd_tab, (*prompt)->env);
 		if (status == -1)
+		{
+			printf("minishell: %s: command not found", cmd->name);
 			status = 127;
+		}
 	}
 	else
 		printf("\nis_builtins\n");

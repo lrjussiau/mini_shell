@@ -65,10 +65,7 @@ char	*cmd_path(char *cmd, char **envp)
 	else
 		path = find_path(cmd, paths);
 	if (!path)
-	{
-		perror("error to find cmd path");
-		return ("/path/non_existent_file");
+		return (0);
 		//exit(1);
-	}
 	return (path);
 }
