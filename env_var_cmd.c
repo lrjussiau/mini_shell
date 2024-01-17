@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/16 09:50:32 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/17 06:29:31 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,20 @@ int	cmd_export(int output, t_cmd *cmd, t_data **prompt)
 		return (cmd_exp_p(output, *prompt));
 	while (cmd->option[i])
 	{
-		printf("time\n");
 		if (!check_env_var(cmd->option[i]))
 		{
 			if (add_env_tab(prompt, cmd->option[i]))
 			{
 				perror("Error updating env_tab");
 				if (!cmd->option[i + 1])
-					return (-1);
+					return (1);
 			}
 		}
 		else
 		{
 			perror("Not a valid identifier");
 			if (!cmd->option[i + 1])
-				return (-1);
+				return (1);
 		}
 		i++;
 	}
@@ -68,26 +67,20 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 	{
 		if (valid_var(cmd->option[i]) == 1)
 		{
-			if (del_env_tab(prompt, cmd->option[i]))
+			if (!del_env_tab(prompt, cmd->option[i]))
 			{
-				perror("Error unset cmd");
+				perror("Error unset env var");
 				if (!cmd->option[i + 1])
-					return (-1);
+					return (1);
 			}
-			else
-			{
-				perror("Not a valid identifier");
-				if (!cmd->option[i + 1])
-					return (-1);
-			}
-			i++;
 		}
 		else
 		{
 			perror("Not a valid identifier");
 			if (!cmd->option[i + 1])
-				return (-1);
+				return (1);
 		}
+		i++;
 	}
 	return (0);
 }

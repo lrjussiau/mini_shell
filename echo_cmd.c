@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:16:58 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/16 11:12:00 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/17 06:54:57 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_echo_n(char *cmd_option)
 		return (1);
 	return (0);
 }
-
+ 
 static void	clean_quote(char **option, char **is_dollar)
 {
 	char	*new_str;
@@ -52,6 +52,7 @@ static void	clean_quote(char **option, char **is_dollar)
 	}
 	return ;
 }
+
 //execute echo builtins
 int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 {
@@ -61,6 +62,11 @@ int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 	char	*opt;
 
 	i = 1;
+	if (!cmd->option[1])
+	{
+		write(output, "\n", 1);
+		return (0);
+	}
 	if (is_echo_n(cmd->option[1]))
 		i++;
 	while (cmd->option[i])
@@ -76,13 +82,20 @@ int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 				write(output, ft_itoa((*prompt)->last_status), ft_strlen(ft_itoa((*prompt)->last_status)));
 			else if (!str[1])
 				write(output, "$", 1);
-			else
+			else if (env_var_exist((*prompt)->env, str + 1))
 				write(output, getenv(str + 1), ft_strlen(getenv(str + 1)));
+			else
+			{
+				write(output, opt, ft_strlen(opt));
+				if (cmd->option[i + 1])
+					write(output, " ", 1);
+			}
 		}
 		else
 		{
 			write(output, opt, ft_strlen(opt));
-			write(output, " ", 1);
+			if (cmd->option[i + 1])
+				write(output, " ", 1);
 		}
 		i++;
 	}

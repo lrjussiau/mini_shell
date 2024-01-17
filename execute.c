@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/16 10:44:47 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/17 06:42:22 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 
 	status = check_builtins(out, cmd, prompt);
 	if (status == -2)
+	{
 		status = execute_cmd(in, out, cmd, fd_tab, (*prompt)->env);
+		if (status == -1)
+			status = 127;
+	}
 	else
 		printf("\nis_builtins\n");
 	(*prompt)->last_status = status;

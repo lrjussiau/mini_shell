@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 10:16:36 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/17 05:44:04 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,15 @@ int		checker(t_data *data);
 void	check_limiter(t_data *data);
 void	check_quote(t_data *data);
 
+//smart split
+char	**ft_smart_split(char *s, char c);
+
+//signal
+void	signal_handler(int signal_num);
+
+//other
+void	print_data(t_data *data);
+
 //execute
 int		apply_cmds(t_data *prompt);
 
@@ -98,7 +107,6 @@ int		apply_cmds(t_data *prompt);
 int		check_builtins(int output, t_cmd *cmd, t_data **prompt);
 
 //builtins_utils
-int		replace_env_value(t_data **prompt, char **env_var_tab, char *env_var);
 int		add_env_tab(t_data **prompt, char *env_var);
 int		del_env_tab(t_data **prompt, char *env_var);
 
@@ -133,14 +141,5 @@ int		env_var_exist(char **env_var_tab, char *env_var);
 int		cmd_unset(t_cmd *cmd, t_data **prompt);
 int		cmd_env(int output, t_data *prompt);
 int		cmd_export(int output, t_cmd *cmd, t_data **prompt);
-
-//smart split
-char	**ft_smart_split(char *s, char c);
-
-//signal
-void	signal_handler(int signal_num);
-
-//other
-void	print_data(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/16 09:39:19 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/17 06:25:26 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ static int	update_pwd(t_data **prompt)
 //execute cd builtins
 static int	cmd_cd(t_cmd *cmd, t_data **prompt)
 {
+	
 	if (chdir(cmd->option[1]))
-		return (-1);
+		return (-2);
 	if (update_old_pwd(prompt))
-		return (-1);
+		return (1);
 	if (update_pwd(prompt))
-		return (-1);
+		return (1);
 	return (0);
 }
 
@@ -92,7 +93,7 @@ static int	cmd_pwd(int output)
 	else
 	{
 		perror("Error with pwd cmd");
-		return (-1);
+		return (1);
 	}
 }
 
@@ -110,8 +111,6 @@ int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 		return (cmd_export(output, cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "unset", 5))
 		return (cmd_unset(cmd, prompt));
-	/*else if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name)))
-		return (cmd_exit(cmd, prompt));*/
 	else if (!ft_strncmp(cmd->name, "env", 3))
 		return (cmd_env(output, *prompt));
 	else
