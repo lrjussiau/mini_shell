@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 07:26:44 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 07:37:58 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/17 09:11:14 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	argv = NULL;
 	data = init_data(1);
-	data->env = envp;
+	data->env = ft_copy_tab(envp); // a voir
 	get_input(data);
+	ft_free_tab(data->env);
 	free(data);
 	clear_history();
 }
