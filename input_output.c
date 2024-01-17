@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:24:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/16 11:04:29 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/17 06:04:41 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	find_input(t_cmd *cmd, int **fd_tab, int *k, char *str)
 		input = fd_tab[*k][0];
 	else
 		input = STDIN_FILENO;
-	fd_error(input_fd, 0);
+	fd_error(input, 0);
 	return (input);
 }
 

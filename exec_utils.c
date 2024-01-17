@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:30:02 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/16 09:50:42 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/17 06:37:49 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ char	*cmd_path(char *cmd, char **envp)
 		path = find_exec_path(cmd, envp, paths);
 	else
 		path = find_path(cmd, paths);
-	printf("path; %s", path);
 	if (!path)
 	{
 		perror("error to find cmd path");
-		exit(1);
+		return ("/path/non_existent_file");
+		//exit(1);
 	}
 	return (path);
 }
