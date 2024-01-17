@@ -19,7 +19,7 @@ static int	is_echo_n(char *cmd_option)
 		return (1);
 	return (0);
 }
-
+ 
 static void	clean_quote(char **option, char **is_dollar)
 {
 	char	*new_str;
