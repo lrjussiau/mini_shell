@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 08:31:12 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/17 09:54:43 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	init_parsing(char	*str, t_data *data)
 		return ;
 	data->cmd = init_cmd();
 	current = data->cmd;
-	data->str = ft_strdup(str);
 	if (checker(data) != 0)
 		return ;
 	parse_input(str, data, current);
@@ -89,11 +88,6 @@ void	get_input(t_data *data)
 	while (n != 1)
 	{
 		input = readline("Mini Shell > ");
-		if (input == NULL)
-		{
-			printf("\nThank you !\n");
-			break ;
-		}
 		if (*input)
 			add_history(input);
 		if (ft_strnstr(input, "exit", ft_strlen(input)) != 0)
@@ -102,6 +96,7 @@ void	get_input(t_data *data)
 			free(input);
 			break ;
 		}
+		data->str = ft_strdup(input);
 		init_parsing(input, data);
 		free(input);
 		free(data->str);
