@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:12:36 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/10 10:24:22 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:45:03 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,23 @@ void	check_quote(t_data *data)
 	char	*tmp;
 	int		i;
 	int		quote;
+	int		dquote;
 
 	i = 0;
 	quote = 0;
+	dquote = 0;
 	tmp = ft_strdup(data->str);
 	if (tmp == NULL)
 		error_handle(data, "malloc");
 	while (tmp[i] != 0)
 	{
-		if (tmp[i++] == 39)
+		if ((tmp[i] == '\'') && dquote % 2 == 0)
 			quote++;
+		if ((tmp[i] == '"') && quote % 2 == 0)
+			dquote++;
+		i++;
 	}
 	single_quote(data->str, quote, data);
-	i = 0;
-	quote = 0;
-	while (tmp[i] != 0)
-	{
-		if (tmp[i++] == 34)
-			quote++;
-	}
-	double_quote(data->str, quote, data);
+	double_quote(data->str, dquote, data);
 	free(tmp);
 }
