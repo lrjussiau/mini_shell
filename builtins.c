@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/17 06:25:26 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 08:01:38 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,21 @@ static int	update_old_pwd(t_data **prompt)
 {
 	int		i;
 	char	*old_path;
+	char	*old;
 
 	i = 0;
 	while ((*prompt)->env[i])
 	{
 		if (!ft_strncmp((*prompt)->env[i], "PWD=", 4))
-			old_path = (*prompt)->env[i];
-		if (!ft_strncmp((*prompt)->env[i], "OLDPWD=", 7))
 		{
-			//free((*prompt)->env[i]);
-			(*prompt)->env[i] = ft_conc("OLD", old_path);
-			return (0);	
+			old_path = (*prompt)->env[i];
+			old = ft_conc("OLD", old_path);
+			if (add_env_tab(prompt, old))
+				return (-1);
+			free(old);
 		}
 		i++;
 	}
-	if (add_env_tab(prompt, ft_conc("OLD", old_path)))
-		return (-1);
 	return (0);
 }
 
@@ -69,7 +68,6 @@ static int	update_pwd(t_data **prompt)
 //execute cd builtins
 static int	cmd_cd(t_cmd *cmd, t_data **prompt)
 {
-	
 	if (chdir(cmd->option[1]))
 		return (-2);
 	if (update_old_pwd(prompt))

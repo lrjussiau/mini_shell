@@ -6,11 +6,25 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 07:48:57 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/17 06:09:43 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 08:27:00 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+void	ft_free_ta(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		printf("free: %s\n", tab[i]);
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
 
 //replace the value of the exported variable already existing
 static	int	replace_env_value(t_data **prompt, char *env_var)
@@ -26,7 +40,7 @@ static	int	replace_env_value(t_data **prompt, char *env_var)
 	{
 		if (!ft_strncmp(tab[i], env_var, len))
 		{
-			//free(tab[i])
+			free(tab[i]);
 			tab[i] = ft_strdup(env_var);
 			if (!tab[i])
 			{
@@ -78,13 +92,14 @@ int	add_env_tab(t_data **prompt, char *env_var)
 		return (replace_env_value(prompt, env_var));
 	while (env_var_tab[i])
 		i++;
-	new_tab = malloc(sizeof(char *) * i + 2);
+	printf("i: %d\n", i);
+	new_tab = malloc(sizeof(char *) * i + 1);
 	if (!new_tab)
 		return (-1);
 	new_tab = fill_tab(new_tab, env_var_tab, env_var);
 	if (!new_tab)
 		return (-1);
-	//ft_free_tab(env_var_tab);
+	ft_free_ta(env_var_tab);
 	(*prompt)->env = new_tab;
 	return (0);
 }
@@ -129,13 +144,13 @@ int	del_env_tab(t_data **prompt, char *env_var)
 		return (0);
 	while (env_var_tab[i])
 		i++;
-	new_tab = malloc(sizeof(char *) * i);
+	new_tab = malloc(sizeof(char *) * i - 1);
 	if (!new_tab)
 		return (0);
 	new_tab = delete_env(env_var_tab, env_var, new_tab);
 	if (!new_tab)
 		return (0);
-	//ft_free_tab(env_var_tab);
+	ft_free_ta(env_var_tab);
 	(*prompt)->env = new_tab;
 	return (1);
 }

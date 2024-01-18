@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/17 06:42:22 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 06:45:07 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,54 @@
 #include <stdio.h>
 
 
+static void	free_fdtab(int **tab)
+{
+	int	len;
+
+	len = 0;
+	while (tab[len])
+		len++;
+	while (len >= 0)
+	{
+		free(tab[len]);
+		len--;
+	}
+	free(tab);
+}
+
 static int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **envp)
 {
 	pid_t	child;
+	int		child_status;
 
 	child = fork();
 	if (child == 0)
 	{
 		dup2(input, STDIN_FILENO);
 		dup2(output, STDOUT_FILENO);
-		ft_close(fd_tab);
-		return (execve(cmd_path(cmd->name, envp), cmd->option, envp));
+		if (input != 0 && input != 1)
+			close(input);
+		if (output != 0 && output != 1)
+			close(output);
+		if (execve(cmd_path(cmd->name, envp), cmd->option, envp) == -1)
+			exit(EXIT_FAILURE);
+		else
+		{
+			ft_close(fd_tab);
+			return (-1);
+		}
 	}
 	else if (child > 0)
 	{
-		wait(&child);
-		return (0);
+		waitpid(child, &child_status, 0);
+		if (child_status == 0)
+			return (0);
+		else
+			return (-1);
 	}
 	else
 	{
-		//free_tab((void **)fd_tab);
-		//perror(strerror(errno));
 		exit(EXIT_FAILURE);
-		return (-1);
 	}
 }
 
@@ -45,13 +70,15 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 {
 	int	status;
 
+	printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
+	//printf_fdtab(fd_tab);
 	status = check_builtins(out, cmd, prompt);
 	if (status == -2)
 	{
 		status = execute_cmd(in, out, cmd, fd_tab, (*prompt)->env);
 		if (status == -1)
 		{
-			printf("minishell: %s: command not found", cmd->name);
+			//printf("minishell: %s: command not found", cmd->name);
 			status = 127;
 		}
 	}
@@ -86,5 +113,7 @@ int	apply_cmds(t_data *prompt)
 			unlink("limiter_file");
 		cmd = cmd->next;
 	}
+	free_fdtab(fd_tab);
+	printf("IT is not me\n");
 	return (prompt->last_status);
 }

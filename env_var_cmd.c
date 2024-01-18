@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/17 06:29:31 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 08:17:25 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	cmd_export(int output, t_cmd *cmd, t_data **prompt)
 		}
 		i++;
 	}
+	printf("go here\n");
 	return (0);
 }
 

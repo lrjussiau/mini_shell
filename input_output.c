@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:24:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/17 09:22:02 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/18 05:39:46 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	find_input(t_cmd *cmd, int **fd_tab, int *k, char *str)
 	}
 	else if (*k != 0)
 		input = fd_tab[*k][0];
+
 	else
 		input = STDIN_FILENO;
 	fd_error(input, 0);
@@ -69,7 +70,7 @@ static int	output_file(t_inout *out, t_cmd *cmd)
 	if (out->is_append || !ft_strncmp(cmd->option[0], "echo", 5))
 		output = open(out->name, O_WRONLY | O_APPEND);
 	else
-		output = open(out->name, O_WRONLY | O_CREAT, 0644);
+		output = open(out->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	return (output);
 }
 

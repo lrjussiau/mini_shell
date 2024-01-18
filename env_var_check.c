@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:08:03 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/16 09:48:50 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 08:27:28 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ int	env_var_exist(char **env_var_tab, char *env_var)
 	i = 0;
 	while (env_var_tab[i])
 	{
-		if (ft_strchr(env_var, '='))
+		printf("env: %s\n", env_var_tab[i]);
+		len = ft_strlen(env_var_tab[i]) - ft_strlen(ft_strchr(env_var_tab[i], '='));
+		/*if (ft_strchr(env_var, '='))
 			len = ft_strlen(env_var) - ft_strlen(ft_strchr(env_var, '='));
-		else
-			len = ft_strlen(env_var);
+		else*/
 		if (!ft_strncmp(env_var_tab[i], env_var, len))
 			return (1);
 		i++;

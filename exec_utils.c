@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:30:02 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/17 06:37:49 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 08:04:34 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ char	*ft_conc(char *str, char *input)
 
 	ret_str = malloc((ft_strlen(str) + ft_strlen(input) + 1) * sizeof(char));
 	if (!ret_str)
-		return (NULL);
+	{
+		printf("Malloc error");
+		exit(-1);
+	}
 	i = 0;
 	while (str[i])
 	{
