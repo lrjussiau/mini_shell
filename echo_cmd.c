@@ -6,19 +6,11 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:16:58 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:40:00 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:21:02 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-static int	is_echo_n(char *cmd_option)
-{
-	if (ft_strlen(cmd_option) == 2 && cmd_option[0] == '-'
-		&& cmd_option[1] == 'n')
-		return (1);
-	return (0);
-}
 
 int	write_dollar(int output, char *str, t_data *da)
 {
@@ -52,17 +44,13 @@ int	write_dollar(int output, char *str, t_data *da)
 void	process_dollar(int output, char *str, t_data *prompt)
 {
 	int		i;
-	int		is_dquote;
 	int		is_quote;
 
 	i = 0;
-	is_dquote = 0;
 	is_quote = 0;
 	while (str[i])
 	{
-		if (str[i] == '"')
-			is_dquote++;
-		else if (str[i] == '\'')
+		if (str[i] == '\'')
 			is_quote++;
 		else if (str[i] == '$' && is_quote % 2 == 0 && str[i + 1])
 		{
@@ -74,7 +62,7 @@ void	process_dollar(int output, char *str, t_data *prompt)
 			else
 				i += write_dollar(output, str, prompt);
 		}
-		else
+		else if (str[i] != '"')
 			write(output, &str[i], 1);
 		i++;
 	}
@@ -129,13 +117,12 @@ int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 	{
 		if (ft_strnstr(cmd->option[i], "$", ft_strlen(cmd->option[i])) != 0)
 			process_dollar(output, cmd->option[i], *prompt);
-		else if (ft_strnstr(cmd->option[i], "'", len(cmd->option[i])) != 0)
-			process_quote(output, cmd->option[i]);
-		else if (ft_strnstr(cmd->option[i], "\"", len(cmd->option[i])) != 0)
+		else if (ft_strnstr(cmd->option[i], "'", len(cmd->option[i])) != 0
+			|| ft_strnstr(cmd->option[i], "\"", len(cmd->option[i])) != 0)
 			process_quote(output, cmd->option[i]);
 		else
 			process_classic(output, cmd->option[i]);
-		write (output, " ", 1);
+		write(output, " ", 1);
 		i++;
 	}
 	if (!is_echo_n(cmd->option[1]))

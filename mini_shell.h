@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:17:57 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 11:45:23 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:02:07 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	fd_error(int input, int output);
 char	*ft_conc(char *str, char *input);
 char	*cmd_path(char *cmd, char **envp);
 char	*find_old(char **envp);
+int		is_echo_n(char *cmd_option);
 
 //bin_exec
 char	*find_path(char *cmd, char *paths);
@@ -166,5 +167,9 @@ int		cmd_export(int output, t_cmd *cmd, t_data **prompt);
 
 //signal
 void	run_signals(int sig);
+
+int		update_old_pwd(t_data **prompt);
+int		update_pwd(t_data **prompt);
+int		cmd_cd(t_cmd *cmd, t_data **prompt);
 
 #endif

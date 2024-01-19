@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:30:02 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:24:21 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:22:03 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,13 @@ char	*find_old(char **envp)
 			return (envp[i]);
 		i++;
 	}
+	return (0);
+}
+
+int	is_echo_n(char *cmd_option)
+{
+	if (ft_strlen(cmd_option) == 2 && cmd_option[0] == '-'
+		&& cmd_option[1] == 'n')
+		return (1);
 	return (0);
 }

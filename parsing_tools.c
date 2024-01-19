@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 11:47:56 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:05:21 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,55 +86,55 @@ char	**ft_copy_tab(char	**strs)
 	return (tab);
 }
 
-void	print_data(t_data *data)
-{
-	int 	i;
-	int		j;
-	t_cmd	*current;
-	t_inout	*input;
-	t_inout *output;
+// void	print_data(t_data *data)
+// {
+// 	int 	i;
+// 	int		j;
+// 	t_cmd	*current;
+// 	t_inout	*input;
+// 	t_inout *output;
 
-	i = 0;
-	printf("\n-----------\n");
-	printf("Data Store\n-----------\n\nNb Pipe : %d\nStr input : %s\n", data->nb_pipe, data->str);
-	printf("Last status : %d\n\n", data->last_status);
-	current = data->cmd;
-	while (current -> next != NULL)
-	{
-		j = 0;
-		input = current->input;
-		output = current->output;
-		printf("-----------\n");
-		printf("Command %d\n", i);
-		printf("-----------\n");
-		printf("Command : %s\n", current->name);
-		if (current->option != NULL)
-		{
-			while (current->option[j] != NULL)
-			{
-				printf("\tOption %d : %s\n", j+1, current->option[j]);
-				j++;
-			}
-		}
-	printf("Is there a pipe after : %s\n", current->is_pipe ? "true" : "false");
-		while (input -> next != NULL)
-		{
-			printf("input : %s\n", input->name);
-			printf("\tIs it fd : %s\n", input->is_fd ? "true" : "false");
-			printf("\tIs it append : %s\n", input->is_append ? "true" : "false");
-		printf("\tIs it limiter : %s\n", input->is_limiter ? "true" : "false");
-			input = input->next;
-		}
-		while (output -> next != NULL)
-		{
-			printf("output : %s\n", output->name);
-			printf("\tIs it fd : %s\n", output->is_fd ? "true" : "false");
-			printf("\tIs it append : %s\n", output->is_append ? "true" : "false");
-		printf("\tIs it limiter : %s\n", output->is_limiter ? "true" : "false");
-			output = output->next;
-		}
-		current = current->next;
-		i++;
-	}
-	printf("\n");
-}
+// 	i = 0;
+// 	printf("\n-----------\n");
+// 	printf("Data Store\n-----------\n\nNb Pipe : %d\n Str input : %s\n", data->nb_pipe, data->str);
+// 	printf("Last status : %d\n\n", data->last_status);
+// 	current = data->cmd;
+// 	while (current -> next != NULL)
+// 	{
+// 		j = 0;
+// 		input = current->input;
+// 		output = current->output;
+// 		printf("-----------\n");
+// 		printf("Command %d\n", i);
+// 		printf("-----------\n");
+// 		printf("Command : %s\n", current->name);
+// 		if (current->option != NULL)
+// 		{
+// 			while (current->option[j] != NULL)
+// 			{
+// 				printf("\tOption %d : %s\n", j+1, current->option[j]);
+// 				j++;
+// 			}
+// 		}
+// 	printf("Is there a pipe after : %s\n", current->is_pipe ? "true" : "false");
+// 		while (input -> next != NULL)
+// 		{
+// 			printf("input : %s\n", input->name);
+// 			printf("\tIs it fd : %s\n", input->is_fd ? "true" : "false");
+// 			printf("\tIs it append : %s\n", input->is_append ? "true" : "false");
+// 		printf("\tIs it limiter : %s\n", input->is_limiter ? "true" : "false");
+// 			input = input->next;
+// 		}
+// 		while (output -> next != NULL)
+// 		{
+// 			printf("output : %s\n", output->name);
+// 			printf("\tIs it fd : %s\n", output->is_fd ? "true" : "false");
+// 			printf("\tIs it append : %s\n", output->is_append ? "true" : "false");
+// 		printf("\tIs it limiter : %s\n", output->is_limiter ? "true" : "false");
+// 			output = output->next;
+// 		}
+// 		current = current->next;
+// 		i++;
+// 	}
+// 	printf("\n");
+// }
