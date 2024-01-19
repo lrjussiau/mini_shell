@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 08:17:25 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:08:00 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int	cmd_export(int output, t_cmd *cmd, t_data **prompt)
 			if (add_env_tab(prompt, cmd->option[i]))
 			{
 				perror("Error updating env_tab");
-				if (!cmd->option[i + 1])
-					return (1);
+				exit(1);
 			}
 		}
 		else
@@ -54,7 +53,6 @@ int	cmd_export(int output, t_cmd *cmd, t_data **prompt)
 		}
 		i++;
 	}
-	printf("go here\n");
 	return (0);
 }
 
@@ -68,12 +66,19 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 	{
 		if (valid_var(cmd->option[i]) == 1)
 		{
-			if (!del_env_tab(prompt, cmd->option[i]))
+			if (del_env_tab(prompt, cmd->option[i]) == 2)
 			{
 				perror("Error unset env var");
 				if (!cmd->option[i + 1])
 					return (1);
 			}
+			else if (!del_env_tab(prompt, cmd->option[i]))
+			{
+				perror("Malloc");
+				exit (1);
+			}
+			else
+				i++;
 		}
 		else
 		{
@@ -81,7 +86,6 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 			if (!cmd->option[i + 1])
 				return (1);
 		}
-		i++;
 	}
 	return (0);
 }

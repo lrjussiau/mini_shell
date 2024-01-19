@@ -22,6 +22,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+pid_t main_pid;
+
 typedef struct s_inout
 {
 	bool			is_fd;

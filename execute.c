@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 06:45:07 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:45:09 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,20 @@ static int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **
 	child = fork();
 	if (child == 0)
 	{
-		dup2(input, STDIN_FILENO);
-		dup2(output, STDOUT_FILENO);
-		if (input != 0 && input != 1)
+		if (input != 0)
+			dup2(input, STDIN_FILENO);
+		if (output != 1)
+			dup2(output, STDOUT_FILENO);
+		if (input != 0)
 			close(input);
-		if (output != 0 && output != 1)
+		if (output != 1)
 			close(output);
 		if (execve(cmd_path(cmd->name, envp), cmd->option, envp) == -1)
+		
 			exit(EXIT_FAILURE);
 		else
 		{
+			printf ("ta mere\n");
 			ft_close(fd_tab);
 			return (-1);
 		}
@@ -71,14 +75,14 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 	int	status;
 
 	printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
-	//printf_fdtab(fd_tab);
+	printf_fdtab(fd_tab);
 	status = check_builtins(out, cmd, prompt);
 	if (status == -2)
 	{
 		status = execute_cmd(in, out, cmd, fd_tab, (*prompt)->env);
 		if (status == -1)
 		{
-			//printf("minishell: %s: command not found", cmd->name);
+			printf("minishell: %s: command not found", cmd->name);
 			status = 127;
 		}
 	}
@@ -114,6 +118,5 @@ int	apply_cmds(t_data *prompt)
 		cmd = cmd->next;
 	}
 	free_fdtab(fd_tab);
-	printf("IT is not me\n");
 	return (prompt->last_status);
 }

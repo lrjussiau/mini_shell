@@ -14,6 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+	main_pid = getpid();
 	t_data	*data;
 
 	if (argc != 1)
