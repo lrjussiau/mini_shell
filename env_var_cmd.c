@@ -6,16 +6,16 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 14:01:53 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:16:52 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int	miteux(char *cmd)
+int	miteux(t_cmd *cmd, int i)
 {
 	printf("minishell: unset: %s: not a valid identifier\n", cmd->option[i]);
-	if (!cmd->option[i + 1])
+	if (!(cmd->option[i + 1]))
 		return (1);
 	else
 		return (0);
@@ -88,7 +88,7 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 			}
 		}
 		else
-			if (miteux(cmd))
+			if (miteux(cmd, i))
 				return (1);
 		i++;
 	}

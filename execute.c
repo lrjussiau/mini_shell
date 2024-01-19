@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 13:53:01 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:39:27 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 
 //printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
 //check if cmd is builtins, execute the command, update last status
+//certain commands need \n others don't cat/ls
+//makefile compilation cmd appear
+//ctrl c sometimes doesn't work, ^\ in blocking case should exit
+//? This global variable cannot provide any other information or data access than the number of a received signal
+//echo "cat lol.c | cat > lol.c" doesn't work
+//cat | cat | ls oui et non
 static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 {
 	int	status;
