@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:30:43 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:53:01 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <stdio.h>
 
-static void	free_fdtab(int **tab)
+void	free_fdtab(int **tab)
 {
 	int	len;
 
@@ -27,11 +27,11 @@ static void	free_fdtab(int **tab)
 	}
 	free(tab);
 }
+
 /*if (input != 0)
 		dup2(input, STDIN_FILENO);
-	if (output != 1)
-		dup2(output, STDOUT_FILENO);*/
-
+if (output != 1)
+	dup2(output, STDOUT_FILENO);*/
 static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 {
 	pid_t	child;
@@ -41,6 +41,8 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 	run_signals(2);
 	if (child == 0)
 	{
+		dup2(input, STDIN_FILENO);
+		dup2(output, STDOUT_FILENO);
 		if (input != 0)
 			close(input);
 		if (output != 1)
@@ -53,17 +55,13 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 		waitpid(child, &child_status, 0);
 		if (child_status == 0)
 			return (0);
-		else
-			return (-1);
+		return (-1);
 	}
 	else
-	{
 		exit(EXIT_FAILURE);
-	}
 }
 
-// printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
-// printf_fdtab(fd_tab);
+//printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
 //check if cmd is builtins, execute the command, update last status
 static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 {
@@ -91,9 +89,8 @@ int	apply_cmds(t_data *prompt)
 	int		*k;
 
 	k = &(int){0};
-	fd_tab = 0;
 	cmd = prompt->cmd;
-	fd_tab = create_fd_tab(find_pipe_nb(prompt), fd_tab);
+	fd_tab = create_fd_tab(find_pipe_nb(prompt), &fd_tab);
 	while (cmd->next)
 	{
 		input = find_input(cmd, fd_tab, k, prompt->str);

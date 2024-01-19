@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:31:01 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:49:17 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "mini_shell.h"
 
 //update the old pwd path
@@ -63,13 +62,16 @@ static int	update_pwd(t_data **prompt)
 //execute cd builtins
 static int	cmd_cd(t_cmd *cmd, t_data **prompt)
 {
-	if (cmd->option[1] && !ft_strncmp(cmd->option[1], "-", ft_strlen(cmd->option[1])))
+	if ((cmd->option[1]))
 	{
-		if (env_var_exist((*prompt)->env, "OLDPWD"))
-			printf("%s\n", find_old((*prompt)->env));
-		else
-			printf("minishell: cd: OLDPWD not set\n");
-		return (0);
+		if (!ft_strncmp(cmd->option[1], "-", ft_strlen(cmd->option[1])))
+		{
+			if (env_var_exist((*prompt)->env, "OLDPWD"))
+				printf("%s\n", find_old((*prompt)->env));
+			else
+				printf("minishell: cd: OLDPWD not set\n");
+			return (0);
+		}
 	}
 	if (chdir(cmd->option[1]))
 	{

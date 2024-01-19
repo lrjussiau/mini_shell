@@ -1,6 +1,6 @@
 CC=gcc
-CFLAGS=-Wextra -Werror -Wall -I/Users/ljussiau/.brew/opt/readline/include
-LDFLAGS=-L/Users/ljussiau/.brew/opt/readline/lib
+CFLAGS=-Wextra -Werror -Wall -I/Users/vvuadens/.brew/opt/readline/include
+LDFLAGS=-L/Users/vvuadens/.brew/opt/readline/lib
 LIBS=-lreadline libft/libft.a
 SRC=parsing_cmd.c \
     mini_shell.c \

@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:24:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 09:49:24 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:50:54 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	limiter_input(char *limiter, char *prompt)
 	int		input_fd;
 	char	*after_lim;
 
-	input_fd = open("limiter_file", O_WRONLY | O_CREAT |O_TRUNC, 0644);
+	input_fd = open("limiter_file", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	fd_error(input_fd, 0);
 	str = ft_strchr(prompt, '\n');
 	after_lim = ft_strnstr(str, limiter, ft_strlen(str));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 11:50:10 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:35:12 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	parse_input(char *str, t_data *data, t_cmd *current)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	if (current->name != NULL)
+	if (data->cmd->name != NULL)
 		apply_cmds(data);
 	ft_free_input(data);
 }
