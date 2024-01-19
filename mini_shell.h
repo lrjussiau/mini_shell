@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/17 05:44:04 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:40:22 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,17 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 # include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
 
-pid_t main_pid;
+# if defined (__APPLE__)
+#  include <readline/history.h>
+#  include <readline/readline.h>
+# else
+#  include <sys/wait.h>
+#  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/history.h>
+#  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
+# endif
 
 typedef struct s_inout
 {
@@ -53,6 +60,8 @@ typedef struct s_data
 	char	**origin;
 	int		last_status;
 }		t_data;
+
+extern void rl_replace_line(const char *str, int i);
 
 //parsing inout
 int		get_fd_output(char **strs, int i, t_cmd *cmd);

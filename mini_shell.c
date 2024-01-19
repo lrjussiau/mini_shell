@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 07:26:44 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/17 09:42:22 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:40:17 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	main_pid = getpid();
 	t_data	*data;
 
 	if (argc != 1)

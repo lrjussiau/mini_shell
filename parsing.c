@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 07:54:03 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:40:13 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,12 @@
 
 void	signal_handler(int signal_num)
 {
-	pid_t signal;
-	/*printf("we are in the main process, doing nothing");
-	if (getpid() == main_pid && signal_num == SIGINT)
-	{
-		printf("we are in the main process, doing nothing");
-		rl_redisplay();
-	}
-	else
-	{
-		printf("we are in subprocess, exit");
-	}
-	*/
 	if (signal_num == 2)
 	{
-		signal = getpid();
-		//printf("You Print Ctrl + C: %d\n", signal);
-		//kill(signal,SIGTERM);
+		rl_replace_line("", 0);
+		printf("\n");
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
 

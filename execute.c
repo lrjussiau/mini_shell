@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 07:53:55 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 08:39:45 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 {
 	int	status;
 
-	printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
-	printf_fdtab(fd_tab);
+	// printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
+	// printf_fdtab(fd_tab);
 	status = check_builtins(out, cmd, prompt);
 	if (status == -2)
 	{
@@ -118,9 +118,5 @@ int	apply_cmds(t_data *prompt)
 		cmd = cmd->next;
 	}
 	free_fdtab(fd_tab);
-<<<<<<< HEAD
-=======
-	//printf("IT is not me\n");
->>>>>>> d75907e3a3ede8c345d46f6c77268e1517522219
 	return (prompt->last_status);
 }
