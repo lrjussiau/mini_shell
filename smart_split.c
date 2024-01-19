@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:06:20 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 08:14:09 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 07:26:15 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,64 +16,61 @@ int	count_words(char *s, char c)
 {
 	int		count;
 	int		i;
+	char	current_quote;
 
-	i = 0;
 	count = 0;
+	i = 0;
+	current_quote = 0;
 	while (s[i])
 	{
-		if (s[i] == '"' || s[i] == '\'')
+		if ((s[i] == '"' || s[i] == '\'') && current_quote == 0)
 		{
-			i++;
+			current_quote = s[i];
 			count++;
-			while (s[i] && s[i] != '"' && s[i] != '\'')
-				i++;
-			i++;
 		}
-		if (s[i] != c && s[i] != '"' && s[i] != '\'' && s[i])
+		else if (s[i] == current_quote)
+			current_quote = 0;
+		else if (!current_quote && s[i] != c)
 		{
 			count++;
 			while (s[i] && s[i] != c)
 				i++;
 		}
-		else if (s[i] == c)
-			i++;
-	}	
+		i++;
+	}
 	return (count);
 }
 
-static	int	get_word_len(char const *s, char c, int trig)
+static int	get_word_len(char const *s, char c)
 {
-	int	i;
+	int		i;
+	char	current_quote;
 
 	i = 0;
-	if (trig == 1)
+	current_quote = 0;
+	while (s[i] && (current_quote || s[i] != c))
 	{
+		if ((s[i] == '"' || s[i] == '\'') && current_quote == 0)
+			current_quote = s[i];
+		else if (s[i] == current_quote)
+			current_quote = 0;
 		i++;
-		while (s[i] && s[i] != '\'' && s[i] != '"')
-			i++;
-		i++;
-	}
-	else
-	{
-		while (s[i] && s[i] != c)
-			i++;
 	}
 	return (i);
 }
 
-static int	advance_index(char const *s, int *j, int trig, char c)
+static int	advance_index(char const *s, int *j, char c)
 {
-	if (trig)
+	char	current_quote;
+
+	current_quote = 0;
+	while (s[*j] && (current_quote || s[*j] != c))
 	{
+		if ((s[*j] == '"' || s[*j] == '\'') && current_quote == 0)
+			current_quote = s[*j];
+		else if (s[*j] == current_quote)
+			current_quote = 0;
 		(*j)++;
-		while (s[*j] && s[*j] != '\'' && s[*j] != '"')
-			(*j)++;
-		(*j)++;
-	}
-	else
-	{
-		while (s[*j] && s[*j] != c)
-			(*j)++;
 	}
 	return (*j);
 }
@@ -82,7 +79,6 @@ static char	**split(char const *s, char c, char **array, int words_count)
 {
 	int	i;
 	int	j;
-	int	trig;
 
 	i = 0;
 	j = 0;
@@ -90,16 +86,13 @@ static char	**split(char const *s, char c, char **array, int words_count)
 	{
 		while (s[j] && s[j] == c)
 			j++;
-		trig = 0;
-		if (s[j] == '\'' || s[j] == '"')
-			trig = 1;
-		array[i] = ft_substr(s, j, get_word_len(&s[j], c, trig));
+		array[i] = ft_substr(s, j, get_word_len(&s[j], c));
 		if (!array[i])
 		{
 			free_array(i, array);
 			return (NULL);
 		}
-		advance_index(s, &j, trig, c);
+		advance_index(s, &j, c);
 		i++;
 	}
 	array[i] = NULL;
@@ -117,6 +110,5 @@ char	**ft_smart_split(char *s, char c)
 	array = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!array)
 		return (NULL);
-	array = split(s, c, array, words);
-	return (array);
+	return (split(s, c, array, words));
 }

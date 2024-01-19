@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 07:50:02 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 07:54:03 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	parse_input(char *str, t_data *data, t_cmd *current)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	printf("last status: %d\n", apply_cmds(data));
+	apply_cmds(data);
+	//printf("last status: %d\n", apply_cmds(data));
 	ft_free_input(data);
 }
 

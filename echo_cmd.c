@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:16:58 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 08:20:20 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:01:44 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,7 @@ int	write_dollar(int output, char *str, t_data *da)
 			i -= n;
 			ls = ft_substr(str, i, n);
 			if (env_var_exist(da->env, ls))
-			{
-				printf("TEST\n");
 				write(output, getenv(ls), ft_strlen(getenv(ls)));
-			}
 		}
 		i++;
 	}
@@ -224,6 +221,8 @@ int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 		write (output, " ", 1);
 		i++;
 	}
+	if (!is_echo_n(cmd->option[1]))
+		write(output, "\n", 1);
 	return (0);
 }
 /*

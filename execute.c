@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 11:45:09 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 07:53:55 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 			status = 127;
 		}
 	}
-	else
-		printf("\nis_builtins\n");
+	/*else
+		printf("\nis_builtins\n");*/
 	(*prompt)->last_status = status;
 }
 
@@ -118,5 +118,9 @@ int	apply_cmds(t_data *prompt)
 		cmd = cmd->next;
 	}
 	free_fdtab(fd_tab);
+<<<<<<< HEAD
+=======
+	//printf("IT is not me\n");
+>>>>>>> d75907e3a3ede8c345d46f6c77268e1517522219
 	return (prompt->last_status);
 }
