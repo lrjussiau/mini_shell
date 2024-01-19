@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 08:01:38 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:12:39 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,19 @@ static int	update_pwd(t_data **prompt)
 //execute cd builtins
 static int	cmd_cd(t_cmd *cmd, t_data **prompt)
 {
+	if (cmd->option[1] && !ft_strncmp(cmd->option[1], "-", ft_strlen(cmd->option[1])))
+	{
+		if (env_var_exist((*prompt)->env, "OLDPWD"))
+			printf("%s\n", find_old((*prompt)->env));
+		else
+			printf("minishell: cd: OLDPWD not set\n");
+		return (0);
+	}
 	if (chdir(cmd->option[1]))
-		return (-2);
+	{
+		printf("Minishell: cd: %s:no such file or directory\n", cmd->option[1]);
+		return (-3);
+	}
 	if (update_old_pwd(prompt))
 		return (1);
 	if (update_pwd(prompt))
@@ -99,18 +110,27 @@ static int	cmd_pwd(int output)
 
 int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 {
-	if (!ft_strncmp(cmd->name, "cd", 2))
-		return (cmd_cd(cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "pwd", 3))
-		return (cmd_pwd(output));
-	else if (!ft_strncmp(cmd->name, "echo", 4))
-		return (cmd_echo(output, cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "export", 6))
-		return (cmd_export(output, cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "unset", 5))
-		return (cmd_unset(cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "env", 3))
-		return (cmd_env(output, *prompt));
+	int	status;
+
+	if (!ft_strncmp(cmd->name, "cd", ft_strlen(cmd->name)))
+	{
+		status = cmd_cd(cmd, prompt);
+		//printf("status: %d", status);
+	}
+	else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))
+		status = cmd_pwd(output);
+	else if (!ft_strncmp(cmd->name, "echo", ft_strlen(cmd->name)))
+		status = cmd_echo(output, cmd, prompt);
+	else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
+		status = cmd_export(output, cmd, prompt);
+	else if (!ft_strncmp(cmd->name, "unset", ft_strlen(cmd->name)))
+		status = cmd_unset(cmd, prompt);
+	else if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
+		status = cmd_env(output, *prompt);
 	else
-		return (-2);
+		status = -2;
+	//if (status != -2)
+	//	printf("\n");
+	printf("status = %d", status);
+	return (status);
 }

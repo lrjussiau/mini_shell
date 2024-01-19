@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 10:08:00 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:14:15 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,11 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 				if (!cmd->option[i + 1])
 					return (1);
 			}
-			else if (!del_env_tab(prompt, cmd->option[i]))
+			if (!del_env_tab(prompt, cmd->option[i]))
 			{
 				perror("Malloc");
 				exit (1);
 			}
-			else
-				i++;
 		}
 		else
 		{
@@ -86,6 +84,7 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 			if (!cmd->option[i + 1])
 				return (1);
 		}
+		i++;
 	}
 	return (0);
 }
