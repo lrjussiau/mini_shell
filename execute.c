@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:28:06 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:30:43 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 			close(input);
 		if (output != 1)
 			close(output);
-		if (execve(cmd_path(cmd->name, envp), cmd->option, envp) == -1)
-			exit(EXIT_FAILURE);
+		execve(cmd_path(cmd->name, envp), cmd->option, envp);
+		exit(EXIT_FAILURE);
 	}
 	else if (child > 0)
 	{
@@ -99,7 +99,7 @@ int	apply_cmds(t_data *prompt)
 		input = find_input(cmd, fd_tab, k, prompt->str);
 		output = find_output(cmd, fd_tab, k);
 		fd_error(input, output);
-		execute(input, output, cmd, &prompt, fd_tab);
+		execute(input, output, cmd, &prompt);
 		if (output != 1)
 			close(output);
 		if (input != 0)

@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:17:57 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 11:18:42 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:45:23 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ typedef struct s_data
 	char	**origin;
 	int		last_status;
 }		t_data;
-
-extern void rl_replace_line(const char *str, int i);
 
 //parsing inout
 int		get_fd_output(char **strs, int i, t_cmd *cmd);

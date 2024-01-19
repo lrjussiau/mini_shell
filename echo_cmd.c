@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:16:58 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:17:49 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:40:00 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	write_dollar(int output, char *str, t_data *da)
 			while (str[i++] != ' ' && str[i] && str[i] != '"')
 				n++;
 			i -= n;
+			free(ls);
 			ls = ft_substr(str, i, n);
 			if (env_var_exist(da->env, ls))
 				write(output, getenv(ls), ft_strlen(getenv(ls)));
@@ -141,11 +142,3 @@ int	cmd_echo(int output, t_cmd *cmd, t_data **prompt)
 		write(output, "\n", 1);
 	return (0);
 }
-/*
-	Echo
-		-check if is it -n       ok
-		-check if is it option   ok
-		-check quote
-		-check dollar
-		-
-*/

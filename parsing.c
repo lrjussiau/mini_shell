@@ -6,36 +6,11 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 11:13:53 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:50:10 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-void	signal_handler(int signal_num)
-{
-	char *input;
-	pid_t signal;
-	/*printf("we are in the main process, doing nothing");
-	if (getpid() == main_pid && signal_num == SIGINT)
-	{
-		printf("we are in the main process, doing nothing");
-		rl_redisplay();
-	}
-	else
-	{
-		printf("we are in subprocess, exit");
-	}
-	*/
-	if (signal_num == 2)
-	{
-		signal = getpid();
-		printf("\n");
-		input = readline("Mini Shell > ");
-		input = readline("ok");
-		//kill(signal,SIGTERM);
-	}
-}
 
 void	process_pipe(char *str, t_cmd *cmd)
 {
@@ -79,8 +54,8 @@ void	parse_input(char *str, t_data *data, t_cmd *current)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	apply_cmds(data);
-	//printf("last status: %d\n", apply_cmds(data));
+	if (current->name != NULL)
+		apply_cmds(data);
 	ft_free_input(data);
 }
 

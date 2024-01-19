@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:26:01 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:31:01 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ static int	cmd_pwd(int output)
 
 int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 {
-	int	status;
-
 	if (!ft_strncmp(cmd->name, "cd", ft_strlen(cmd->name)))
 		return (cmd_cd(cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))
