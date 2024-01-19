@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 15:07:25 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:41:53 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int		add_env_tab(t_data **prompt, char *env_var);
 int		del_env_tab(t_data **prompt, char *env_var);
 
 //exec_utils
-void	fd_error(int input, int output);
+int		fd_error(int input);
 char	*ft_conc(char *str, char *input);
 char	*cmd_path(char *cmd, char **envp);
 char	*find_old(char **envp);

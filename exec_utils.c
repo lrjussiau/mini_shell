@@ -6,19 +6,20 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:30:02 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 13:22:03 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:41:31 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	fd_error(int input, int output)
+int	fd_error(int input)
 {
-	if (input == -1 || output == -1)
+	if (input == -1)
 	{
-		printf("Error opening file");
-		exit (-1);
+		printf("No such file or directory\n");
+		return (1);
 	}
+	return (0);
 }
 
 char	*ft_conc(char *str, char *input)

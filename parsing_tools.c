@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 15:05:21 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:23:49 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ char	**ft_copy_tab(char	**strs)
 
 // 	i = 0;
 // 	printf("\n-----------\n");
-// 	printf("Data Store\n-----------\n\nNb Pipe : %d\n Str input : %s\n", data->nb_pipe, data->str);
+// 	printf("Data Store\n-----------\n\nNb Pipe : %d\n 
+// Str input : %s\n", data->nb_pipe, data->str);
 // 	printf("Last status : %d\n\n", data->last_status);
 // 	current = data->cmd;
 // 	while (current -> next != NULL)

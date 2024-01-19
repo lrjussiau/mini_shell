@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:24:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 13:50:54 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:48:03 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static int	limiter_input(char *limiter, char *prompt)
 	char	*after_lim;
 
 	input_fd = open("limiter_file", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	fd_error(input_fd, 0);
+	fd_error(input_fd);
 	str = ft_strchr(prompt, '\n');
 	after_lim = ft_strnstr(str, limiter, ft_strlen(str));
 	write(input_fd, str + 1, ((ft_strlen(str + 1) - ft_strlen(after_lim)) - 1));
 	close(input_fd);
 	input_fd = open("limiter_file", O_RDONLY);
-	fd_error(input_fd, 0);
+	fd_error(input_fd);
 	return (input_fd);
 }
 
@@ -52,11 +52,10 @@ int	find_input(t_cmd *cmd, int **fd_tab, int *k, char *str)
 		input = fd_tab[*k][0];
 	else
 		input = STDIN_FILENO;
-	fd_error(input, 0);
 	return (input);
 }
 
-static int	output_file(t_inout *out, t_cmd *cmd)
+static int	output_file(t_inout *out)
 {
 	int	output;
 
@@ -66,8 +65,8 @@ static int	output_file(t_inout *out, t_cmd *cmd)
 		close(output);
 		out = out->next;
 	}
-	if (out->is_append || !ft_strncmp(cmd->option[0], "echo", 5))
-		output = open(out->name, O_WRONLY | O_APPEND);
+	if (out->is_append)
+		output = open(out->name, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else
 		output = open(out->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	return (output);
@@ -81,7 +80,7 @@ int	find_output(t_cmd *cmd, int **fd_tab, int *k)
 	out = cmd->output;
 	if (out->name)
 	{
-		output = output_file(out, cmd);
+		output = output_file(out);
 	}
 	else if (cmd->is_pipe)
 	{
@@ -96,6 +95,5 @@ int	find_output(t_cmd *cmd, int **fd_tab, int *k)
 	}
 	else
 		output = STDOUT_FILENO;
-	fd_error(0, output);
 	return (output);
 }
