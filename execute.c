@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 06:45:07 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:00:28 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 {
 	int	status;
 
-	printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
+	//printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
 	//printf_fdtab(fd_tab);
 	status = check_builtins(out, cmd, prompt);
 	if (status == -2)
@@ -82,8 +82,8 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 			status = 127;
 		}
 	}
-	else
-		printf("\nis_builtins\n");
+	/*else
+		printf("\nis_builtins\n");*/
 	(*prompt)->last_status = status;
 }
 
@@ -114,6 +114,6 @@ int	apply_cmds(t_data *prompt)
 		cmd = cmd->next;
 	}
 	free_fdtab(fd_tab);
-	printf("IT is not me\n");
+	//printf("IT is not me\n");
 	return (prompt->last_status);
 }

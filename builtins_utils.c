@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 07:48:57 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 08:27:00 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:17:01 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	add_env_tab(t_data **prompt, char *env_var)
 	while (env_var_tab[i])
 		i++;
 	printf("i: %d\n", i);
-	new_tab = malloc(sizeof(char *) * i + 1);
+	new_tab = malloc(sizeof(char *) * (i + 2));
 	if (!new_tab)
 		return (-1);
 	new_tab = fill_tab(new_tab, env_var_tab, env_var);
