@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:26:25 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:28:06 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 	int		child_status;
 
 	child = fork();
+	run_signals(2);
 	if (child == 0)
 	{
 		if (input != 0)

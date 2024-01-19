@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 10:59:22 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:13:53 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,12 @@ void	get_input(t_data *data)
 	int		n;
 
 	n = 0;
+	run_signals(1);
 	while (n != 1)
 	{
 		input = readline("Mini Shell > ");
+		if (input == NULL)
+			exit(0);
 		if (*input)
 			add_history(input);
 		if (ft_strnstr(input, "exit", ft_strlen(input)) != 0)

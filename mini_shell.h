@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/19 11:17:57 by ljussiau          #+#    #+#             */
+/*   Updated: 2024/01/19 11:18:42 by ljussiau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_shell.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
@@ -153,5 +165,8 @@ int		env_var_exist(char **env_var_tab, char *env_var);
 int		cmd_unset(t_cmd *cmd, t_data **prompt);
 int		cmd_env(int output, t_data *prompt);
 int		cmd_export(int output, t_cmd *cmd, t_data **prompt);
+
+//signal
+void	run_signals(int sig);
 
 #endif
