@@ -6,13 +6,12 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 10:59:07 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:26:25 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 #include <stdio.h>
-
 
 static void	free_fdtab(int **tab)
 {
@@ -28,8 +27,12 @@ static void	free_fdtab(int **tab)
 	}
 	free(tab);
 }
+/*if (input != 0)
+		dup2(input, STDIN_FILENO);
+	if (output != 1)
+		dup2(output, STDOUT_FILENO);*/
 
-static int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **envp)
+static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 {
 	pid_t	child;
 	int		child_status;
@@ -38,22 +41,11 @@ static int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **
 	if (child == 0)
 	{
 		if (input != 0)
-			dup2(input, STDIN_FILENO);
-		if (output != 1)
-			dup2(output, STDOUT_FILENO);
-		if (input != 0)
 			close(input);
 		if (output != 1)
 			close(output);
 		if (execve(cmd_path(cmd->name, envp), cmd->option, envp) == -1)
-		
 			exit(EXIT_FAILURE);
-		else
-		{
-			printf ("ta mere\n");
-			ft_close(fd_tab);
-			return (-1);
-		}
 	}
 	else if (child > 0)
 	{
@@ -69,25 +61,23 @@ static int execute_cmd( int input, int output, t_cmd *cmd, int **fd_tab, char **
 	}
 }
 
+// printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
+// printf_fdtab(fd_tab);
 //check if cmd is builtins, execute the command, update last status
-static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
+static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 {
 	int	status;
 
-	// printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
-	// printf_fdtab(fd_tab);
 	status = check_builtins(out, cmd, prompt);
 	if (status == -2)
 	{
-		status = execute_cmd(in, out, cmd, fd_tab, (*prompt)->env);
+		status = execute_cmd(in, out, cmd, (*prompt)->env);
 		if (status == -1)
 		{
 			printf("minishell: %s: command not found\n", cmd->name);
 			status = 127;
 		}
 	}
-	/*else
-		printf("\nis_builtins\n");*/
 	(*prompt)->last_status = status;
 }
 

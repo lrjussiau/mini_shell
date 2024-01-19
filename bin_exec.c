@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:28:18 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/16 09:50:47 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:25:36 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*find_exec_path(char *cmd, char **envp, char *paths)
 		return (cmd);
 }
 
+//free_tab((void **)tab);
 char	*find_path(char *cmd, char *paths)
 {
 	char	**tab;
@@ -67,12 +68,10 @@ char	*find_path(char *cmd, char *paths)
 		if (access(path2, X_OK) != -1)
 		{
 			free(cmd);
-			//free_tab((void **)tab);
 			return (path2);
 		}
 		free(path2);
 	}
 	free(cmd);
-	//free_tab((void **)tab);
 	return (0);
 }

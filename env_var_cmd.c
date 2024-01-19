@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 09:14:15 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:23:39 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 		{
 			if (del_env_tab(prompt, cmd->option[i]) == 2)
 			{
-				perror("Error unset env var");
+				printf("Error unset: env var doesn't exist");
 				if (!cmd->option[i + 1])
 					return (1);
 			}
@@ -80,7 +80,7 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 		}
 		else
 		{
-			perror("Not a valid identifier");
+			printf("minishell: unset: %s: not a valid identifier", cmd->option[i]);
 			if (!cmd->option[i + 1])
 				return (1);
 		}

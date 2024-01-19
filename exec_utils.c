@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:30:02 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 10:13:42 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:24:21 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	fd_error(int input, int output)
 	if (input == -1 || output == -1)
 	{
 		printf("Error opening file");
-		//ft_clean();
 		exit (-1);
 	}
 }
@@ -69,7 +68,6 @@ char	*cmd_path(char *cmd, char **envp)
 		path = find_path(cmd, paths);
 	if (!path)
 		return (0);
-		//exit(1);
 	return (path);
 }
 

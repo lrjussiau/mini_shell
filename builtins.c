@@ -6,14 +6,9 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 10:12:39 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:26:01 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*     todo          */
-
-//last_status
-//prompt with nothing
 
 #include <stdio.h>
 #include "mini_shell.h"
@@ -97,6 +92,7 @@ static int	cmd_pwd(int output)
 	if (getcwd(buf, sizeof(buf)) != NULL)
 	{
 		write(output, buf, ft_strlen(buf));
+		write(output, "\n", 1);
 		return (0);
 	}
 	else
@@ -113,24 +109,17 @@ int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 	int	status;
 
 	if (!ft_strncmp(cmd->name, "cd", ft_strlen(cmd->name)))
-	{
-		status = cmd_cd(cmd, prompt);
-		//printf("status: %d", status);
-	}
+		return (cmd_cd(cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))
-		status = cmd_pwd(output);
+		return (cmd_pwd(output));
 	else if (!ft_strncmp(cmd->name, "echo", ft_strlen(cmd->name)))
-		status = cmd_echo(output, cmd, prompt);
+		return (cmd_echo(output, cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
-		status = cmd_export(output, cmd, prompt);
+		return (cmd_export(output, cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "unset", ft_strlen(cmd->name)))
-		status = cmd_unset(cmd, prompt);
+		return (cmd_unset(cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
-		status = cmd_env(output, *prompt);
+		return (cmd_env(output, *prompt));
 	else
-		status = -2;
-	//if (status != -2)
-	//	printf("\n");
-	printf("status = %d", status);
-	return (status);
+		return (-2);
 }
