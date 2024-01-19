@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:30:02 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/18 09:58:01 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:13:42 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,18 @@ char	*cmd_path(char *cmd, char **envp)
 		return (0);
 		//exit(1);
 	return (path);
+}
+
+char	*find_old(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], "OLDPWD=", ft_strlen("OLDPWD=")))
+			return (envp[i]);
+		i++;
+	}
+	return (0);
 }

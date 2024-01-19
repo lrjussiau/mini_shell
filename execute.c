@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 08:39:45 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:59:07 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt, int **fd_tab)
 		status = execute_cmd(in, out, cmd, fd_tab, (*prompt)->env);
 		if (status == -1)
 		{
-			printf("minishell: %s: command not found", cmd->name);
+			printf("minishell: %s: command not found\n", cmd->name);
 			status = 127;
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 10:40:22 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:59:04 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int		del_env_tab(t_data **prompt, char *env_var);
 void	fd_error(int input, int output);
 char	*ft_conc(char *str, char *input);
 char	*cmd_path(char *cmd, char **envp);
+char	*find_old(char **envp);
 
 //bin_exec
 char	*find_path(char *cmd, char *paths);
