@@ -6,11 +6,20 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:39:04 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:16:52 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int	miteux(t_cmd *cmd, int i)
+{
+	printf("minishell: unset: %s: not a valid identifier\n", cmd->option[i]);
+	if (!(cmd->option[i + 1]))
+		return (1);
+	else
+		return (0);
+}
 
 static int	cmd_exp_p(int output, t_data *prompt)
 {
@@ -47,7 +56,7 @@ int	cmd_export(int output, t_cmd *cmd, t_data **prompt)
 		}
 		else
 		{
-			printf("minishell: unset: %s: not a valid identifier\n", cmd->option[i]);
+			printf("minishell: export: %s: not a valid id\n", cmd->option[i]);
 			if (!cmd->option[i + 1])
 				return (1);
 		}
@@ -79,11 +88,8 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 			}
 		}
 		else
-		{
-			printf("minishell: unset: %s: not a valid identifier\n", cmd->option[i]);
-			if (!cmd->option[i + 1])
+			if (miteux(cmd, i))
 				return (1);
-		}
 		i++;
 	}
 	return (0);

@@ -5,20 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 11:17:57 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 15:02:07 by ljussiau         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mini_shell.h                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 10:59:04 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:07:25 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +111,7 @@ void	print_data(t_data *data);
 
 //execute
 int		apply_cmds(t_data *prompt);
+void	free_fdtab(int **tab);
 
 //builtins
 int		check_builtins(int output, t_cmd *cmd, t_data **prompt);
@@ -149,7 +138,7 @@ int		find_output(t_cmd *cmd, int **fd_tab, int *k);
 //fd_tab
 void	ft_close(int **fd_tab);
 void	printf_fdtab(int **fd_tab);
-int		**create_fd_tab(int pipe_nbr, int **fd_tab);
+int		**create_fd_tab(int pipe_nbr, int ***fd_tab);
 int		find_pipe_nb(t_data *prompt);
 
 //echo_cmd
