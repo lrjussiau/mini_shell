@@ -1,28 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_shell.c                                       :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 07:26:44 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 11:00:44 by ljussiau         ###   ########.fr       */
+/*   Created: 2024/01/19 10:56:42 by ljussiau          #+#    #+#             */
+/*   Updated: 2024/01/19 11:04:19 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	restore_prompt(int sig)
 {
-	t_data	*data;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	(void)sig;
+}
 
-	if (argc != 1)
-		return (0);
-	argv = NULL;
-	data = init_data(1);
-	data->env = ft_copy_tab(envp);
-	get_input(data);
-	ft_free_tab(data->env);
-	free(data);
-	clear_history();
+void	ctrl_c(int sig)
+{
+	write(1, "\n", 1);
+	(void)sig;
+}
+
+void	run_signals(int sig)
+{
+	if (sig == 1)
+	{
+		signal(SIGINT, restore_prompt);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (sig == 2)
+	{
+		signal(SIGINT, ctrl_c);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (sig == 3)
+	{
+		printf("exit\n");
+		exit(0);
+	}
 }
