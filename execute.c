@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/20 13:18:28 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:29:38 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void	free_fdtab(int **tab)
 		dup2(input, STDIN_FILENO);
 if (output != 1)
 	dup2(output, STDOUT_FILENO);*/
+/*if (input != 0)
+	close(input);
+if (output != 1)
+	close(output);*/
 static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 {
 	pid_t	child;
@@ -43,15 +47,15 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 	{
 		dup2(input, STDIN_FILENO);
 		dup2(output, STDOUT_FILENO);
-		if (input != 0)
-			close(input);
-		if (output != 1)
-			close(output);
 		execve(cmd_path(cmd->name, envp), cmd->option, envp);
 		exit(EXIT_FAILURE);
 	}
 	else if (child > 0)
 	{
+		if (input != 0)
+			close(input);
+		if (output != 1)
+			close(output);
 		waitpid(child, &child_status, 0);
 		if (child_status == 0)
 			return (0);
@@ -64,9 +68,10 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 //printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
 //check if cmd is builtins, execute the command, update last status
 
-
+//limiter ad \n ?
 //certain commands need \n others don't cat/ls
 //makefile compilation cmd appear
+//echo "<out" marche pas
 // the number of a received signal
 //echo "cat lol.c | cat > lol.c" doesn't work
 static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
@@ -97,6 +102,7 @@ int	apply_cmds(t_data *prompt)
 	k = &(int){0};
 	cmd = prompt->cmd;
 	fd_tab = create_fd_tab(find_pipe_nb(prompt), &fd_tab);
+	//printf_fdtab(fd_tab);
 	while (cmd->next)
 	{
 		input = find_input(cmd, fd_tab, k, prompt->str);
