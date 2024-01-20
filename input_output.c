@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:24:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 13:50:54 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:17:30 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	output_file(t_inout *out, t_cmd *cmd)
 		out = out->next;
 	}
 	if (out->is_append || !ft_strncmp(cmd->option[0], "echo", 5))
-		output = open(out->name, O_WRONLY | O_APPEND);
+		output = open(out->name, O_WRONLY | O_APPEND | O_CREAT);
 	else
 		output = open(out->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	return (output);
