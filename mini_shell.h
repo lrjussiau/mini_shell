@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 11:17:57 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 13:44:38 by vvuadens         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mini_shell.h                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 10:59:04 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:41:53 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +121,11 @@ int		add_env_tab(t_data **prompt, char *env_var);
 int		del_env_tab(t_data **prompt, char *env_var);
 
 //exec_utils
-void	fd_error(int input, int output);
+int		fd_error(int input);
 char	*ft_conc(char *str, char *input);
 char	*cmd_path(char *cmd, char **envp);
 char	*find_old(char **envp);
+int		is_echo_n(char *cmd_option);
 
 //bin_exec
 char	*find_path(char *cmd, char *paths);
@@ -167,5 +156,9 @@ int		cmd_export(int output, t_cmd *cmd, t_data **prompt);
 
 //signal
 void	run_signals(int sig);
+
+int		update_old_pwd(t_data **prompt);
+int		update_pwd(t_data **prompt);
+int		cmd_cd(t_cmd *cmd, t_data **prompt);
 
 #endif

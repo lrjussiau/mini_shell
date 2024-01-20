@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:30:02 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 11:24:21 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:41:31 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	fd_error(int input, int output)
+int	fd_error(int input)
 {
-	if (input == -1 || output == -1)
+	if (input == -1)
 	{
-		printf("Error opening file");
-		exit (-1);
+		printf("No such file or directory\n");
+		return (1);
 	}
+	return (0);
 }
 
 char	*ft_conc(char *str, char *input)
@@ -82,5 +83,13 @@ char	*find_old(char **envp)
 			return (envp[i]);
 		i++;
 	}
+	return (0);
+}
+
+int	is_echo_n(char *cmd_option)
+{
+	if (ft_strlen(cmd_option) == 2 && cmd_option[0] == '-'
+		&& cmd_option[1] == 'n')
+		return (1);
 	return (0);
 }

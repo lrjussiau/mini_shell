@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 15:33:30 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/20 13:18:28 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 
 //certain commands need \n others don't cat/ls
 //makefile compilation cmd appear
-//ctrl c sometimes doesn't work, ^\ in blocking case should exit
+// the number of a received signal
 //echo "cat lol.c | cat > lol.c" doesn't work
 static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 {
 	int	status;
-
+	//printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
 	status = check_builtins(out, cmd, prompt);
 	if (status == -2)
 	{
@@ -101,12 +101,13 @@ int	apply_cmds(t_data *prompt)
 	{
 		input = find_input(cmd, fd_tab, k, prompt->str);
 		output = find_output(cmd, fd_tab, k);
-		fd_error(input, output);
+		if(fd_error(input))
+			break ;
 		execute(input, output, cmd, &prompt);
-		if (output != 1)
-			close(output);
-		if (input != 0)
-			close(input);
+		// if (output != 1)
+		// 	close(output);
+		// if (input != 0)
+		// 	close(input);
 		if (open("limiter_file", O_RDONLY) != -1)
 			unlink("limiter_file");
 		cmd = cmd->next;

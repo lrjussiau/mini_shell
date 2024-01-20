@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 13:35:12 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:22:47 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	parse_input(char *str, t_data *data, t_cmd *current)
 	char	**strs;
 	int		i;
 
-	strs = ft_split(str, '|');
+	strs = ft_smart_split(str, '|');
 	i = 0;
-	while (strs[i] != NULL)
+	while (strs[i] != NULL && *strs[i] != 0)
 	{
 		process_pipe(strs[i], current);
 		i++;
-		if (strs[i] != NULL)
+		if (strs[i] != NULL && *strs[i] != 0)
 			current->is_pipe = true;
 		append_cmd(data);
 		current = current->next;
