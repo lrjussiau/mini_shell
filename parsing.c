@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 13:25:44 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:14:57 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	process_pipe(char *str, t_cmd *cmd, t_data *data)
 	i = 0;
 	while (strs[i] != NULL)
 	{
-		if (ft_strnstr(strs[i], ">>", ft_strlen(strs[i])) != 0)
+		if (ft_strnstr(strs[i], ">>", ft_strlen(">>")) != 0)
 			i += get_fd_append(strs, i, cmd);
-		else if (ft_strnstr(strs[i], ">", ft_strlen(strs[i])) != 0)
+		else if (ft_strnstr(strs[i], ">", ft_strlen(">")) != 0)
 			i += get_fd_output(strs, i, cmd);
-		if (ft_strnstr(strs[i], "<<", ft_strlen(strs[i])) != 0)
+		if (ft_strnstr(strs[i], "<<", ft_strlen("<<")) != 0)
 			i += get_fd_limiter(strs, i, cmd);
-		else if (ft_strnstr(strs[i], "<", ft_strlen(strs[i])) != 0)
+		else if (ft_strnstr(strs[i], "<", ft_strlen("<")) != 0)
 			i += get_fd_input(strs, i, cmd);
 		if (!is_inout(strs[i]) && strs[i][0] != '\0')
 			i += get_cmd(strs, i, cmd, data);

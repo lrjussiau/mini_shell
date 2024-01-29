@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 13:25:36 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:15:06 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ bool	is_inout(char *str)
 {
 	if (str == NULL)
 		return (true);
-	if (ft_strnstr(str, ">>", ft_strlen(str)) != 0)
+	if (ft_strnstr(str, ">>", ft_strlen(">>")) != 0)
 		return (true);
-	else if (ft_strnstr(str, ">", ft_strlen(str)) != 0)
+	else if (ft_strnstr(str, ">", ft_strlen(">")) != 0)
 		return (true);
-	if (ft_strnstr(str, "<", ft_strlen(str)) != 0)
+	if (ft_strnstr(str, "<", ft_strlen("<")) != 0)
 		return (true);
-	else if (ft_strnstr(str, "<<", ft_strlen(str)) != 0)
+	else if (ft_strnstr(str, "<<", ft_strlen("<<")) != 0)
 		return (true);
 	return (false);
 }
