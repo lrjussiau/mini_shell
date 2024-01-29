@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 11:19:31 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:52:39 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int		update_old_pwd(t_data **prompt);
 int		update_pwd(t_data **prompt);
 int		cmd_cd(t_cmd *cmd, t_data **prompt);
 
-char	*ft_process_dolar(char *str, t_data *data);
+char	*ft_process_dolar(char *str, t_data *data, int n);
 char	*replace_dollar(char *str, t_data *data);
 char	*process_status(char *str, t_data *data);
 
