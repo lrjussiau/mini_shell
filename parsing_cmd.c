@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:58:02 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/16 08:25:41 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 08:01:09 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ int	get_cmd(char **strs, int i, t_cmd *cmd)
 	j = 0;
 	k = 0;
 	cmd->name = ft_strdup(strs[i]);
+	i++;
 	while (strs[i] != NULL)
 	{
-		i++;
 		if (is_inout(strs[i]))
 			break ;
+		i++;
 		j++;
 	}
 	i -= j + 1;

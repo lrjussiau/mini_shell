@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_tab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:23:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/20 14:46:53 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 08:41:13 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,32 @@ void	printf_fdtab(int **fd_tab)
 	}
 }
 
-int	**create_fd_tab(int pipe_nbr, int ***fd_tab)
+int	**create_fd_tab(int pipe_nbr, int **fd_tab)
 {
 	int	i;
 
 	i = 0;
-	(*fd_tab) = malloc(sizeof (int *) * (pipe_nbr) + 2);
-	if (!(*fd_tab))
+	fd_tab = malloc(sizeof (int *) * (pipe_nbr) + 2);
+	if (!fd_tab)
 		return (0);
 	while (pipe_nbr + 1)
 	{
-		(*fd_tab)[i] = malloc(sizeof(int) * 2);
-		if (!(*fd_tab)[i])
+		fd_tab[i] = malloc(sizeof(int) * 2);
+		if (!fd_tab[i])
 		{
-			free_fdtab((*fd_tab));
+			free_fdtab(fd_tab);
+			printf("error\n");
 			return (0);
 		}
-		if (pipe((*fd_tab)[i++]) == -1)
+		if (pipe(fd_tab[i++]) == -1)
 		{
-			free_fdtab((*fd_tab));
+			free_fdtab(fd_tab);
 			return (0);
 		}
 		pipe_nbr--;
 	}
-	(*fd_tab)[i] = 0;
-	return ((*fd_tab));
+	fd_tab[i] = 0;
+	return (fd_tab);
 }
 
 int	find_pipe_nb(t_data *prompt)

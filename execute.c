@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/28 18:05:53 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 08:36:07 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 		if (output != 1)
 			close(output);
 		waitpid(child, &child_status, 0);
-		printf("status: %d\n", child_status);
 		return (child_status);
 	}
 	else
@@ -73,6 +72,7 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 	int	status;
 	int	input_error;
 
+	printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
 	input_error = fd_error(in);
 	if (!input_error)
 		status = check_builtins(out, cmd, prompt);
@@ -104,8 +104,10 @@ int	apply_cmds(t_data *prompt)
 	int		*k;
 
 	k = &(int){0};
+	fd_tab = 0;
 	cmd = prompt->cmd;
-	fd_tab = create_fd_tab(find_pipe_nb(prompt), &fd_tab);
+	fd_tab = create_fd_tab(find_pipe_nb(prompt), fd_tab);
+	printf_fdtab(fd_tab);
 	while (cmd->next)
 	{
 		input = find_input(cmd, fd_tab, k, prompt->str);
