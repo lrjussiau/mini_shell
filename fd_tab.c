@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:23:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 13:48:31 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:03:52 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,21 @@ int	**create_fd_tab(int pipe_nbr, int **fd_tab)
 	while (pipe_nbr)
 	{
 		fd_tab[i] = malloc(sizeof(int) * 2);
-		//fd_tab[i][0] = 0;
-		//fd_tab[i][1] = 0;
 		if (!fd_tab[i])
 		{
 			free_fdtab(fd_tab);
 			printf("error\n");
 			return (0);
 		}
-		pipe(fd_tab[i]);
-		/*if (pipe(fd_tab[i++]) == -1)
+		if (pipe(fd_tab[i++]) == -1)
 		{
 			free_fdtab(fd_tab);
 			return (0);
-		}*/
-		i++;
+		}
 		pipe_nbr--;
 	}
 	fd_tab[i] = 0;
-	printf_fdtab(fd_tab);
+	//printf_fdtab(fd_tab);
 	return (fd_tab);
 }
 

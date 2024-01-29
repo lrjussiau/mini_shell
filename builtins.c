@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 07:07:58 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:57:57 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 	else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))
 		return (cmd_pwd(output));
 	else if (!ft_strncmp(cmd->name, "echo", ft_strlen(cmd->name)))
-		return (cmd_echo(output, cmd, prompt));
+		return (cmd_echo(output, cmd));
 	else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
 		return (cmd_export(output, cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "unset", ft_strlen(cmd->name)))
