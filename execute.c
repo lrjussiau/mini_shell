@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/20 15:29:38 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/28 18:05:53 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,39 +57,43 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 		if (output != 1)
 			close(output);
 		waitpid(child, &child_status, 0);
-		if (child_status == 0)
-			return (0);
-		return (-1);
+		printf("status: %d\n", child_status);
+		return (child_status);
 	}
 	else
 		exit(EXIT_FAILURE);
 }
 
 //printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
-//check if cmd is builtins, execute the command, update last status
 
-//limiter ad \n ?
-//certain commands need \n others don't cat/ls
-//makefile compilation cmd appear
-//echo "<out" marche pas
 // the number of a received signal
 //echo "cat lol.c | cat > lol.c" doesn't work
 static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 {
 	int	status;
-	//printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
-	status = check_builtins(out, cmd, prompt);
+	int	input_error;
+
+	input_error = fd_error(in);
+	if (!input_error)
+		status = check_builtins(out, cmd, prompt);
+	else
+		status = input_error;
 	if (status == -2)
 	{
 		status = execute_cmd(in, out, cmd, (*prompt)->env);
-		if (status == -1)
+		if (status == 256)
 		{
 			printf("minishell: %s: command not found\n", cmd->name);
 			status = 127;
 		}
+		if (status == 2)
+			status = 130;
 	}
 	(*prompt)->last_status = status;
 }
+// if (input != 0)
+// 	close(input);
+//printf_fdtab(fd_tab);
 
 int	apply_cmds(t_data *prompt)
 {
@@ -102,18 +106,13 @@ int	apply_cmds(t_data *prompt)
 	k = &(int){0};
 	cmd = prompt->cmd;
 	fd_tab = create_fd_tab(find_pipe_nb(prompt), &fd_tab);
-	//printf_fdtab(fd_tab);
 	while (cmd->next)
 	{
 		input = find_input(cmd, fd_tab, k, prompt->str);
 		output = find_output(cmd, fd_tab, k);
-		if(fd_error(input))
-			break ;
 		execute(input, output, cmd, &prompt);
-		// if (output != 1)
-		// 	close(output);
-		// if (input != 0)
-		// 	close(input);
+		if (output != 1)
+			close(output);
 		if (open("limiter_file", O_RDONLY) != -1)
 			unlink("limiter_file");
 		cmd = cmd->next;
