@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:08:03 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 07:53:41 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:44:59 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+char	*ft_getenv(char *str, t_data *data)
+{
+	char	*ret_str;
+	int		i;
+
+	i = 0;
+	while (data->env[i])
+	{
+		if (ft_strnstr(data->env[i], str, ft_strlen(str)) != 0)
+		{
+			ret_str = ft_strchr(data->env[i], '=') + 1;
+			return (ret_str);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 //check if env_value is ascii writable
 static int	valid_val(char *val)

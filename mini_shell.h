@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 14:52:39 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:05:19 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ int		cmd_echo(int output, t_cmd *cmd);
 int		valid_var(char *env_var);
 int		check_env_var(char	*var);
 int		env_var_exist(char **env_var_tab, char *env_var);
+char	*ft_getenv(char *str, t_data *data);
 
 //env_var_cmd
 int		cmd_unset(t_cmd *cmd, t_data **prompt);
@@ -160,8 +161,9 @@ int		update_old_pwd(t_data **prompt);
 int		update_pwd(t_data **prompt);
 int		cmd_cd(t_cmd *cmd, t_data **prompt);
 
-char	*ft_process_dolar(char *str, t_data *data, int n);
-char	*replace_dollar(char *str, t_data *data);
+//dolar
+char	*ft_process_dolar(char *str, t_data *data);
+char	*replace_dollar(char *str, t_data *data, int i, int j);
 char	*process_status(char *str, t_data *data);
 
 #endif

@@ -6,17 +6,19 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:58:02 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 14:54:42 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:54:52 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-char	*ft_process_dolar(char *str, t_data *data, int n)
+char	*ft_process_dolar(char *str, t_data *data)
 {
 	int	i;
+	int	n;
 
 	i = 0;
+	n = 0;
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1])
@@ -25,7 +27,8 @@ char	*ft_process_dolar(char *str, t_data *data, int n)
 			if (str[i] == '?')
 				str = process_status(str, data);
 			else
-				str = replace_dollar(str, data);
+				str = replace_dollar(str, data, 0, 0);
+			n += 1;
 		}
 		i++;
 	}
@@ -37,19 +40,23 @@ char	*ft_process_dolar(char *str, t_data *data, int n)
 
 char	*cleaner_option(char *str, t_data *data)
 {
-	int	i;
+	int		i;
+	char	*ret_str;
 
 	i = 0;
 	if (str[i] == '\'')
+	{
 		str = ft_strtrim(str, "'");
+	}
 	else if (str[i] == '"')
 	{
-		str = ft_strtrim(str, "\"");
-		str = ft_process_dolar(str, data, 1);
+		ret_str = ft_strtrim(str, "\"");
+		str = ft_process_dolar(ret_str, data);
+		free(ret_str);
 	}
 	else
 	{
-		str = ft_process_dolar(str, data, 0);
+		str = ft_process_dolar(str, data);
 	}
 	return (str);
 }
