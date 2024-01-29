@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 08:35:13 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 11:19:31 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int		get_fd_limiter(char **strs, int i, t_cmd *cmd);
 void	get_input(t_data *data);
 char	*ft_append_str(char *str, char *input);
 void	parse_input(char *str, t_data *data, t_cmd *current);
-void	process_pipe(char *str, t_cmd *cmd);
-int		get_cmd(char **strs, int i, t_cmd *cmd);
+void	process_pipe(char *str, t_cmd *cmd, t_data *data);
+int		get_cmd(char **strs, int i, t_cmd *cmd, t_data *data);
 
 //parsing tool
 bool	is_inout(char *str);
@@ -142,7 +142,7 @@ int		**create_fd_tab(int pipe_nbr, int **fd_tab);
 int		find_pipe_nb(t_data *prompt);
 
 //echo_cmd
-int		cmd_echo(int output, t_cmd *cmd, t_data **prompt);
+int		cmd_echo(int output, t_cmd *cmd);
 
 //env_var_check
 int		valid_var(char *env_var);
@@ -156,9 +156,12 @@ int		cmd_export(int output, t_cmd *cmd, t_data **prompt);
 
 //signal
 void	run_signals(int sig);
-
 int		update_old_pwd(t_data **prompt);
 int		update_pwd(t_data **prompt);
 int		cmd_cd(t_cmd *cmd, t_data **prompt);
+
+char	*ft_process_dolar(char *str, t_data *data);
+char	*replace_dollar(char *str, t_data *data);
+char	*process_status(char *str, t_data *data);
 
 #endif

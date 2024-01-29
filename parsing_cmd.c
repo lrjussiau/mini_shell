@@ -6,34 +6,49 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:58:02 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 08:01:09 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:26:09 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-char	*cleaner_option(char *str, t_cmd *cmd)
+char	*ft_process_dolar(char *str, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	if (ft_strnstr(cmd->name, "echo", ft_strlen("echo")) != 0)
-		return (ft_strdup(str));
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1])
+		{
+			i++;
+			if (str[i] == '?')
+				str = process_status(str, data);
+			else
+				str = replace_dollar(str, data);
+		}
+		i++;
+	}
+	return (ft_strdup(str));
+}
+
+char	*cleaner_option(char *str, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '\'')
+		str = ft_strtrim(str, "'");
+	else if (str[i] == '"')
+	{
+		str = ft_strtrim(str, "\"");
+		str = ft_process_dolar(str, data);
+	}
 	else
 	{
-		if (str[i] == '\'')
-		{
-			str = ft_strtrim(str, "'");
-			return (str);
-		}
-		else if (str[i] == '"')
-		{
-			str = ft_strtrim(str, "\"");
-			return (str);
-		}
-		else
-			return (ft_strdup(str));
+		str = ft_process_dolar(str, data);
 	}
+	return (str);
 }
 
 char	*ft_append_str(char *str, char *input)
@@ -62,14 +77,14 @@ char	*ft_append_str(char *str, char *input)
 	return (ret_str);
 }
 
-int	get_cmd(char **strs, int i, t_cmd *cmd)
+int	get_cmd(char **strs, int i, t_cmd *cmd, t_data *data)
 {
 	int		j;
 	int		k;
 
 	j = 0;
 	k = 0;
-	cmd->name = ft_strdup(strs[i]);
+	cmd->name = cleaner_option(strs[i], data);
 	i++;
 	while (strs[i] != NULL)
 	{
@@ -82,7 +97,7 @@ int	get_cmd(char **strs, int i, t_cmd *cmd)
 	cmd->option = (char **)malloc(sizeof(char *) * (j + 2));
 	while (k <= j)
 	{
-		cmd->option[k] = cleaner_option(strs[i], cmd);
+		cmd->option[k] = cleaner_option(strs[i], data);
 		i++;
 		k++;
 	}
