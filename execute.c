@@ -6,13 +6,16 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 08:57:29 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 11:08:25 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*Mini Shell > cat | cat
 cmd_info: in: 0, out: 13, cmd: (null)
 Segmentation fault: 11*/
+//Try ctrl-\ after running a blocking command like cat without arguments or grep “something“
+//Try a command like : echo "cat lol.c | cat > lol.c"
+//echo '$USER' must print "$USER".
 
 #include "mini_shell.h"
 #include <stdio.h>
@@ -52,6 +55,7 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 		dup2(input, STDIN_FILENO);
 		dup2(output, STDOUT_FILENO);
 		execve(cmd_path(cmd->name, envp), cmd->option, envp);
+		printf("minishell: %s: command not found\n", cmd->name);
 		exit(EXIT_FAILURE);
 	}
 	else if (child > 0)
@@ -61,6 +65,7 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 		if (output != 1)
 			close(output);
 		waitpid(child, &child_status, 0);
+		printf("child: %d\n", child_status);
 		return (child_status);
 	}
 	else
@@ -76,7 +81,7 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 	int	status;
 	int	input_error;
 
-	printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
+	//printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
 	input_error = fd_error(in);
 	if (!input_error)
 		status = check_builtins(out, cmd, prompt);
@@ -87,7 +92,7 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 		status = execute_cmd(in, out, cmd, (*prompt)->env);
 		if (status == 256)
 		{
-			printf("minishell: %s: command not found\n", cmd->name);
+			//printf("minishell: %s: command not found\n", cmd->name);
 			status = 127;
 		}
 		if (status == 2)
@@ -111,7 +116,7 @@ int	apply_cmds(t_data *prompt)
 	fd_tab = 0;
 	cmd = prompt->cmd;
 	fd_tab = create_fd_tab(find_pipe_nb(prompt), fd_tab);
-	printf_fdtab(fd_tab);
+	//printf_fdtab(fd_tab);
 	while (cmd->next)
 	{
 		input = find_input(cmd, fd_tab, k, prompt->str);
@@ -123,6 +128,7 @@ int	apply_cmds(t_data *prompt)
 			unlink("limiter_file");
 		cmd = cmd->next;
 	}
+	//ft_close(fd_tab);
 	free_fdtab(fd_tab);
 	return (prompt->last_status);
 }
