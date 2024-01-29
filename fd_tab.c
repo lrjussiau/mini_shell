@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:23:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 14:03:52 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:45:15 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	**create_fd_tab(int pipe_nbr, int **fd_tab)
 		pipe_nbr--;
 	}
 	fd_tab[i] = 0;
-	//printf_fdtab(fd_tab);
 	return (fd_tab);
 }
 
