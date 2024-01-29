@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 14:52:39 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:07:42 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	free_fdtab(int **tab);
 int		check_builtins(int output, t_cmd *cmd, t_data **prompt);
 
 //builtins_utils
-int		add_env_tab(t_data **prompt, char *env_var);
+int		add_env_tab(t_data **prompt, char *env_var, int n);
 int		del_env_tab(t_data **prompt, char *env_var);
 
 //exec_utils
@@ -146,7 +146,7 @@ int		cmd_echo(int output, t_cmd *cmd);
 
 //env_var_check
 int		valid_var(char *env_var);
-int		check_env_var(char	*var);
+int		check_env_var(char	*var, t_data **prompt);
 int		env_var_exist(char **env_var_tab, char *env_var);
 
 //env_var_cmd

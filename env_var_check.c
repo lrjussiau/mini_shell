@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:08:03 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 07:53:41 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:10:54 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	valid_val(char *val)
 	return (1);
 }
 
-int	check_env_var(char	*var)
+int	check_env_var(char	*var, t_data **prompt)
 {
 	int	i;
 
@@ -35,9 +35,14 @@ int	check_env_var(char	*var)
 	if (valid_var(var) == 2)
 	{
 		if (valid_val(ft_strchr(var, '=') + 1))
-			return (0);
+		{
+			add_env_tab(prompt, var, 1);
+			return (add_env_tab(prompt, var, 0));
+		}
 		return (-1);
 	}
+	else if (valid_var(var) == 1)
+		return (add_env_tab(prompt, var, 1));
 	return (-1);
 }
 

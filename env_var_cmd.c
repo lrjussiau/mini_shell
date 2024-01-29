@@ -6,11 +6,43 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 15:39:59 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:53:40 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+static char	*clean_opt(char *str)
+{
+	char	*new_str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+		if (str[i] == 39 || str[i++] == 34)
+			j++;
+	if (j != 0)
+	{
+		i = 0;
+		new_str = malloc(sizeof(char) * ft_strlen(str) - j + 1);
+		if (!new_str)
+			exit(1);
+		j = 0;
+		while (str[i])
+		{
+			if (str[i] == 39 || str[i++] == 34)
+				i++;
+			else
+				new_str[j++] = str[i++];
+		}
+		new_str[j] = 0;
+		return (new_str);
+	}
+	else
+		return(str);
+}
 
 int	miteux(t_cmd *cmd, int i)
 {
@@ -26,10 +58,10 @@ static int	cmd_exp_p(int output, t_data *prompt)
 	int	i;
 
 	i = 0;
-	while (prompt->env[i])
+	while (prompt->origin[i])
 	{
-		write(output, "export ", 7);
-		write(output, prompt->env[i], ft_strlen(prompt->env[i]));
+		write(output, "declare -x ", 11);
+		write(output, prompt->origin[i], ft_strlen(prompt->origin[i]));
 		write(output, "\n", 1);
 		i++;
 	}
@@ -46,15 +78,7 @@ int	cmd_export(int output, t_cmd *cmd, t_data **prompt)
 		return (cmd_exp_p(output, *prompt));
 	while (cmd->option[i])
 	{
-		if (!check_env_var(cmd->option[i]))
-		{
-			if (add_env_tab(prompt, cmd->option[i]))
-			{
-				printf("Error updating env_tab\n");
-				exit(1);
-			}
-		}
-		else
+		if (check_env_var(clean_opt(cmd->option[i]), prompt))
 		{
 			printf("minishell: export: %s: not a valid id\n", cmd->option[i]);
 			if (!cmd->option[i + 1])

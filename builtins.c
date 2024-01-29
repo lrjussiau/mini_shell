@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 14:56:30 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:08:08 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	update_old_pwd(t_data **prompt)
 		{
 			old_path = (*prompt)->env[i];
 			old = ft_conc("OLD", old_path);
-			if (add_env_tab(prompt, old))
+			if (add_env_tab(prompt, old, 0))
 				return (-1);
 			free(old);
 		}
