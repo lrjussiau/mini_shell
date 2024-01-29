@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 10:16:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 11:32:23 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:37:51 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*get_new_input(char	*str, char *limiter)
 		tmp = str;
 		str = ft_append_str(str, input);
 		free(tmp);
-		if ((ft_strncmp(input, limiter, ft_strlen(limiter)) == 0))
+		if ((ft_strncmp(input, limiter, ft_strlen(input)) == 0))
 		{
 			free(input);
 			break ;

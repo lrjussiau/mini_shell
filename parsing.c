@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 16:22:47 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 08:25:10 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	process_pipe(char *str, t_cmd *cmd)
 	i = 0;
 	while (strs[i] != NULL)
 	{
-		if ((ft_strnstr(strs[i], ">>", ft_strlen(strs[i])) != 0))
+		if (ft_strnstr(strs[i], ">>", ft_strlen(strs[i])) != 0)
 			i += get_fd_append(strs, i, cmd);
 		else if (ft_strnstr(strs[i], ">", ft_strlen(strs[i])) != 0)
 			i += get_fd_output(strs, i, cmd);
@@ -54,6 +54,7 @@ void	parse_input(char *str, t_data *data, t_cmd *current)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
+	// print_data(data);
 	if (data->cmd->name != NULL)
 		apply_cmds(data);
 	ft_free_input(data);

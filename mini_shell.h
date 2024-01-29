@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/20 14:00:14 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 08:35:13 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int		find_output(t_cmd *cmd, int **fd_tab, int *k);
 //fd_tab
 void	ft_close(int **fd_tab);
 void	printf_fdtab(int **fd_tab);
-int		**create_fd_tab(int pipe_nbr, int ***fd_tab);
+int		**create_fd_tab(int pipe_nbr, int **fd_tab);
 int		find_pipe_nb(t_data *prompt);
 
 //echo_cmd

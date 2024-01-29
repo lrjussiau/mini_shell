@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:06:20 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/19 07:26:15 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 08:22:14 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,15 @@ int	count_words(char *s, char c)
 		}
 		else if (s[i] == current_quote)
 			current_quote = 0;
-		else if (!current_quote && s[i] != c)
+		else if (current_quote == 0 && s[i] != c)
 		{
 			count++;
-			while (s[i] && s[i] != c)
+			while (s[i] != c)
+			{
 				i++;
+				if (s[i + 1] == '\0')
+					break ;
+			}
 		}
 		i++;
 	}
