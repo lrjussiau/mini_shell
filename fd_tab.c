@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_tab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:23:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 13:48:31 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:39:17 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	**create_fd_tab(int pipe_nbr, int **fd_tab)
 		pipe_nbr--;
 	}
 	fd_tab[i] = 0;
-	printf_fdtab(fd_tab);
+	// printf_fdtab(fd_tab);
 	return (fd_tab);
 }
 

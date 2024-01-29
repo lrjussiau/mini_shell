@@ -6,13 +6,13 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:58:02 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 13:26:09 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:54:42 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-char	*ft_process_dolar(char *str, t_data *data)
+char	*ft_process_dolar(char *str, t_data *data, int n)
 {
 	int	i;
 
@@ -29,7 +29,10 @@ char	*ft_process_dolar(char *str, t_data *data)
 		}
 		i++;
 	}
-	return (ft_strdup(str));
+	if (n == 0)
+		return (ft_strdup(str));
+	else
+		return (str);
 }
 
 char	*cleaner_option(char *str, t_data *data)
@@ -42,11 +45,11 @@ char	*cleaner_option(char *str, t_data *data)
 	else if (str[i] == '"')
 	{
 		str = ft_strtrim(str, "\"");
-		str = ft_process_dolar(str, data);
+		str = ft_process_dolar(str, data, 1);
 	}
 	else
 	{
-		str = ft_process_dolar(str, data);
+		str = ft_process_dolar(str, data, 0);
 	}
 	return (str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 13:48:18 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:39:30 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 		if (output != 1)
 			close(output);
 		waitpid(child, &child_status, 0);
-		printf("child: %d\n", child_status);
+		// printf("child: %d\n", child_status);
 		return (child_status);
 	}
 	else
