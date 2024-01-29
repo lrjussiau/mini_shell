@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_tab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:23:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 08:53:59 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:48:31 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_close(int **fd_tab)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (fd_tab[i])
 	{
 		close(fd_tab[i][0]);
@@ -46,23 +46,28 @@ int	**create_fd_tab(int pipe_nbr, int **fd_tab)
 	fd_tab = malloc(sizeof (int *) * (pipe_nbr) + 2);
 	if (!fd_tab)
 		return (0);
-	while (pipe_nbr + 1)
+	while (pipe_nbr)
 	{
 		fd_tab[i] = malloc(sizeof(int) * 2);
+		//fd_tab[i][0] = 0;
+		//fd_tab[i][1] = 0;
 		if (!fd_tab[i])
 		{
 			free_fdtab(fd_tab);
 			printf("error\n");
 			return (0);
 		}
-		if (pipe(fd_tab[i++]) == -1)
+		pipe(fd_tab[i]);
+		/*if (pipe(fd_tab[i++]) == -1)
 		{
 			free_fdtab(fd_tab);
 			return (0);
-		}
+		}*/
+		i++;
 		pipe_nbr--;
 	}
 	fd_tab[i] = 0;
+	printf_fdtab(fd_tab);
 	return (fd_tab);
 }
 

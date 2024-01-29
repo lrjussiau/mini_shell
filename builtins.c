@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/19 15:07:00 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 07:07:58 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	cmd_pwd(int output)
 	}
 	else
 	{
-		perror("Error with pwd cmd");
+		printf("Error with pwd cmd");
 		return (1);
 	}
 }

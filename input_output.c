@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:24:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/28 16:26:44 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:54:23 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	find_input(t_cmd *cmd, int **fd_tab, int *k, char *str)
 		}
 	}
 	else if (*k != 0)
-		input = fd_tab[*k][0];
+		input = fd_tab[*k - 1][0];
 	else
 		input = STDIN_FILENO;
 	return (input);
@@ -87,7 +87,8 @@ int	find_output(t_cmd *cmd, int **fd_tab, int *k)
 		cmd = cmd->next;
 		if (!(cmd->input->name))
 		{
-			output = fd_tab[*k + 1][1];
+			//output = fd_tab[*k + 1][1];
+			output = fd_tab[*k][1];
 			(*k)++;
 		}
 		else
