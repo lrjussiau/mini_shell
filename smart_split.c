@@ -6,20 +6,16 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:06:20 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 14:38:14 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:09:18 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int	count_words(char *s, char c)
+int	count_words(char *s, char c, int count, int i)
 {
-	int		count;
-	int		i;
 	char	current_quote;
 
-	count = 0;
-	i = -1;
 	current_quote = 0;
 	while (s[++i])
 	{
@@ -33,8 +29,9 @@ int	count_words(char *s, char c)
 		else if (current_quote == 0 && s[i] != c)
 		{
 			count++;
-			while (s[i++] != c)
+			while (s[i] != c)
 			{
+				i++;
 				if (s[i + 1] == '\0')
 					break ;
 			}
@@ -108,7 +105,7 @@ char	**ft_smart_split(char *s, char c)
 
 	if (!s)
 		return (NULL);
-	words = count_words(s, c);
+	words = count_words(s, c, 0, -1);
 	array = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!array)
 		return (NULL);

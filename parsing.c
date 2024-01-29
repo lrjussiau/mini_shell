@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 19:00:22 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:02:27 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ void	get_input(t_data *data)
 			exit(0);
 		if (*input)
 			add_history(input);
-		if (ft_strnstr(input, "exit", ft_strlen(input)) != 0)
-		{
-			n = 1;
-			free(input);
-			break ;
-		}
+		// if (ft_strnstr(input, "exit", ft_strlen("exit")) != 0)
+		// {
+		// 	n = 1;
+		// 	free(input);
+		// 	break ;
+		// }
 		data->str = ft_strdup(input);
 		init_parsing(input, data);
 		free(input);

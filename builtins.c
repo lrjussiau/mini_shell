@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 18:08:08 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:02:33 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,12 @@ static int	cmd_pwd(int output)
 	}
 }
 
-//check if cmd is builtins, apply the desired cmd
+static int	cmd_exit(void)
+{
+	exit(0);
+}
 
+//check if cmd is builtins, apply the desired cmd
 int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 {
 	if (!ft_strncmp(cmd->name, "cd", ft_strlen(cmd->name)))
@@ -94,6 +98,8 @@ int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 		return (cmd_unset(cmd, prompt));
 	else if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
 		return (cmd_env(output, *prompt));
+	else if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name)))
+		return (cmd_exit());
 	else
 		return (-2);
 }

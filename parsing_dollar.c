@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:15:06 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 13:27:01 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:34:58 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ char	*get_env_name(char *str)
 		return (NULL);
 	i++;
 	j = 0;
-	while (str[i + j] && str[i + j] != ' ')
+	while (str[i + j] && str[i + j] != ' ' && str[i + j] != '$')
 		j++;
 	word = (char *)malloc(sizeof(char) * (j + 1));
 	if (!word)
 		return (NULL);
 	j = 0;
-	while (str[i] && str[i] != ' ')
+	while (str[i] && str[i] != ' ' && str[i] != '$')
 	{
 		word[j] = str[i];
 		i++;
@@ -110,28 +110,8 @@ char	*process_status(char *str, t_data *data)
 	return (ret_str);
 }
 
-char	*ft_getenv(char *str, t_data *data)
+char	*replace_dollar(char *str, t_data *data, int i, int j)
 {
-	char	*ret_str;
-	int		i;
-
-	i = 0;
-	while (data->env[i])
-	{
-		if (ft_strnstr(data->env[i], str, ft_strlen(str)) != 0)
-		{
-			ret_str = ft_strchr(data->env[i], '=') + 1;
-			return (ret_str);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-char	*replace_dollar(char *str, t_data *data)
-{
-	int		i;
-	int		j;
 	char	*ret_str;
 	char	*env;
 	char	*env_name;
@@ -141,21 +121,17 @@ char	*replace_dollar(char *str, t_data *data)
 		return (str);
 	env = ft_getenv(env_name, data);
 	ret_str = malloc(sizeof(char) * (len_str_env(str, env, env_name) + 1));
-	i = 0;
-	j = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
 		{
-			ft_memcpy(&ret_str[j], env, ft_strlen(env)); // ici a voir 
+			ft_memcpy(&ret_str[j], env, ft_strlen(env));
 			j += ft_strlen(env);
 			i += ft_strlen(env_name) + 1;
 		}
 		if (str[i] == '\0')
 			break ;
-		ret_str[j] = str[i];
-		i++;
-		j++;
+		ret_str[j++] = str[i++];
 	}
 	ret_str[j] = '\0';
 	free(env_name);
