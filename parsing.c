@@ -6,13 +6,13 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 08:25:10 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:25:44 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	process_pipe(char *str, t_cmd *cmd)
+void	process_pipe(char *str, t_cmd *cmd, t_data *data)
 {
 	char	**strs;
 	int		i;
@@ -30,7 +30,7 @@ void	process_pipe(char *str, t_cmd *cmd)
 		else if (ft_strnstr(strs[i], "<", ft_strlen(strs[i])) != 0)
 			i += get_fd_input(strs, i, cmd);
 		if (!is_inout(strs[i]) && strs[i][0] != '\0')
-			i += get_cmd(strs, i, cmd);
+			i += get_cmd(strs, i, cmd, data);
 		i++;
 	}
 	ft_free_tab(strs);
@@ -45,7 +45,7 @@ void	parse_input(char *str, t_data *data, t_cmd *current)
 	i = 0;
 	while (strs[i] != NULL && *strs[i] != 0)
 	{
-		process_pipe(strs[i], current);
+		process_pipe(strs[i], current, data);
 		i++;
 		if (strs[i] != NULL && *strs[i] != 0)
 			current->is_pipe = true;
@@ -54,7 +54,6 @@ void	parse_input(char *str, t_data *data, t_cmd *current)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	// print_data(data);
 	if (data->cmd->name != NULL)
 		apply_cmds(data);
 	ft_free_input(data);

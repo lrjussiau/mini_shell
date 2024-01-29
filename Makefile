@@ -24,7 +24,8 @@ SRC=parsing_cmd.c \
     fd_tab.c \
     exec_utils.c \
 	signal.c \
-    cd_cmd.c
+    cd_cmd.c \
+    parsing_dollar.c 
 OBJ=$(SRC:.c=.o)
 EXEC=mini_shell
 

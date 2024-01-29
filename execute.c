@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 08:36:07 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/01/29 08:54:15 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	execute(int in, int out, t_cmd *cmd, t_data **prompt)
 	int	status;
 	int	input_error;
 
-	printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
+	// printf("cmd_info: in: %d, out: %d, cmd: %s\n", in,out, cmd->name);
 	input_error = fd_error(in);
 	if (!input_error)
 		status = check_builtins(out, cmd, prompt);
@@ -107,7 +107,6 @@ int	apply_cmds(t_data *prompt)
 	fd_tab = 0;
 	cmd = prompt->cmd;
 	fd_tab = create_fd_tab(find_pipe_nb(prompt), fd_tab);
-	printf_fdtab(fd_tab);
 	while (cmd->next)
 	{
 		input = find_input(cmd, fd_tab, k, prompt->str);
