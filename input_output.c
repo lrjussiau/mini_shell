@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:24:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 09:54:23 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:44:26 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	find_output(t_cmd *cmd, int **fd_tab, int *k)
 		cmd = cmd->next;
 		if (!(cmd->input->name))
 		{
-			//output = fd_tab[*k + 1][1];
 			output = fd_tab[*k][1];
 			(*k)++;
 		}
