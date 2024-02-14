@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/02/14 07:56:50 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/14 08:15:48 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ static int	cmd_exit(t_cmd *cmd)
 	int	i;
 
 	i = 0;
+	if (!cmd->option[1])
+	{
+		printf("exit\n");
+		exit(1);
+	}
 	while (cmd->option[1][i])
 	{
 		if (!(cmd->option[1][i] >= 48 && cmd->option[1][i] <= 57))
@@ -98,6 +103,7 @@ static int	cmd_exit(t_cmd *cmd)
 		printf("exit\nminishell: exit: too many arguments\n");
 		return (1);
 	}
+	printf("exit\n");
 	exit(ft_atoi(cmd->option[1]));
 }
 
