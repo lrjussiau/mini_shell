@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:08:03 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 19:02:38 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/13 06:40:16 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,26 @@ int	check_env_var(char	*var, t_data **prompt)
 	return (-1);
 }
 
+//len = ft_strlen(env_tab[i]) - ft_strlen(ft_strchr(env_tab[i], '='));
 //check if env var name exist
-int	env_var_exist(char **env_tab, char *env_var)
+int	env_var_exist(char **tab, char *env_var)
 {
 	int		i;
-	size_t	len;
+	size_t	len_1;
+	size_t	len_2;
 
 	i = 0;
-	while (env_tab[i])
+	if (!(ft_strchr(env_var, '=')))
+		len_1 = ft_strlen(env_var);
+	else
+		len_1 = ft_strlen(env_var) - ft_strlen(ft_strchr(env_var, '='));
+	while (tab[i])
 	{
-		len = ft_strlen(env_tab[i]) - ft_strlen(ft_strchr(env_tab[i], '='));
-		if (!ft_strncmp(env_tab[i], env_var, len))
+		if (!(ft_strchr(tab[i], '=')))
+			len_2 = ft_strlen(tab[i]);
+		else
+			len_2 = ft_strlen(tab[i]) - ft_strlen(ft_strchr(tab[i], '='));
+		if (!ft_strncmp(tab[i], env_var, len_2) && len_1 == len_2)
 			return (1);
 		i++;
 	}

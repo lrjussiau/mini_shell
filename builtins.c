@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 19:02:33 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/13 05:55:02 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,19 @@ static int	cmd_exit(void)
 //check if cmd is builtins, apply the desired cmd
 int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 {
-	if (!ft_strncmp(cmd->name, "cd", ft_strlen(cmd->name)))
+	if (!ft_strncmp(cmd->name, "cd", 2))
 		return (cmd_cd(cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))
+	else if (!ft_strncmp(cmd->name, "pwd", 3))
 		return (cmd_pwd(output));
-	else if (!ft_strncmp(cmd->name, "echo", ft_strlen(cmd->name)))
+	else if (!ft_strncmp(cmd->name, "echo", 4))
 		return (cmd_echo(output, cmd));
-	else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
+	else if (!ft_strncmp(cmd->name, "export", 6))
 		return (cmd_export(output, cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "unset", ft_strlen(cmd->name)))
+	else if (!ft_strncmp(cmd->name, "unset", 5))
 		return (cmd_unset(cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
+	else if (!ft_strncmp(cmd->name, "env", 3))
 		return (cmd_env(output, *prompt));
-	else if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name)))
+	else if (!ft_strncmp(cmd->name, "exit", 4))
 		return (cmd_exit());
 	else
 		return (-2);

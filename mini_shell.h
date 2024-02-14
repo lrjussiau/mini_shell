@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 19:02:16 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/13 06:00:36 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int		check_builtins(int output, t_cmd *cmd, t_data **prompt);
 
 //builtins_utils
 int		add_env_tab(t_data **prompt, char *env_var, int n);
-int		del_env_tab(t_data **prompt, char *env_var);
+int		del_env_tab(t_data **prompt, char *env_var, int n);
+char	**ft_copy_or(char	**strs);
 
 //exec_utils
 int		fd_error(int input);
@@ -166,4 +167,7 @@ char	*ft_process_dolar(char *str, t_data *data);
 char	*replace_dollar(char *str, t_data *data, int i, int j);
 char	*process_status(char *str, t_data *data);
 
+//origin_handler
+char	**ft_copy_or(char	**strs);
+char	*add_quote(char *str);
 #endif

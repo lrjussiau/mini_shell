@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:30:02 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 10:57:16 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/12 08:33:16 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ char	*find_old(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(envp[i], "OLDPWD=", ft_strlen("OLDPWD=")))
-			return (envp[i]);
+		if (!ft_strncmp(envp[i], "OLDPWD=", 7))
+			return (envp[i] + 7);
 		i++;
 	}
 	return (0);

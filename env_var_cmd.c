@@ -6,20 +6,16 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:14:49 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 18:53:40 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/13 06:57:38 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-static char	*clean_opt(char *str)
+static char	*clean_opt(char *str, int i, int j)
 {
 	char	*new_str;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
 	while (str[i])
 		if (str[i] == 39 || str[i++] == 34)
 			j++;
@@ -32,7 +28,7 @@ static char	*clean_opt(char *str)
 		j = 0;
 		while (str[i])
 		{
-			if (str[i] == 39 || str[i++] == 34)
+			if (str[i] == 39 || str[i] == 34)
 				i++;
 			else
 				new_str[j++] = str[i++];
@@ -41,16 +37,7 @@ static char	*clean_opt(char *str)
 		return (new_str);
 	}
 	else
-		return(str);
-}
-
-int	miteux(t_cmd *cmd, int i)
-{
-	printf("minishell: unset: %s: not a valid identifier\n", cmd->option[i]);
-	if (!(cmd->option[i + 1]))
-		return (1);
-	else
-		return (0);
+		return (str);
 }
 
 static int	cmd_exp_p(int output, t_data *prompt)
@@ -72,17 +59,24 @@ static int	cmd_exp_p(int output, t_data *prompt)
 int	cmd_export(int output, t_cmd *cmd, t_data **prompt)
 {
 	int	i;
+	int	err;
 
 	i = 1;
 	if (!cmd->option[1])
 		return (cmd_exp_p(output, *prompt));
 	while (cmd->option[i])
 	{
-		if (check_env_var(clean_opt(cmd->option[i]), prompt))
+		err = check_env_var(clean_opt(cmd->option[i], 0, 0), prompt);
+		if (err == -1)
 		{
 			printf("minishell: export: %s: not a valid id\n", cmd->option[i]);
 			if (!cmd->option[i + 1])
 				return (1);
+		}
+		else if (err == -2)
+		{
+			perror("Malloc");
+			exit(1);
 		}
 		i++;
 	}
@@ -97,23 +91,19 @@ int	cmd_unset(t_cmd *cmd, t_data **prompt)
 	i = 1;
 	while (cmd->option[i])
 	{
-		if (valid_var(cmd->option[i]) == 1)
+		if (valid_var(cmd->option[i]) != 1)
 		{
-			if (del_env_tab(prompt, cmd->option[i]) == 2)
-			{
-				printf("Error unset: env var doesn't exist\n");
-				if (!cmd->option[i + 1])
-					return (1);
-			}
-			if (!del_env_tab(prompt, cmd->option[i]))
-			{
-				perror("Malloc");
-				exit (1);
-			}
+			printf("minishel: unset: %s: not a valid id\n", cmd->option[i]);
+			if (!cmd->option[i + 1])
+				return (1);
+		}
+		else if (del_env_tab(prompt, cmd->option[i], 0) == 2)
+		{
+			if (!cmd->option[i + 1])
+				return (1);
 		}
 		else
-			if (miteux(cmd, i))
-				return (1);
+			del_env_tab(prompt, cmd->option[i], 1);
 		i++;
 	}
 	return (0);
