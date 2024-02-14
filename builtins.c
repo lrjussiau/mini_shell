@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/02/13 05:55:02 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/14 07:56:50 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,28 +78,46 @@ static int	cmd_pwd(int output)
 	}
 }
 
-static int	cmd_exit(void)
+static int	cmd_exit(t_cmd *cmd)
 {
-	exit(0);
+	int	i;
+
+	i = 0;
+	while (cmd->option[1][i])
+	{
+		if (!(cmd->option[1][i] >= 48 && cmd->option[1][i] <= 57))
+		{
+			printf("exit\nminishell: exit: %s", cmd->option[1]);
+			printf(": numeric argument required\n");
+			return (1);
+		}
+		i++;
+	}
+	if (cmd->option[2])
+	{
+		printf("exit\nminishell: exit: too many arguments\n");
+		return (1);
+	}
+	exit(ft_atoi(cmd->option[1]));
 }
 
 //check if cmd is builtins, apply the desired cmd
 int	check_builtins(int output, t_cmd *cmd, t_data **prompt)
 {
-	if (!ft_strncmp(cmd->name, "cd", 2))
+	if (!ft_strncmp(cmd->name, "cd", 2) && ft_strlen(cmd->name) == 2)
 		return (cmd_cd(cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "pwd", 3))
+	else if (!ft_strncmp(cmd->name, "pwd", 3) && ft_strlen(cmd->name) == 3)
 		return (cmd_pwd(output));
-	else if (!ft_strncmp(cmd->name, "echo", 4))
+	else if (!ft_strncmp(cmd->name, "echo", 4) && ft_strlen(cmd->name) == 4)
 		return (cmd_echo(output, cmd));
-	else if (!ft_strncmp(cmd->name, "export", 6))
+	else if (!ft_strncmp(cmd->name, "export", 6) && ft_strlen(cmd->name) == 6)
 		return (cmd_export(output, cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "unset", 5))
+	else if (!ft_strncmp(cmd->name, "unset", 5) && ft_strlen(cmd->name) == 5)
 		return (cmd_unset(cmd, prompt));
-	else if (!ft_strncmp(cmd->name, "env", 3))
+	else if (!ft_strncmp(cmd->name, "env", 3) && ft_strlen(cmd->name) == 3)
 		return (cmd_env(output, *prompt));
-	else if (!ft_strncmp(cmd->name, "exit", 4))
-		return (cmd_exit());
+	else if (!ft_strncmp(cmd->name, "exit", 4) && ft_strlen(cmd->name) == 4)
+		return (cmd_exit(cmd));
 	else
 		return (-2);
 }
