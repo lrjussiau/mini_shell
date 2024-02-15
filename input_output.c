@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:24:59 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 14:44:26 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/14 08:54:58 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	limiter_input(char *limiter, char *prompt)
 	fd_error(input_fd);
 	str = ft_strchr(prompt, '\n');
 	after_lim = ft_strnstr(str, limiter, ft_strlen(str));
-	write(input_fd, str + 1, ((ft_strlen(str + 1) - ft_strlen(after_lim))));
+	if (*(str + 1) != '\0')
+		write(input_fd, str + 1, ((ft_strlen(str + 1) - ft_strlen(after_lim))));
 	close(input_fd);
 	input_fd = open("limiter_file", O_RDONLY);
 	fd_error(input_fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:52:50 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/02/13 06:37:39 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:08:11 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	parse_input(char *str, t_data *data, t_cmd *current)
 	}
 	ft_free_tab(strs);
 	data->nb_pipe = (i - 1);
-	//print_data(data);
+	// print_data(data);
 	if (data->cmd->name != NULL)
 		apply_cmds(data);
 	ft_free_input(data);
@@ -79,20 +79,14 @@ void	get_input(t_data *data)
 	int		n;
 
 	n = 0;
-	run_signals(1);
 	while (n != 1)
 	{
+		run_signals(1);
 		input = readline("Mini Shell > ");
 		if (input == NULL)
 			exit(0);
 		if (*input)
 			add_history(input);
-		// if (ft_strnstr(input, "exit", ft_strlen("exit")) != 0)
-		// {
-		// 	n = 1;
-		// 	free(input);
-		// 	break ;
-		// }
 		data->str = ft_strdup(input);
 		init_parsing(input, data);
 		free(input);

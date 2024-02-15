@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:57:23 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/02/13 05:52:04 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/15 07:28:31 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int	execute_cmd( int input, int output, t_cmd *cmd, char **envp)
 	pid_t	child;
 	int		child_status;
 
-	child = fork();
 	run_signals(2);
+	child = fork();
 	if (child == 0)
 	{
 		dup2(input, STDIN_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:51:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/02/13 06:37:52 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/14 07:18:10 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**ft_copy_tab(char	**strs)
 	return (tab);
 }
 
-/*void	print_data(t_data *data)
+void	print_data(t_data *data)
 {
 	int 	i;
 	int		j;
@@ -137,4 +137,4 @@ char	**ft_copy_tab(char	**strs)
 		i++;
 	}
 	printf("\n");
-}*/
+}

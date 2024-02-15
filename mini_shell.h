@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/02/13 06:00:36 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:05:49 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 #  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/history.h>
 #  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
 # endif
+
+extern volatile sig_atomic_t	g_heredoc_interrupted;
 
 typedef struct s_inout
 {

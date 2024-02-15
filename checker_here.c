@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 10:16:04 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/24 11:37:51 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/02/15 10:16:51 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	checker(t_data *data)
 	}
 	check_quote(data);
 	check_limiter(data);
+	if (!data->str)
+		return (1);
 	return (0);
 }
 
@@ -61,6 +63,8 @@ char	*get_limiter(char *str)
 	i = 0;
 	while (str[i] == '<' && str[i + 1] == '<')
 		i += 2;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
 	len = len_limiter(str + i);
 	limiter = (char *)malloc(sizeof(char) * (len + 1));
 	if (!limiter)
@@ -82,18 +86,75 @@ char	*get_new_input(char	*str, char *limiter)
 
 	while (1)
 	{
+		if (g_heredoc_interrupted == 1)
+		{
+			// printf("okok\n");
+			break ;
+		}
 		input = readline("heredoc > ");
+		if (!input)
+			exit(0);
 		tmp = str;
 		str = ft_append_str(str, input);
 		free(tmp);
 		if ((ft_strncmp(input, limiter, ft_strlen(input)) == 0))
 		{
-			free(input);
-			break ;
+			if (input[0] != '\0')
+			{
+				free(input);
+				break ;
+			}
 		}
 		free(input);
 	}
 	return (str);
+}
+
+char	*get_here_doc(char *str, char *limiter)
+{
+	pid_t	child;
+	int		status;
+	int		pipes[2];
+	char	*buffer;
+
+	pipe(pipes);
+	buffer = malloc(10000);
+	printf("pid before fork : %d\n", getpid());
+	child = fork();
+	if (child == 0)
+	{
+		run_signals(4);
+		printf("pid before readline : %d\n", getpid());
+		str = get_new_input(str, limiter);
+		// printf("str : %s", str);
+		// printf("heredoc child : %d\n", g_heredoc_interrupted);
+		if (str)
+		{
+			write(pipes[1], str, ft_strlen(str));
+		}
+		close(pipes[0]); // Close the read-end of the pipe
+		close(pipes[1]);
+		exit(0);
+	}
+	else if (child > 0) {
+		printf("pid before waitpid : %d\n", getpid());
+		waitpid(child, &status, 0);
+		printf("pid after waitpid : %d\n", getpid());
+		// printf("heredoc : %d\n", g_heredoc_interrupted);
+		if (read(pipes[0], buffer, 10000) != -1)
+		{
+			close(pipes[0]); // Close the read-end of the pipe
+			close(pipes[1]); // Close the write-end of the pipe in the parent process
+			return (NULL);
+		}
+	}
+    else {
+        exit(12);
+    }
+	if (buffer) {
+        return (buffer);
+    }
+	return (NULL);
 }
 
 void	check_limiter(t_data *data)
@@ -103,7 +164,10 @@ void	check_limiter(t_data *data)
 	if (ft_strnstr(data->str, "<<", ft_strlen(data->str)) != 0)
 	{
 		limiter = get_limiter(data->str);
-		data->str = get_new_input(data->str, limiter);
+		data->str = get_here_doc(data->str, limiter);
+		// printf("str : %s\n", data->str);
+		if (data->str == NULL)
+			// printf("OK NORMAL\n");
 		free(limiter);
 	}
 }
