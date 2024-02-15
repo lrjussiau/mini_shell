@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 05:59:31 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/02/14 08:15:48 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/15 09:43:45 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	update_old_pwd(t_data **prompt)
 	char	*old;
 
 	i = 0;
+	if (update_old_pwd_or(prompt))
+		return (-1);
 	while ((*prompt)->env[i])
 	{
 		if (!ft_strncmp((*prompt)->env[i], "PWD=", 4))
@@ -42,6 +44,8 @@ int	update_pwd(t_data **prompt)
 	int		i;
 
 	i = 0;
+	if (update_pwd_or(prompt))
+		return (-1);
 	if (getcwd(buf, sizeof(buf)) != NULL)
 	{
 		while ((*prompt)->env[i])
@@ -63,7 +67,7 @@ int	update_pwd(t_data **prompt)
 //check how getpwd works if juste retrieve env variable
 static int	cmd_pwd(int output)
 {
-	char	buf[150];
+	char	buf[500];
 
 	if (getcwd(buf, sizeof(buf)) != NULL)
 	{

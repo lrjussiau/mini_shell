@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/02/13 06:00:36 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/15 08:15:45 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,6 @@ char	*process_status(char *str, t_data *data);
 //origin_handler
 char	**ft_copy_or(char	**strs);
 char	*add_quote(char *str);
+int		update_pwd_or(t_data **prompt);
+int		update_old_pwd_or(t_data **prompt);
 #endif
