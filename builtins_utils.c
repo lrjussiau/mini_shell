@@ -6,7 +6,7 @@
 /*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 07:48:57 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/02/13 06:58:51 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/15 08:52:49 by vvuadens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static	int	replace_env_value(char **env_tab, char *env_var, int n)
 
 	i = 0;
 	tab = env_tab;
+	if (ft_strchr(env_var, '=') == 0 && n == 1)
+		return (0);
 	len = ft_strlen(env_var) - ft_strlen(ft_strchr(env_var, '='));
 	while (tab[i])
 	{
@@ -32,10 +34,7 @@ static	int	replace_env_value(char **env_tab, char *env_var, int n)
 			else
 				tab[i] = add_quote(env_var);
 			if (!tab[i])
-			{
-				perror("MALLOC");
 				exit(1);
-			}
 		}
 		i++;
 	}
