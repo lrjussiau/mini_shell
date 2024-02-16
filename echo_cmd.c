@@ -6,11 +6,22 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:16:58 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/01/29 11:15:57 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/02/16 09:18:27 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int	miteux(char *str, int le)
+{
+	int	mit;
+
+	if ((!ft_strchr(str, '=')) == 0)
+		mit = ft_strlen(str) - ft_strlen(ft_strchr(str, '='));
+	else
+		mit = le;
+	return (mit);
+}
 
 void	process_classic(int output, char *str)
 {

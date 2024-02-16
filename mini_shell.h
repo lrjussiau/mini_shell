@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:53:18 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/02/15 10:37:40 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:29:17 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 #  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/history.h>
 #  include </home/linuxbrew/.linuxbrew/opt/readline/include/readline/readline.h>
 # endif
-
-extern volatile sig_atomic_t	g_heredoc_interrupted;
 
 typedef struct s_inout
 {
@@ -101,6 +99,7 @@ void	error_handle(t_data *data, char *error);
 int		checker(t_data *data);
 void	check_limiter(t_data *data);
 void	check_quote(t_data *data);
+char	*get_limiter(char *str);
 
 //smart split
 char	**ft_smart_split(char *s, char c);
@@ -146,6 +145,7 @@ int		find_pipe_nb(t_data *prompt);
 
 //echo_cmd
 int		cmd_echo(int output, t_cmd *cmd);
+int		miteux(char *str, int le);
 
 //env_var_check
 int		valid_var(char *env_var);
@@ -166,8 +166,12 @@ int		cmd_cd(t_cmd *cmd, t_data **prompt);
 
 //dolar
 char	*ft_process_dolar(char *str, t_data *data);
-char	*replace_dollar(char *str, t_data *data, int i, int j);
+char	*replace_dollar(char *str, t_data *data);
+char	*get_dollar(char *str, char *ret_str, char *env, char *env_name);
 char	*process_status(char *str, t_data *data);
+char	*get_env_name(char *str);
+int		len_str(char *str, char *lst_st);
+int		len_str_env(char *str, char *env, char *env_name);
 
 //origin_handler
 char	**ft_copy_or(char	**strs);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 07:48:57 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/02/15 08:52:49 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/16 09:24:41 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 static	int	replace_env_value(char **env_tab, char *env_var, int n)
 {
 	int		i;
-	char	**tab;
-	int		len;
+	int		le;
+	int		mit;
 
 	i = 0;
-	tab = env_tab;
 	if (ft_strchr(env_var, '=') == 0 && n == 1)
 		return (0);
-	len = ft_strlen(env_var) - ft_strlen(ft_strchr(env_var, '='));
-	while (tab[i])
+	le = ft_strlen(env_var) - ft_strlen(ft_strchr(env_var, '='));
+	while (env_tab[i])
 	{
-		if (!ft_strncmp(tab[i], env_var, len))
+		mit = miteux(env_tab[i], le);
+		if ((!ft_strncmp(env_tab[i], env_var, le)) && (mit == le))
 		{
-			free(tab[i]);
+			free(env_tab[i]);
 			if (n == 0)
-				tab[i] = ft_strdup(env_var);
+				env_tab[i] = ft_strdup(env_var);
 			else
-				tab[i] = add_quote(env_var);
-			if (!tab[i])
+				env_tab[i] = add_quote(env_var);
+			if (!env_tab[i])
 				exit(1);
 		}
 		i++;

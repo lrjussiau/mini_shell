@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:15:06 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 18:34:58 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:29:35 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*process_status(char *str, t_data *data)
 		if (str[i] == '$')
 		{
 			ft_memcpy(&ret_str[j], lst_st, ft_strlen(lst_st));
-			j += ft_strlen(ft_itoa(data->last_status));
+			j += ft_strlen(lst_st);
 			i += 2;
 		}
 		ret_str[j] = str[i];
@@ -110,17 +110,13 @@ char	*process_status(char *str, t_data *data)
 	return (ret_str);
 }
 
-char	*replace_dollar(char *str, t_data *data, int i, int j)
+char	*get_dollar(char *str, char *ret_str, char *env, char *env_name)
 {
-	char	*ret_str;
-	char	*env;
-	char	*env_name;
+	int		i;
+	int		j;
 
-	env_name = get_env_name(str);
-	if (!env_var_exist(data->env, env_name))
-		return (str);
-	env = ft_getenv(env_name, data);
-	ret_str = malloc(sizeof(char) * (len_str_env(str, env, env_name) + 1));
+	i = 0;
+	j = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -134,6 +130,5 @@ char	*replace_dollar(char *str, t_data *data, int i, int j)
 		ret_str[j++] = str[i++];
 	}
 	ret_str[j] = '\0';
-	free(env_name);
 	return (ret_str);
 }

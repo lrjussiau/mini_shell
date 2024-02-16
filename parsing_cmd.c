@@ -6,11 +6,30 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:58:02 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/29 18:54:52 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/02/16 10:27:50 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+char	*replace_dollar(char *str, t_data *data)
+{
+	char	*ret_str;
+	char	*env;
+	char	*env_name;
+
+	env_name = get_env_name(str);
+	if (!env_var_exist(data->env, env_name))
+	{
+		free(env_name);
+		return (ft_strdup(str));
+	}
+	env = ft_getenv(env_name, data);
+	ret_str = malloc(sizeof(char) * (len_str_env(str, env, env_name) + 1));
+	ret_str = get_dollar(str, ret_str, env, env_name);
+	free(env_name);
+	return (ret_str);
+}
 
 char	*ft_process_dolar(char *str, t_data *data)
 {
@@ -27,7 +46,7 @@ char	*ft_process_dolar(char *str, t_data *data)
 			if (str[i] == '?')
 				str = process_status(str, data);
 			else
-				str = replace_dollar(str, data, 0, 0);
+				str = replace_dollar(str, data);
 			n += 1;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:12:36 by ljussiau          #+#    #+#             */
-/*   Updated: 2024/01/17 10:45:03 by ljussiau         ###   ########.fr       */
+/*   Updated: 2024/02/16 08:29:43 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,44 @@ void	check_quote(t_data *data)
 	single_quote(data->str, quote, data);
 	double_quote(data->str, dquote, data);
 	free(tmp);
+}
+
+int	len_limiter(char *str)
+{
+	int	i;
+	int	start;
+
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	start = i;
+	while (str[i] && str[i] != ' ' && str[i] != '\t')
+		i++;
+	return (i - start);
+}
+
+char	*get_limiter(char *str)
+{
+	char	*limiter;
+	int		i;
+	int		len;
+	int		j;
+
+	i = 0;
+	while (str[i] == '<' && str[i + 1] == '<')
+		i += 2;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	len = len_limiter(str + i);
+	limiter = (char *)malloc(sizeof(char) * (len + 1));
+	if (!limiter)
+		return (NULL);
+	j = 0;
+	while (j < len)
+	{
+		limiter[j] = str[i + j];
+		j++;
+	}
+	limiter[j] = '\0';
+	return (limiter);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   origin_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 05:57:58 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/02/15 10:06:12 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/16 08:30:03 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	update_pwd_or(t_data **prompt)
 	{
 		while ((*prompt)->origin[i])
 		{
-			//printf("print ca: %s\n", (*prompt)->origin[i]);
 			if (!ft_strncmp((*prompt)->origin[i], "PWD=", 4))
 			{
 				free((*prompt)->origin[i]);

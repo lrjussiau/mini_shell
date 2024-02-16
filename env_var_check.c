@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvuadens <vvuadens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljussiau <ljussiau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:08:03 by vvuadens          #+#    #+#             */
-/*   Updated: 2024/02/13 06:40:16 by vvuadens         ###   ########.fr       */
+/*   Updated: 2024/02/16 09:54:08 by ljussiau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ int	valid_var(char *env_var)
 	}
 	if (env_var[i] == '=' && i != 0)
 		return (2);
+	if (env_var[i] == '=' && i == 0)
+		return (42);
 	return (1);
 }
